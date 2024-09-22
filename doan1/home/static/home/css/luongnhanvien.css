@@ -1,11 +1,9 @@
-body{
+.chualuong{
     background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
-      display: flex;
-      
   }
-  h1{
-      text-align: center;
-      color:black;
+  .container_luong h1{
+    color:black;
+    text-align: start;
   }
   .container_luong {
      
@@ -14,23 +12,23 @@ body{
       margin: 0 auto;
       padding: 30px;
       border-radius: 5px;
-      padding-left: 300px;
+      padding-left: 30px;
       padding-top: 70px;
   }
-  .chuatimkiem{
+  .container_luong .chuatimkiem{
   display: flex;
   margin-right: 5px;
   margin-top: 10px;
   
   }
-  input[type="text"]{
+  .container_luong input[type="text"]{
       padding: 10px;
      width: 30%;
      border: 1px solid black;
      background-color: beige;
      margin-right: 10px;
   }
-  .chuatimkiem button{
+  .container_luong .chuatimkiem button{
       padding: 10px 12px;
       background-color:rgba(205, 205, 8, 0.626);
       border-radius: 10px solid black;
@@ -39,21 +37,21 @@ body{
       
      
   }
-  .them{
+  .container_luong .them{
       border-radius: 5px;
   }
-  .in{
+  .container_luong .in{
       border-radius: 5px;
   }
   
-  th{
+  .container_luong th{
       background-color: #0B6477;
       padding: 10px 15px;
       color: white;
      
   
   }
-  table{
+  .container_luong table{
       
       border-collapse: collapse;
       border: 1px solid black ;
@@ -65,31 +63,31 @@ body{
       
       
   }
-  td{
+  .container_luong td{
       padding: 12px;
       text-align: left;
       border: 1px solid black;
   }
-  .chuanut{
+  .container_luong .chuanut{
       border-radius: 5px;
   }
-  .chuanut{
+  .container_luong .chuanut{
       
   }
-  .sua{
+  .container_luong .sua{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
       
   }
-  .sua:hover{
+  .container_luong .sua:hover{
       
       background-color: rgba(67, 139, 0, 0.774);
       margin-right: 5px;
   }
-  .xoa{
+  .container_luong .xoa{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
   }
-  .xoa:hover{
+  .container_luong .xoa:hover{
       background-color: rgba(67, 139, 0, 0.774);
   }

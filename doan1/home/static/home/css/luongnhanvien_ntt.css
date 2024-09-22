@@ -9,12 +9,16 @@
     }   */
 
     .container_luong_nhaptt{
-        width: 400px;
-        height: 600px;
-        background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
-        margin-top: 50px;
-       border-radius: 4px;
-        
+    width: 400px;
+    height: 650px;
+    background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
+    margin-top: 50px;
+    border-radius: 4px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
     }
     .container_luong_nhaptt h1{
         text-align: center;
