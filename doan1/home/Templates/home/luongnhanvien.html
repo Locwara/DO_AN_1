@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lương nhân viên</title>
+    <link rel="stylesheet" href="{% static 'home/css/luongnhanvien.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/luongnhanvien_ntt.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'home/css/trangchu.css'%}">
+    <script src="{% static 'home/js/luongnhanvien_ntt.js' %}"></script>
+    <script src="{% static 'home/js/trangchu.js' %}"></script>
+</head>
+<body>
+    <div id="main">
+        <div id="h-sb">
+            
+            <div id="header">
+                <div id="nav1-2">
+                    <div id="nav1">
+                        <button id="btn-sidebar" class="ti-menu-alt" ></button>
+                        <a href="home.html" class="ten">HA'</a>
+                    </div>
+                    <div id="nav2">
+                        <ul id ="ul1">
+                            <li>
+                                <a href="">Nhân Viên</a>
+            
+                            </li>
+                            <li><a href="">Trang Thiết Bị</a></li>
+                            <li><a href="">Nguyên Liệu</u></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="nav3">
+                    <li><a href="index.html" class="ti-user"></a></li>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            <div class="chuanv side-items">
+                <ul class="item nv">
+                    <li>
+                        <a href="#">Nhân Viên</a>
+                        <ul class="subnv sub">
+                            <li><a href="#" id="thongtinnhanvien.html">Thông Tin Nhân Viên</a></li>
+                            <li><a href="#">Lương Nhân Viên</a></li>
+                            <li><a href="#">Số Ca Làm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="chuattb side-items">
+                <ul class="item ttb">
+                    <li>
+                        <a href="#">Trang Thiết Bị</a>
+                        <ul class="subtn sub">
+                            <li><a href="#">Thông tin trang thiết bị</a></li>
+                            <li><a href="#">Bảo trì</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="chuanl side-items">
+                <ul class="item nl">
+                    <li>
+                        <a href="#">Nguyên Liệu</a>
+                        <ul class="subnl sub">
+                            <li><a href="#">Thông tin nguyên liệu</a></li>
+                            <li><a href="#">Kho nguyên liệu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <div class="container_luong">
+        <h1>DANH SÁCH LƯƠNG</h1>
+        <div class="chuatimkiem">
+           <input type="text" placeholder="Tìm kiếm">
+           <button class="them">Thêm </button>
+           <button class="in">In</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã lương</th>
+                    <th>Mã nhân viên</th>
+                    <th>Số giờ</th>
+                    <th>Lương cơ bản </th>
+                    <th>Tổng lương</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ML001</td>
+                    <td>NV001</td>
+                    <td>80</td>
+                    <td>20000</td>
+                    <td>160000</td>
+                   
+            
+                    <td class="chuanut">
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>ML002</td>
+                    <td>NV002</td>
+                    <td>90</td>
+                    <td>20000</td>
+                    <td>180000</td>
+                    <td class="chuanut">
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>ML003</td>
+                    <td>NV003</td>
+                    <td>80</td>
+                    <td>20000</td>
+                    <td>160000</td>
+                    <td class="chuanut">
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                </tr>
+
+                
+
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="container_luong_nhaptt" id="form_luong_ntt">
+        <p class="ti-close dong" id="dong"></p>
+        <h1>Điền thông tin</h1>
+        <div class="chuanut">
+            <input type="text"placeholder="Mã lương">
+            <input type="text"placeholder="Mã nhân viên">
+            <input type="text"placeholder="Số giờ">
+            <input type="text"placeholder="Lương cơ bản">
+            <input type="text"placeholder="Tổng lương">
+
+        </div>
+        <div class="chuanutthem">
+            <button>Thêm</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Số ca làm</title>
+    <link rel="stylesheet" href="{% static 'home/css/socalam.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/socalam_ntt.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'home/css/trangchu.css'%}">
+    <script src="{% static 'home/js/socalam_ntt.js' %}"></script>
+    <script src="{% static 'home/js/trangchu.js' %}"></script>
+</head>
+<body>
+    <div class="chuacalam">
+        <div id="main">
+            <div id="h-sb">
+                <div id="header">
+                    <div id="nav1-2">
+                        <div id="nav1">
+                            <button id="btn-sidebar" class="ti-menu-alt" ></button>
+                            <a href="home.html" class="ten">HA'</a>
+                        </div>
+                        <div id="nav2">
+                            <ul id ="ul1">
+                                <li>
+                                    <a href="">Nhân Viên</a>
+                
+                                </li>
+                                <li><a href="">Trang Thiết Bị</a></li>
+                                <li><a href="">Nguyên Liệu</u></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="nav3">
+                        <li><a href="index.html" class="ti-user"></a></li>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar">
+                <div class="chuanv side-items">
+                    <ul class="item nv">
+                        <li>
+                            <a href="#">Nhân Viên</a>
+                            <ul class="subnv sub">
+                                <li><a href="#" id="ttnv">Thông Tin Nhân Viên</a></li>
+                                <li><a href="#">Lương Nhân Viên</a></li>
+                                <li><a href="#">Số Ca Làm</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chuattb side-items">
+                    <ul class="item ttb">
+                        <li>
+                            <a href="#">Trang Thiết Bị</a>
+                            <ul class="subtn sub">
+                                <li><a href="#">Thông tin trang thiết bị</a></li>
+                                <li><a href="#">Bảo trì</a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chuanl side-items">
+                    <ul class="item nl">
+                        <li>
+                            <a href="#">Nguyên Liệu</a>
+                            <ul class="subnl sub">
+                                <li><a href="#">Thông tin nguyên liệu</a></li>
+                                <li><a href="#">Kho nguyên liệu</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+        <div class="container_calam">
+            <h1>DANH SÁCH CA LÀM</h1>
+            <div class="chuatimkiem">
+               <input type="text" placeholder="Tìm kiếm">
+               <button class="them" id="tcl">Thêm ca làm</button>
+               <button class="in">In</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã ca làm</th>
+                        <th>Mã nhân viên</th>
+                        <th>Ngày</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CL001</td>
+                        <td>NV001</td>
+                        <td>2023-09-07</td>
+                        <td>07:00:00</td>
+                        <td>12:30:00</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td>CL002</td>
+                        <td>NV002</td>
+                        <td>2023-09-07</td>
+                        <td>07:00:00</td>
+                        <td>12:30:00</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td>CL003</td>
+                        <td>NV003</td>
+                        <td>2023-09-07</td>
+                        <td>07:00:00</td>
+                        <td>12:30:00</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+    
+                </tbody>
+            </table>
+            </div>
+            <div class="container_calam_ntt" id="form_calam_ntt">
+                <p class="ti-close dong" id="dong"></p>
+                <h1>Điền thông tin</h1>
+                <div class="chuanut">
+                    <input type="text"placeholder="Mã ca làm">
+                    <input type="text"placeholder="Mã nhân viên">
+                    <input type="text"placeholder="Ngày">
+                    <input type="text"placeholder="Giờ bắt đầu">
+                    <input type="text"placeholder="Giờ kết thúc">
+        
+                </div>
+                <div class="chuanutthem">
+                    <button>Thêm</button>
+                </div>
+        </div>
+        </div>
+    </div>
+</html>

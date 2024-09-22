@@ -1,0 +1,65 @@
+
+body{
+    position: relative;
+}
+
+.container_ntt{
+    width: 400px;
+    height: 670px;
+    background-color: #80ED99;
+    margin-top: 50px;
+    border-radius: 7px black;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #fff;
+    border-radius: 4px;
+    display: none;
+}
+h1{
+    text-align: center;
+}
+.container_ntt .chuanut{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+.container_ntt input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+.container_ntt .chuanutthem{
+   
+    text-align: center;
+}
+.container_ntt button{
+    background-color:rgba(0, 191, 255, 0.826);
+    border-radius: 5px;
+    padding: 15px;
+    width: 100px;
+}
+.container_ntt button:hover{
+    background-color: rgba(0, 100, 0, 0.635);
+}
+.container_ntt .dong{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.container_ntt .dong:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+.container_ntt .dong:active{
+    text-shadow: 0 0 15px #fff;
+}
+

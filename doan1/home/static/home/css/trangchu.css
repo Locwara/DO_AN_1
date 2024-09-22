@@ -1,0 +1,234 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#main{
+    /* background: url(https://images.pexels.com/photos/1144176/pexels-photo-1144176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); */
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #213A57, #0B6477, #14919B, #0AD1C8, #80ED99);
+    background-size: cover;
+}
+#main #header{
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    position: fixed;
+}
+#main #h-sb .ten{
+   color: #fff; 
+   line-height: 60px;
+   text-decoration: none;
+   font-size: 40px;
+}
+
+#main #h-sb .ten:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+#main #h-sb .ten:active{
+    text-shadow: 0 0 15px #fff;
+}
+
+#main .ti-menu-alt{
+    font-size: 30px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
+    line-height: 60px;
+    margin-right: 20px;
+    min-width: 40px;
+}
+
+#main #nav2 li{
+    display: inline-block;  
+    position: relative;
+    line-height: 60px;
+    min-width: 150px;
+    text-align: center;
+}
+#main #header{
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+#main #nav1-2{
+    display: flex;
+}
+#main #nav2 li a{
+    color: #fff; 
+   text-decoration: none;
+   font-size: 20px;
+}
+#main #nav2 .subnav{
+    position: absolute;
+    display: none;
+    top: 59px;
+
+}
+
+body{
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#main #nav2 li a{
+    text-align: center;
+    min-width: 150px;
+    font-weight: bold;
+}
+
+#main #nav1{
+    margin-right: 40px;
+    margin-left: 10px;
+    display: flex;
+
+}
+
+#main #ul1 a:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+#main #ul1 a:active{
+    text-shadow: 0 0 20px #fff;
+}
+#main #nav2{
+    margin-left: 120px;
+}
+#main #nav3{
+    display: flex;
+    align-items: center;
+    
+}
+
+#main #nav3 a{
+    text-decoration: none;
+    color: #fff;
+    list-style-type: none;
+    font-size: 20px;
+
+}
+
+#main #nav3 a:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+#main #nav3 a:active{
+    text-shadow: 0 0 20px #fff;
+}
+
+#main #nav3 li{
+    list-style-type: none;
+    line-height: 60px;
+    min-width: 50px;
+    text-align: center;
+}
+
+#main #nav2 .subnav{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#main #btn-sidebar:hover{
+    text-shadow: 0 0 15px #fff;
+}
+
+/* sidebar */
+
+#main #sidebar{
+    height: 100vh;
+    width: 300px;
+    background-color: #111;
+    position: fixed;
+    top: 60px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #000;
+}
+
+
+
+#main .item >li> a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 25px;
+    text-align: center;
+}
+#main .side-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    border-bottom: solid 2px #333;
+    
+}
+#main .side-items .item{
+    margin-top: 10px;
+}
+#main .item li a{
+    line-height: 40px;
+}
+#main .item li{
+    position: relative;
+    list-style-type: none;
+}
+/* .nhanvien:hover .sub{
+    display: block;
+} */
+
+#main .item .sub{
+    position: absolute;
+    padding-bottom: 30px;
+    
+}
+#main .item .sub a{
+    font-size: 15px;
+    color: #fff;    
+    text-decoration: none;
+}
+
+#main .item .sub{
+    min-width: 200px;
+    padding-left: 16px;
+    position: relative;
+}
+
+
+#main .sub{
+    width: 300px;
+    padding: -20px;
+    display: none;
+}
+
+
+
+.sub li{
+    padding-left: 40px;
+}
+
+#main .side-items:hover{
+    background-color: #444;
+}
+#main .item .subnv{
+}
+
+
+#main .item a:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+#main .item a:active{
+    text-shadow: 0 0 20px #fff;
+}
+
+#main .cnhanvien{
+    display: block;
+    background-color: #444;
+}
+#main #thongtinnhanvien{
+    box-shadow: 0 0 10px #fff;
+}
+
+

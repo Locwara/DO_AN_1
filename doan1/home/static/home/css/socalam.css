@@ -1,0 +1,98 @@
+.chuacalam  {
+    background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
+      
+      
+  }
+  .container_calam h1{
+      text-align: center;
+      color:black;
+      text-align: start;
+  }
+  .container_calam {
+     
+      width: 100%;
+      height: 100vh;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 5px;
+     margin-left: 300px;
+     padding-top: 70px;
+  }
+  .container_calam .chuatimkiem{
+  display: flex;
+  margin-right: 5px;
+  margin-top: 10px;
+  
+  }
+  .container_calam input[type="text"]{
+      padding: 10px;
+     width: 30%;
+     border: 1px solid black;
+     background-color: beige;
+     margin-right: 10px;
+  }
+  .container_calam .chuatimkiem button{
+      padding: 10px 12px;
+      background-color:rgba(205, 205, 8, 0.626);
+      border-radius: 10px solid black;
+      margin-right: 10px;
+     
+      
+     
+  }
+  .container_calam .them{
+      border-radius: 5px;
+  }
+  .container_calam .in{
+      border-radius: 5px;
+  }
+  
+  .container_calam th{
+      background-color: #0B6477;
+      padding: 10px 15px;
+      color: white;
+     
+  
+  }
+  .container_calam table{
+      
+      border-collapse: collapse;
+      border: 1px solid black ;
+      margin-top: 30px;
+      max-width: 2000px;
+      border-radius: 5px;
+     
+     
+      
+      
+  }
+  .container_calam td{
+      padding: 12px;
+      text-align: left;
+      border: 1px solid black;
+  }
+  .container_calam .chuanut{
+      border-radius: 5px;
+  }
+  .container_calam .chuanut{
+      
+  }
+  .sua{
+      background-color: rgb(155, 184, 11);
+      border-radius: 5px;
+      
+  }
+  .container_calam .sua:hover{
+      
+      background-color: rgba(67, 139, 0, 0.774);
+      margin-right: 5px;
+  }
+  .container_calam .xoa{
+      background-color: rgb(155, 184, 11);
+      border-radius: 5px;
+  }
+  .container_calam .xoa:hover{
+      background-color: rgba(67, 139, 0, 0.774);
+  }
+  
+  

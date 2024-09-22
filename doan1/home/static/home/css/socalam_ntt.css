@@ -1,0 +1,60 @@
+
+.container_calam_ntt{
+    width: 400px;
+    height: 600px;
+    background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
+    margin-top: 50px;
+    border-radius: 4px;
+    position: absolute; 
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px #fff;
+    padding-top: 10px;
+    display: none;
+}
+.container_calam_ntt h1{
+    text-align: center;
+}
+.container_calam_ntt .chuanut{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+.container_calam_ntt input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+.container_calam_ntt .chuanutthem{
+   
+    text-align: center;
+}
+.container_calam_ntt button{
+    background-color:rgba(0, 191, 255, 0.826);
+    border-radius: 5px;
+    padding: 15px;
+    width: 100px;
+}
+.container_calam_ntt button:hover{
+    background-color: rgba(0, 100, 0, 0.635);
+}
+.container_calam_ntt .dong{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.container_calam_ntt .dong:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+.container_calam_ntt .dong:active{
+    text-shadow: 0 0 15px #fff;
+}

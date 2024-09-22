@@ -1,0 +1,105 @@
+body{
+    background-color:rgba(237, 100, 196, 0.292);
+
+    
+}
+.container h1{
+    color:rgb(125, 100, 237);
+    text-align: start;
+}
+.container {
+
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 5px;
+    margin-left: 300px;
+    padding-top: 70px;
+
+}
+.container .chuatimkiem{
+display: flex;
+margin-right: 5px;
+margin-top: 10px;
+
+}
+.container input[type="text"]{
+    padding: 10px;
+width: 30%;
+border: 1px solid black;
+background-color: beige;
+margin-right: 10px;
+}
+.container .chuatimkiem button{
+    padding: 10px 12px;
+    background-color:rgba(205, 205, 8, 0.626);
+    border-radius: 10px solid black;
+    margin-right: 10px;
+
+    
+
+}
+.container .them{
+    border-radius: 5px;
+}
+.container .in{
+    border-radius: 5px;
+}
+
+.container th{
+    background-color: #159bb9;
+    padding: 10px 15px;
+
+
+}
+.container table{
+    border-collapse: collapse;
+    border: 1px solid black ;
+    margin-top: 30px;
+    max-width: 2000px;
+    border-radius: 5px;
+
+
+    
+    
+}
+.container td{
+    padding: 12px;
+    text-align: left;
+    border: 1px solid black;
+}
+.container .chuanut{
+    border-radius: 5px;
+}
+.container .chuanut{
+    
+}
+.container .sua{
+    background-color: rgb(155, 184, 11);
+    border-radius: 5px;
+    
+}
+.container .sua:hover{
+    
+    background-color: rgba(67, 139, 0, 0.774);
+    margin-right: 5px;
+}
+.container .xoa{
+    background-color: rgb(155, 184, 11);
+    border-radius: 5px;
+}
+.container .xoa:hover{
+    background-color: rgba(67, 139, 0, 0.774);
+}
+#main .chuanv{
+    background-color: #444;
+}
+#main .nv{
+    display: block;
+}
+#main #ttnv{
+    text-shadow: 0 0 30 px #fff;
+}
+
+

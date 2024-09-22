@@ -1,0 +1,78 @@
+body{
+    background: url(https://images.pexels.com/photos/1144176/pexels-photo-1144176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    
+}
+.container{
+    width: 500px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border-style: solid;
+    border-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+
+
+
+}
+.chuatendn{
+
+
+   
+}
+.input{
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    margin-bottom: 15px;
+    padding: 10px;
+
+    
+}
+.submit{
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 20px;
+    margin-top: 10px;
+}
+
+.submit:active{
+    color: #fff;
+    background-color:green;
+}
+.chua a{
+    color: aquamarine;
+}
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 95px;
+    margin-top: 30px;
+}
+
+#captcha {
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    margin-bottom: 15px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#captcha-img {
+    flex: 1;
+    height: 20px;
+    width: 40%;
+    
+}
