@@ -78,7 +78,7 @@ margin-right: 10px;
 .container .sua{
     background-color: rgb(155, 184, 11);
     border-radius: 5px;
-    
+    padding: 4px;
 }
 .container .sua:hover{
     
@@ -88,6 +88,7 @@ margin-right: 10px;
 .container .xoa{
     background-color: rgb(155, 184, 11);
     border-radius: 5px;
+    padding: 4px;
 }
 .container .xoa:hover{
     background-color: rgba(67, 139, 0, 0.774);

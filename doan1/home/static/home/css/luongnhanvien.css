@@ -2,7 +2,7 @@
     background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
   }
   .container_luong h1{
-    color:black;
+    color:rgb(125, 100, 237);
     text-align: start;
   }
   .container_luong {
@@ -77,7 +77,7 @@
   .container_luong .sua{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
-      
+      padding: 4px;
   }
   .container_luong .sua:hover{
       
@@ -87,6 +87,7 @@
   .container_luong .xoa{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
+      padding: 4px;
   }
   .container_luong .xoa:hover{
       background-color: rgba(67, 139, 0, 0.774);

@@ -4,9 +4,8 @@
       
   }
   .container_calam h1{
-      text-align: center;
-      color:black;
-      text-align: start;
+    color:rgb(125, 100, 237);
+    text-align: start;
   }
   .container_calam {
      
@@ -77,9 +76,10 @@
   .container_calam .chuanut{
       
   }
-  .sua{
+  .container_calam .sua{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
+      padding: 4px;
       
   }
   .container_calam .sua:hover{
@@ -90,6 +90,7 @@
   .container_calam .xoa{
       background-color: rgb(155, 184, 11);
       border-radius: 5px;
+      padding: 4px;
   }
   .container_calam .xoa:hover{
       background-color: rgba(67, 139, 0, 0.774);
