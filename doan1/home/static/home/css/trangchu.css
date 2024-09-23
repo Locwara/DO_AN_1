@@ -13,11 +13,13 @@
 }
 #main #header{
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.73);
+    background-color: #4B3F3A;
     top: 0px;
     left: 0px;
     right: 0px;
     position: fixed;
+    color: #FFFFFF;
+    border: 1px solid #A67B5B;
 }
 #main #h-sb .ten{
    color: #fff; 
@@ -27,11 +29,11 @@
 }
 
 #main #h-sb .ten:hover{
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 10px #F4D06F;
 }
 
 #main #h-sb .ten:active{
-    text-shadow: 0 0 15px #fff;
+    text-shadow: 0 0 15px #f7d67d;
 }
 
 #main .ti-menu-alt{
@@ -90,11 +92,11 @@ body{
 }
 
 #main #ul1 a:hover{
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 10px #F4D06F;
 }
 
 #main #ul1 a:active{
-    text-shadow: 0 0 20px #fff;
+    text-shadow: 0 0 20px #f7d67d;
 }
 #main #nav2{
     margin-left: 120px;
@@ -114,11 +116,11 @@ body{
 }
 
 #main #nav3 a:hover{
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 10px #F4D06F;
 }
 
 #main #nav3 a:active{
-    text-shadow: 0 0 20px #fff;
+    text-shadow: 0 0 20px #f7d67d;
 }
 
 #main #nav3 li{
@@ -133,7 +135,7 @@ body{
 }
 
 #main #btn-sidebar:hover{
-    text-shadow: 0 0 15px #fff;
+    text-shadow: 0 0 15px #f7d67d;
 }
 
 /* sidebar */
@@ -141,11 +143,11 @@ body{
 #main #sidebar{
     height: 100vh;
     width: 300px;
-    background-color: #111;
+    background-color: #2E2A26;
     position: fixed;
     top: 60px;
     overflow: hidden;
-    box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #A67B5B;
 }
 
 
