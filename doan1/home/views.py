@@ -12,4 +12,4 @@ def get_thongtinnhanvien(request):
 def get_luongnhanvien(request):
     return render (request, 'home/luongnhanvien.html')
 def get_socalam(request):
-    return render(request, 'home/socalam.html')
+    return render(request, 'home/socalam.html   ')
