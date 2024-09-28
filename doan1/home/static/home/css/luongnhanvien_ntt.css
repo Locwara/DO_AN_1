@@ -1,52 +1,71 @@
-    /* body{
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
+body{
+    position: relative;
+}
 
-    }   */
-
-    .container_luong_nhaptt{
+.container_luong_ntt{
     width: 400px;
     height: 650px;
-    background-image: linear-gradient(to right,#80ED99,#45DFB1,#0AD1C8,#14919B,#0B6477,#213A57);
+    background-color: #4B3F3A;
     margin-top: 50px;
+    border: 2px solid #A67B5B;
+    box-shadow: 0 0 10px #A67B5B;
     border-radius: 4px;
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
-    }
-    .container_luong_nhaptt h1{
-        text-align: center;
-    }
-    .container_luong_nhaptt .chuanut{
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        margin-bottom: 10px;
-        border-radius: 10px;
+}
+h1{
+    text-align: center;
+}
+.container_luong_ntt .chuanut{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+.container_luong_ntt input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: beige;
+
+}
+.container_luong_ntt .chuanutthem{
+   
+    text-align: center;
+}
+.container_luong_ntt button{
+    padding: 15px;
+    background-color: #C4A484;
+    border-radius: 5px;
+}
+.container_luong_ntt button:hover{
     
-    }
-    .container_luong_nhaptt input{
-        margin-bottom: 20px;
-        padding: 10px;
-        border-radius: 5px;
-    
-    }
-    .container_luong_nhaptt .chuanutthem{
-       
-        text-align: center;
-    }
-    .container_luong_nhaptt button{
-        background-color:rgba(0, 191, 255, 0.826);
-        border-radius: 5px;
-        padding: 15px;
-        width: 100px;
-    }
-    .container_luong_nhaptt button:hover{
-        background-color: rgba(0, 100, 0, 0.635);
-    }
+    background-color: #6D4C41;
+    color: #F4D06F;
+}
+.container_luong_ntt button:active{
+    background-color: #2E2A26;
+    color: #C4A484;
+}
+.container_luong_ntt .dong{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.container_luong_ntt .dong:hover{
+    color: #F4D06F;
+}
+
+.container_luong_ntt .dong:active{
+    color: #C4A484;
+}
+

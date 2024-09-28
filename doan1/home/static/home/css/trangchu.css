@@ -234,4 +234,31 @@ body{
     box-shadow: 0 0 10px #fff;
 }
 
+.lichsu a, .nhacungcap a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+}
+.side-item1{
+    margin-top: 30px;
+}
+.lichsu a:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+.nhacungcap a:active{
+    text-shadow: 0 0 20px #fff;
+}
+.nhacungcap a:hover{
+    text-shadow: 0 0 10px #fff;
+}
+
+.lichsu a:active{
+    text-shadow: 0 0 20px #fff;
+}
+
+
 

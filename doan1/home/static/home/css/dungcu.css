@@ -1,10 +1,4 @@
-body{
-    background-color:rgba(237, 100, 196, 0.292);
-
-    
-}
-
-.container {
+.container-dungcu {
 
     width: 100%;
     height: 100vh;
@@ -16,102 +10,62 @@ body{
 
 }
 
-
-
-.container .them{
-    border-radius: 5px;
-}
-.container .in{
-    border-radius: 5px;
-}
-
-.container h1{
+.container-dungcu h1{
     color: #fff;
     text-align: start;
 }
 
 
-.container .chuatimkiem{
+.container-dungcu .chuatimkiem{
 display: flex;
 margin-right: 5px;
 margin-top: 10px;
 
 }
-.container input[type="text"]{
+.container-dungcu input[type="text"]{
     padding: 10px;
 width: 30%;
 border: 1px solid black;
 background-color: beige;
 margin-right: 10px;
 }
-.container .chuatimkiem button{
+.container-dungcu .chuatimkiem button{
     padding: 10px 12px;
     background-color:#C4A484;
     border-radius: 10px solid black;
     margin-right: 10px;
     border-radius: 5px;
 }
-.container th{
+.container-dungcu th{
     background-color: #4B3F3A;
     color: #fff;
     padding: 10px 15px;
     border-bottom: 2px solid #A67B5B;
 }
-.container tr{
+.container-dungcu tr{
     border-bottom: 1px solid #A67B5B;
 }
-.container table{
+.container-dungcu table{
     border-collapse: collapse;
-    border: 1px solid #000;
+    border: 1px solid black ;
     margin-top: 30px;
     max-width: 2000px;
     border-radius: 5px;
-    background-color: #4B3F3A;
+    background-color: #ffffffc3;
 
 
     
     
 }
-.container td{
+.container-dungcu td{
     padding: 12px;
     text-align: left;
     border: 1px solid black;
     color: #fff;
 }
 
-.container table button{
+.container-dungcu .chuabang button{
     padding: 5px;
     background-color: #C4A484;
     border-radius: 5px;
 }
-.container .chuanut{
-    border-radius: 5px;
-}
-.container .chuanut{
-    
-}
-.container .sua{
-    padding: 5px;
-    background-color: #C4A484;
-    border-radius: 5px;
-}
-
-
-
-.container .xoa{
-    padding: 5px;
-    background-color: #C4A484;
-    border-radius: 5px;
-}
-.container button:hover{
-    
-    background-color: #6D4C41;
-    color: #F4D06F;
-}
-.container button:active{
-    background-color: #2E2A26;
-    color: #C4A484;
-}
-
-
-

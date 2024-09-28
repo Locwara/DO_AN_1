@@ -4,18 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lương nhân viên</title>
-    <link rel="stylesheet" href="{% static 'home/css/luongnhanvien.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/luongnhanvien_ntt.css' %}">
+    <title>Dụng cụ</title>
+    <script src="{% static 'home/js/trangchu.js'%}"></script>
     <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'home/css/dungcu.css'%}">
     <link rel="stylesheet" href="{% static 'home/css/trangchu.css'%}">
-    <script src="{% static 'home/js/luongnhanvien_ntt.js' %}"></script>
-    <script src="{% static 'home/js/trangchu.js' %}"></script>
 </head>
 <body>
-    <div class="chualuong">
     <div id="main">
         <div id="h-sb">
+            
             <div id="header">
                 <div id="nav1-2">
                     <div id="nav1">
@@ -34,7 +32,7 @@
                     </div>
                 </div>
                 <div id="nav3">
-                    <li><a href="index.html" class="ti-user"></a></li>
+                    <li><a href="" class="ti-user"></a></li>
                 </div>
             </div>
         </div>
@@ -83,85 +81,45 @@
                 <a href="nhacungcap.html">Nhà Cung Cấp</a>
             </div>
         </div>
-    <div class="container_luong">
-        <h1>DANH SÁCH LƯƠNG</h1>
+    </div>
+    <div class="container-dungcu ctn-ttbnl">
+        <div class="tieude">
+            <h1>DỤNG CỤ</h1>
+        </div>
         <div class="chuatimkiem">
-           <input type="text" placeholder="Tìm kiếm">
-           <button class="them" id="tcl">Thêm </button>
-           <button class="in">In</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Mã lương</th>
-                    <th>Mã nhân viên</th>
-                    <th>Số giờ</th>
-                    <th>Lương cơ bản </th>
-                    <th>Tổng lương</th>
-                   
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>ML001</td>
-                    <td>NV001</td>
-                    <td>80</td>
-                    <td>20000</td>
-                    <td>160000</td>
-                   
             
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>ML002</td>
-                    <td>NV002</td>
-                    <td>90</td>
-                    <td>20000</td>
-                    <td>180000</td>
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>ML003</td>
-                    <td>NV003</td>
-                    <td>80</td>
-                    <td>20000</td>
-                    <td>160000</td>
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-                
-
-            </tbody>
-        </table>
-        
-    </div>
-    <div class="container_luong_ntt" id="form_luong_ntt">
-        <p class="ti-close dong" id="dong"></p>
-        <h1>Điền thông tin</h1>
-        <div class="chuanut">
-            <input type="text"placeholder="Mã lương">
-            <input type="text"placeholder="Mã nhân viên">
-            <input type="text"placeholder="Số giờ">
-            <input type="text"placeholder="Lương cơ bản">
-            <input type="text"placeholder="Tổng lương">
-
+            <input type="text" placeholder="Tìm kiếm">
+            <button>Thêm dụng cụ</button>
+            <button>In</button>
         </div>
-        <div class="chuanutthem">
-            <button>Thêm</button>
+        <div class="chuabang">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Dụng Cụ</th>
+                        <th>Tên Dụng Cụ</th>
+                        <th>Số Lượng</th>
+                        <th>Đơn Vị Tính</th>
+                        <th>Ngày Mua</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>EEEEEEEEE</td>
+                        <td>F</td>
+                        <td class="chuanut">
+                            <button>Sửa</button>
+                            <button>Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
-</div>
 </body>
 </html>

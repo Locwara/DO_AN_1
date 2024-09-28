@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'doan1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'taikhoan',
+        'NAME': 'qlnv',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
