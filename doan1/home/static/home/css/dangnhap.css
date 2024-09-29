@@ -25,7 +25,12 @@ body{
 
 
 }
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+}
 .chuatendn{
+
 
 
    
@@ -36,20 +41,27 @@ body{
     border-style: solid;
     margin-bottom: 15px;
     padding: 10px;
-
+    background-color: beige;
+    font-style: none;
+    border: none;
     
 }
 .submit{
-    border-radius: 10px;
-    border-color: black;
-    border-style: solid;
-    padding: 5px 20px;
-    margin-top: 10px;
-}
-
-.submit:active{
+    padding: 10px;
+    width: 100px;
+    background-color: #C4A484;
+    border-radius: 5px;
+    margin-top: 5px;
     color: #fff;
-    background-color:green;
+}
+.submit:hover{
+    
+    background-color: #6D4C41;
+    color: #F4D06F;
+}
+.submit:active{
+    background-color: #2E2A26;
+    color: #C4A484;
 }
 .chua a{
     color: aquamarine;

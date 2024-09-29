@@ -14,21 +14,6 @@
     color: #fff;
     text-align: start;
 }
-
-
-.container-dungcu .chuatimkiem{
-display: flex;
-margin-right: 5px;
-margin-top: 10px;
-
-}
-.container-dungcu input[type="text"]{
-    padding: 10px;
-width: 30%;
-border: 1px solid black;
-background-color: beige;
-margin-right: 10px;
-}
 .container-dungcu .chuatimkiem button{
     padding: 10px 12px;
     background-color:#C4A484;
@@ -36,6 +21,28 @@ margin-right: 10px;
     margin-right: 10px;
     border-radius: 5px;
 }
+.chuatimkiem button:hover{
+    background-color: #6D4C41;
+    color: #F4D06F;
+}
+.chuatimkiem button:active{
+    background-color: #2E2A26;
+    color: #C4A484;
+}
+.container-dungcu .chuatimkiem{
+display: flex;
+margin-right: 5px;
+margin-top: 10px;
+
+}
+.container-dungcu input{
+    padding: 10px;
+width: 30%;
+border: 1px solid black;
+background-color: beige;
+margin-right: 10px;
+}
+
 .container-dungcu th{
     background-color: #4B3F3A;
     color: #fff;
@@ -47,15 +54,11 @@ margin-right: 10px;
 }
 .container-dungcu table{
     border-collapse: collapse;
-    border: 1px solid black ;
+    border: 1px solid #000;
     margin-top: 30px;
     max-width: 2000px;
     border-radius: 5px;
-    background-color: #ffffffc3;
-
-
-    
-    
+    background-color: #4B3F3A;
 }
 .container-dungcu td{
     padding: 12px;
@@ -68,4 +71,13 @@ margin-right: 10px;
     padding: 5px;
     background-color: #C4A484;
     border-radius: 5px;
+}
+.container-dungcu .chuabang button:hover{
+    background-color: #6D4C41;
+    color: #F4D06F;
+}
+
+.container-dungcu .chuabang button:active{
+    background-color: #2E2A26;
+    color: #C4A484;
 }
