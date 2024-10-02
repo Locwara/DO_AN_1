@@ -15,3 +15,5 @@ def get_socalam(request):
     return render(request, 'home/socalam.html')
 def get_dungcu(request):
     return render(request, 'home/dungcu.html')
+def get_nghiphep(request):
+    return render(request, 'home/nghiphep.html')
