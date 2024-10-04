@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () =>{
     const btnntt = document.getElementById('tcl');
     const btndong = document.getElementById('dong');
-    const form = document.getElementById('form_thongtinnguyenlieu_ntt');
+    const form = document.getElementById('form_dungcu_ntt');
     let form_open = false;
 
     btnntt.addEventListener('click', () =>{

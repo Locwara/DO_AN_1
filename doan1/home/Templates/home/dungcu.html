@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
     <link rel="stylesheet" href="{% static 'home/css/dungcu.css'%}">
     <link rel="stylesheet" href="{% static 'home/css/trangchu.css'%}">
-</head>
+    <link rel="stylesheet" href="{% static 'home/css/dungcu_ntt.css' %}">
+    <script src="{% static 'home/js/dungcu.js' %}"></script>
+</head> 
 <body>
     <div id="main">
         <div id="h-sb">
@@ -57,7 +59,7 @@
                         <ul class="subtn sub">
                             <li><a href="dungcu.html">Dụng Cụ</a></li>
                             <li><a href="thietbi.html">Thiết Bị</a></li>
-                            <li><a href="baotri">Bảo Trì</a></li>
+                            <li><a href="baotri.html">Bảo Trì</a></li>
                             
                         </ul>
                     </li>
@@ -73,7 +75,7 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div>  
             <div class="lichsu side-item1">
                 <a href="lichsunhaphang.html">Lịch Sử Nhập Hàng</a>
             </div>
@@ -88,7 +90,7 @@
             <div class="chuatimkiem">
                 
                 <input type="text" placeholder="Tìm kiếm">
-                <button>Thêm dụng cụ</button>
+                <button id="tcl">Thêm dụng cụ</button>
                 <button>In</button>
             </div>
             <div class="chuabang">
@@ -119,8 +121,26 @@
                     </tbody>
                 </table>
             </div>
+            
         </div> 
     </div>
+    <div class="container_dungcu_ntt" id="form_dungcu_ntt">
+        <p class="ti-close dong" id="dong"></p>
+        <h1>Thêm thông tin dụng cụ</h1>
+        <div class="chuanut">
+            
+            <input type="text"placeholder="Mã dụng cụ">
+            <input type="text"placeholder="Tên dụng cụ">
+            <input type="text"placeholder="Số lượng">
+            <input type="text"placeholder="Đơn vị tính">
+            <input type="text"placeholder="Ngày mua">
+            <input type="text"placeholder="Giá">
+
+        </div>
+        <div class="chuanutthem">
+            <button>Thêm</button>
+        </div>
+    </div>
     
-</body>
+</body> 
 </html>

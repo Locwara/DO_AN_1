@@ -17,3 +17,11 @@ def get_dungcu(request):
     return render(request, 'home/dungcu.html')
 def get_nghiphep(request):
     return render(request, 'home/nghiphep.html')
+def get_thietbi(request):
+    return render(request, 'home/thietbi.html')
+def get_baotri(request):
+    return render(request, 'home/baotri.html')
+def get_thongtinnguyenlieu(request):
+    return render(request, 'home/thongtinnguyenlieu.html')
+def get_khonguyenlieu(request):
+    return render(request, 'home/khonguyenlieu.html')

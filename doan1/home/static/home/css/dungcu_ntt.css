@@ -3,7 +3,7 @@ body{
     position: relative;
 }
 
-.container_thongtinnguyenlieu_ntt{
+.container_dungcu_ntt{
     width: 400px;
     height: 650px;
     background-color: #4B3F3A;
@@ -20,7 +20,7 @@ body{
 h1{
     text-align: center;
 }
-.container_thongtinnguyenlieu_ntt .chuanut{
+.container_dungcu_ntt .chuanut{
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -28,32 +28,32 @@ h1{
     border-radius: 10px;
 
 }
-.container_thongtinnguyenlieu_ntt input{
+.container_dungcu_ntt input{
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
     background-color: beige;
 
 }
-.container_thongtinnguyenlieu_ntt .chuanutthem{
+.container_dungcu_ntt .chuanutthem{
    
     text-align: center;
 }
-.container_thongtinnguyenlieu_ntt button{
+.container_dungcu_ntt button{
     padding: 15px;
     background-color: #C4A484;
     border-radius: 5px;
 }
-.container_thongtinnguyenlieu_ntt button:hover{
+.container_dungcu_ntt button:hover{
     
     background-color: #6D4C41;
     color: #F4D06F;
 }
-.container_thongtinnguyenlieu_ntt button:active{
+.container_dungcu_ntt button:active{
     background-color: #2E2A26;
     color: #C4A484;
 }
-.container_thongtinnguyenlieu_ntt .dong{
+.container_dungcu_ntt .dong{
     font-weight: bold;
     font-size: 20px;
     margin-left: 10px;
@@ -61,11 +61,11 @@ h1{
     margin-top: 10px;
 }
 
-.container_thongtinnguyenlieu_ntt .dong:hover{
+.container_dungcu_ntt .dong:hover{
     color: #F4D06F;
 }
 
-.container_thongtinnguyenlieu_ntt .dong:active{
+.container_dungcu_ntt .dong:active{
     color: #C4A484;
 }
 

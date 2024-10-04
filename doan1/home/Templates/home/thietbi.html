@@ -60,7 +60,7 @@
                         <ul class="subtn sub">
                             <li><a href="dungcu.html">Dụng Cụ</a></li>
                             <li><a href="thietbi.html">Thiết Bị</a></li>
-                            <li><a href="baotri">Bảo Trì</a></li>
+                            <li><a href="baotri.html">Bảo Trì</a></li>
                             
                         </ul>
                     </li>
@@ -84,11 +84,11 @@
                 <a href="nhacungcap.html">Nhà Cung Cấp</a>
             </div>
         </div>
-        <div class="container-nghiphep">
-            <h1>DANH SÁCH NGHỈ PHÉP</h1>
+        <div class="container_thietbi">
+            <h1>DANH SÁCH THIẾT BỊ</h1>
             <div class="chuatimkiem">
                <input type="text" placeholder="Tìm kiếm">
-               <button class="them" id="tcl">Thêm nghỉ phép</button>
+               <button class="them" id="tcl">Thêm thiết bị</button>
                <button class="in">In</button>
             </div>
             <table>
@@ -99,17 +99,45 @@
                         <th>Loại thiết bị</th>
                         <th>Số lượng</th>
                         <th>Tình trạng</th>
-                        <th>Trhjhg</th>
+                        <th>Ngày mua</th>
+                        <th>Giá mua</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>NP001</td>
-                        <td>NV001</td>
-                        <td>2024-08-03</td>
-                        <td>2024-08-04</td>
-                        <td>Bệnh</td>
-                        <td>Đã duyệt</td>
+                        <td>TB001</td>
+                        <td>Máy pha cà phê</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>3</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>39000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TB002</td>
+                        <td>Máy xay coffee</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>1</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>60000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TB003</td>
+                        <td>Máy xay sinh tố</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>2</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>500000</td>
                         <td class="chuanut">
                             <button class="sua">Sửa</button>
                             <button class="xoa">Xóa</button>
@@ -117,33 +145,45 @@
                     </tr>
     
                     <tr>
-                        <td>NP001</td>
-                        <td>NV001</td>
-                        <td>2024-07-03</td>
-                        <td>2024-07-09</td>
-                        <td>Bệnh</td>
-                        <td>Chưa duyệt</td>
+                        <td>TB004</td>
+                        <td>Máy tính tiền</td>
+                        <td>Thiết bị quản lý</td>
+                        <td>1</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>15000000</td>
                         <td class="chuanut">
                             <button class="sua">Sửa</button>
                             <button class="xoa">Xóa</button>
                         </td>
                     </tr>
-    
-                   
-    
+                    <tr>
+                        <td>TB005</td>
+                        <td>Tủ lạnh</td>
+                        <td>Thiết bị lưu trữ</td>
+                        <td>2</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>1000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             </div>
-            <div class="container_nghiphep_ntt" id="form_nghiphep_ntt">
+            <div class="container_thietbi_ntt" id="form_thietbi_ntt">
                 <p class="ti-close dong" id="dong"></p>
                 <h1>Điền thông tin</h1>
                 <div class="chuanut">
-                    <input type="text"placeholder="Mã nghỉ phép">
-                    <input type="text"placeholder="Mã nhân viên">
-                    <input type="text"placeholder="Ngày bắt đầu">
-                    <input type="text"placeholder="Ngày kết thúc">
-                    <input type="text"placeholder="Lý do">
-                    <input type="text"placeholder="Trạng Thái">
+                    <input type="text"placeholder="Mã thiết bị">
+                    <input type="text"placeholder="Tên thiết bị">
+                    <input type="text"placeholder="Loại thiết bị">
+                    <input type="text"placeholder="Số lượng">
+                    <input type="text"placeholder="Tình trạng">
+                    <input type="text"placeholder="Ngày mua">
+                    <input type="text"placeholder="Giá mua">
         
                 </div>
                 <div class="chuanutthem">
