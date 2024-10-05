@@ -48,9 +48,9 @@ class Nhanvien(models.Model):
      trangthai = models.CharField(max_length=20)
      class Meta:
          db_table = 'nhanvien'
+    
+    
+         
+         
+    
      
-    
-         
-         
-    
-    
