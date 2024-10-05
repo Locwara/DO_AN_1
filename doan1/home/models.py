@@ -48,6 +48,40 @@ class Nhanvien(models.Model):
      trangthai = models.CharField(max_length=20)
      class Meta:
          db_table = 'nhanvien'
+
+class Thietbi(models.Model):
+    matb = models.CharField(max_length=10, primary_key=True)
+    tentb = models.CharField(max_length=50)
+    loaibt = models.CharField(max_length=20)
+    soluong =models.FloatField()
+    tinhtrang =models.CharField(max_length=20)
+    ngaymua =models.DateField()
+    giamua=models.FloatField()
+    class Meta:
+        db_table = 'thietbi'
+
+class Baotri(models.Model):
+    mabt = models.CharField(max_length=10, primary_key=True)
+    matb = models.CharField(max_length=10)
+    ngaytb=models.DateField()
+    mota =models.CharField(max_length=100)
+    chiphi=models.FloatField()
+    nguoithuchien=models.CharField(max_length=50)
+    class Meta:
+        db_table = 'baotri'
+
+class Dungcu(models.Model):
+    madc = models.CharField(max_length=10, primary_key=True)
+    tendc = models.CharField(max_length=50)
+    soluong =models.IntegerField()
+    dvt = models.CharField(max_length=20)
+    ngaymua=models.DateField()
+    giamua=models.FloatField()
+    class Meta:
+        db_table = 'dungcu'
+
+
+
      
     
          

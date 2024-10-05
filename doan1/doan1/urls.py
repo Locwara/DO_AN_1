@@ -25,10 +25,10 @@ urlpatterns = [
     path('thongtinnhanvien.html', home.nhan_vien),
     path('luongnhanvien.html', home.bang_luong),
     path('socalam.html', home.so_ca_lam),
-    path('dungcu.html', home.get_dungcu), 
+    path('dungcu.html', home.Dung_cu), 
     path('nghiphep.html', home.nghi_phep),
-    path('thietbi.html', home.get_thietbi),
-    path('baotri.html', home.get_baotri),
+    path('thietbi.html', home.thiet_bi),
+    path('baotri.html', home.Bao_tri),
     path('thongtinnguyenlieu.html', home.get_thongtinnguyenlieu),
     path('khonguyenlieu.html', home.get_khonguyenlieu)
 ]

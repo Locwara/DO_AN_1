@@ -3,6 +3,10 @@ from .models import Calam
 from .models import Nghiphep
 from .models import Bangluong
 from .models import Nhanvien
+from.models  import Thietbi
+from.models  import Baotri
+from.models  import Dungcu
+
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -46,3 +50,14 @@ def bang_luong(request):
 def nhan_vien(request):
     nhan_vien_list = Nhanvien.objects.all()
     return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list})
+def thiet_bi(request):
+    thiet_bi_list = Thietbi.objects.all()
+    return render(request, 'home/thietbi.html',{'thiet_bi_list':thiet_bi_list})
+
+def Bao_tri(request):
+    bao_tri_list = Baotri.objects.all()
+    return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list})
+
+def Dung_cu(request):
+    dung_cu_list = Dungcu.objects.all()
+    return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list})
