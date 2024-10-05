@@ -48,6 +48,7 @@ class Nhanvien(models.Model):
      trangthai = models.CharField(max_length=20)
      class Meta:
          db_table = 'nhanvien'
+<<<<<<< HEAD
 
 class Thietbi(models.Model):
     matb = models.CharField(max_length=10, primary_key=True)
@@ -80,11 +81,7 @@ class Dungcu(models.Model):
     class Meta:
         db_table = 'dungcu'
 
-
-
+         
+         
+    
      
-    
-         
-         
-    
-    
