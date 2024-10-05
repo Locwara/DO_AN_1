@@ -31,7 +31,7 @@
                                 <li><a href="">Trang Thiết Bị</a></li>
                                 <li><a href="">Nguyên Liệu</u></a></li>
                             </ul>
-                        </div>
+                        </div>  
                     </div>
                     <div id="nav3">
                         <li><a href="index.html" class="ti-user"></a></li>
@@ -84,63 +84,40 @@
                 </div>
             </div>
         
-        <div class="container_calam">
-            <h1>DANH SÁCH CA LÀM</h1>
-            <div class="chuatimkiem">
-               <input type="text" placeholder="Tìm kiếm">
-               <button class="them" id="tcl">Thêm ca làm</button>
-               <button class="in">In</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã ca làm</th>
-                        <th>Mã nhân viên</th>
-                        <th>Ngày</th>
-                        <th>Giờ bắt đầu</th>
-                        <th>Giờ kết thúc</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>CL001</td>
-                        <td>NV001</td>
-                        <td>2023-09-07</td>
-                        <td>07:00:00</td>
-                        <td>12:30:00</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>CL002</td>
-                        <td>NV002</td>
-                        <td>2023-09-07</td>
-                        <td>07:00:00</td>
-                        <td>12:30:00</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>CL003</td>
-                        <td>NV003</td>
-                        <td>2023-09-07</td>
-                        <td>07:00:00</td>
-                        <td>12:30:00</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                </tbody>
-            </table>
-            </div>
+            <div class="container_calam">
+                <h1>DANH SÁCH CA LÀM</h1>
+                <div class="chuatimkiem">
+                   <input type="text" placeholder="Tìm kiếm">
+                   <button class="them" id="tcl">Thêm ca làm</button>
+                   <button class="in">In</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã ca làm</th>
+                            <th>Mã nhân viên</th>
+                            <th>Ngày</th>
+                            <th>Giờ bắt đầu</th>
+                            <th>Giờ kết thúc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ca_lam in ca_lam_list %}
+                        <tr>
+                            <td>{{ ca_lam.macalam }}</td>
+                            <td>{{ ca_lam.manv }}</td>
+                            <td>{{ ca_lam.ngay|date:"Y-m-d" }}</td>
+                            <td>{{ ca_lam.giobd|time:"H:i:s" }}</td>
+                            <td>{{ ca_lam.giokt|time:"H:i:s" }}</td>
+                            <td class="chuanut">
+                                <button class="sua">Sửa</button>
+                                <button class="xoa">Xóa</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
             <div class="container_calam_ntt" id="form_calam_ntt">
                 <p class="ti-close dong" id="dong"></p>
                 <h1>Điền thông tin</h1>

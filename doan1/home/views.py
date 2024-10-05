@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from .models import Calam
+from .models import Nghiphep
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -25,3 +26,13 @@ def get_thongtinnguyenlieu(request):
     return render(request, 'home/thongtinnguyenlieu.html')
 def get_khonguyenlieu(request):
     return render(request, 'home/khonguyenlieu.html')
+
+def so_ca_lam(request):
+    ca_lam_list = Calam.objects.all()
+    print(ca_lam_list) 
+    return render(request, 'home/socalam.html', {'ca_lam_list': ca_lam_list})
+
+
+def nghi_phep(request):
+    nghi_phep_list = Nghiphep.objects.all()
+    return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list} )

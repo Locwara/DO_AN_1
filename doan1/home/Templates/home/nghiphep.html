@@ -103,34 +103,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for nghiphep in nghi_phep_list %}
                     <tr>
-                        <td>NP001</td>
-                        <td>NV001</td>
-                        <td>2024-08-03</td>
-                        <td>2024-08-04</td>
-                        <td>Bệnh</td>
-                        <td>Đã duyệt</td>
+                        <td>{{ nghiphep.manp}}</td>
+                        <td>{{ nghiphep.manv }}</td>
+                        <td>{{ nghiphep.ngaybd|date:"Y-m-d" }}</td>
+                        <td>{{ nghiphep.ngaykt|date:"Y-m-d" }}</td>
+                        <td>{{ nghiphep.lydonghi}}</td>
+                        <td>{{ nghiphep.trangthai}}</td>
+
                         <td class="chuanut">
                             <button class="sua">Sửa</button>
                             <button class="xoa">Xóa</button>
                         </td>
                     </tr>
-    
-                    <tr>
-                        <td>NP001</td>
-                        <td>NV001</td>
-                        <td>2024-07-03</td>
-                        <td>2024-07-09</td>
-                        <td>Bệnh</td>
-                        <td>Chưa duyệt</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                   
-    
+                    {% endfor %}
                 </tbody>
             </table>
             </div>
