@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .models import Calam
 from .models import Nghiphep
-from .models import bangluong
+from .models import Bangluong
+from .models import Nhanvien
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -39,5 +40,9 @@ def nghi_phep(request):
     return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list} )
 
 def bang_luong(request):
-    bang_luong_list = bangluong.objects.all()
+    bang_luong_list = Bangluong.objects.all()
     return render(request, 'home/luongnhanvien.html', {'bang_luong_list': bang_luong_list} )
+
+def nhan_vien(request):
+    nhan_vien_list = Nhanvien.objects.all()
+    return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list})

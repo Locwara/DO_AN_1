@@ -107,60 +107,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                   
-                    <td>NV001</td>
-                    <td>Nguyễn Văn Mương </td>
-                    <td>1900-06-04</td>
-                    <td>0704321867</td>
-                    <td>Thành Phố Cần Thơ</td>
-                    <td>2012-07-01</td>
-                    <td>Nhân viên</td>
-                    <td>Đang làm</td>
-                    <td class="chuanut">
-                       
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-                <tr>
-                   
-                    <td>NV002</td>
-                    <td>Phạm Thị Hiền </td>
-                    <td>1985-05-18</td>
-                    <td>0327649877</td>
-                    <td>Bạc Liêu</td>
-                    <td>2012-08-01</td>
-                    <td>Nhân viên</td>
-                    <td>Đang làm</td>
-                    <td class="chuanut">
-                        
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-               
-
                 
-
+                {% for nhanvien in nhan_vien_list %}
                 <tr>
-                   
-                    <td>NV003</td>
-                    <td>Nguyễn Thành Hải </td>
-                    <td>1987-09-08</td>
-                    <td>0907531427</td>
-                    <td>Vĩnh Long</td>
-                    <td>2012-07-01</td>
-                    <td>Nhân viên</td>
-                    <td>Đang làm</td>
-                    <td class="chuanut">
-                     
+                    <td>{{ nhanvien.manv }}</td>
+                    <td>{{ nhanvien.hoten }}</td>
+                    <td>{{ nhanvien.ngaysinh|date:"Y-m-d" }}</td>
+                    <td>{{ nhanvien.sdt }}</td>
+                    <td>{{ nhanvien.diachi }}</td>
+                    <td>{{ nhanvien.ngayvaolam|date:"Y-m-d"}}</td>
+                    <td>{{ nhanvien.vitricongviec}}</td>
+                    <td>{{ nhanvien.trangthai}}</td>
+                    <td class="chuanut"> 
                         <button class="sua">Sửa</button>
                         <button class="xoa">Xóa</button>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+                {% endfor %}
+                
 
 
             </tbody>

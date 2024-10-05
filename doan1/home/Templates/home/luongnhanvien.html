@@ -72,7 +72,7 @@
                         <ul class="subnl sub">
                             <li><a href="thongtinnguyenlieu.html">Thông Tin Nguyên Liệu</a></li>
                             <li><a href="khonguyenlieu.html">Kho Nguyên Liệu</a></li>
-                        </ul>
+                        </ul>cd
                     </li>
                 </ul>
             </div>
@@ -103,21 +103,23 @@
             </thead>
             <tbody>
                 
-                    {% for  in nghi_phep_list %}
-                    <tr>
-                        <td>{{ nghiphep.manp}}</td>
-                        <td>{{ nghiphep.manv }}</td>
-                        <td>{{ nghiphep.ngaybd|date:"Y-m-d" }}</td>
-                        <td>{{ nghiphep.ngaykt|date:"Y-m-d" }}</td>
-                        <td>{{ nghiphep.lydonghi}}</td>
-                        <td>{{ nghiphep.trangthai}}</td>
-
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
+                {% for bangluong in bang_luong_list %}
+                <tr>
+                    <td>{{ bangluong.maluong }}</td>
+                    <td>{{ bangluong.manv }}</td>
+                    <td>{{ bangluong.sogio|floatformat }}</td>
+                    <td>{{ bangluong.luongcoban|floatformat }}</td>
+                    <td>{{ bangluong.tongluong }}</td>
+                    <td class="chuanut"> 
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+                {% endfor %}
                 
                 
 
