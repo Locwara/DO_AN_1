@@ -102,44 +102,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>ML001</td>
-                    <td>NV001</td>
-                    <td>80</td>
-                    <td>20000</td>
-                    <td>160000</td>
-                   
-            
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
+                
+                    {% for  in nghi_phep_list %}
+                    <tr>
+                        <td>{{ nghiphep.manp}}</td>
+                        <td>{{ nghiphep.manv }}</td>
+                        <td>{{ nghiphep.ngaybd|date:"Y-m-d" }}</td>
+                        <td>{{ nghiphep.ngaykt|date:"Y-m-d" }}</td>
+                        <td>{{ nghiphep.lydonghi}}</td>
+                        <td>{{ nghiphep.trangthai}}</td>
 
-                <tr>
-                    <td>ML002</td>
-                    <td>NV002</td>
-                    <td>90</td>
-                    <td>20000</td>
-                    <td>180000</td>
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>ML003</td>
-                    <td>NV003</td>
-                    <td>80</td>
-                    <td>20000</td>
-                    <td>160000</td>
-                    <td class="chuanut">
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
-                </tr>
-
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                
                 
 
             </tbody>

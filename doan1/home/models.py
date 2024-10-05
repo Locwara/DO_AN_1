@@ -27,6 +27,14 @@ class Nghiphep(models.Model):
         db_table = 'nghiphep'
         
         
-# class thietbi(models.Model):
-#     matb = models.CharField(max_length=10, primary_key=True)
-#     tenthietbi = 
+class bangluong(models.Model):
+    maluong = models.CharField(max_length=10, primary_key=True)
+    manv = models.CharField(max_length=10)
+    sogio = models.FloatField()
+    luongcoban = models.FloatField()
+    tongluong = models.FloatField()
+    
+    class Meta:
+        db_table = 'bangluong'
+    
+    
