@@ -1,0 +1,71 @@
+
+body{
+    position: relative;
+}
+
+.container_nghiphep_ntt{
+    width: 400px;
+    height: 650px;
+    background-color: #4B3F3A;
+    margin-top: 50px;
+    border: 2px solid #A67B5B;
+    box-shadow: 0 0 10px #A67B5B;
+    border-radius: 4px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+h1{
+    text-align: center;
+}
+.container_nghiphep_ntt .chuanut{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+.container_nghiphep_ntt input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: beige;
+
+}
+.container_nghiphep_ntt .chuanutthem{
+   
+    text-align: center;
+}
+.container_nghiphep_ntt button{
+    padding: 15px;
+    background-color: #C4A484;
+    border-radius: 5px;
+}
+.container_nghiphep_ntt button:hover{
+    
+    background-color: #6D4C41;
+    color: #F4D06F;
+}
+.container_nghiphep_ntt button:active{
+    background-color: #2E2A26;
+    color: #C4A484;
+}
+.container_nghiphep_ntt .dong{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.container_nghiphep_ntt .dong:hover{
+    color: #F4D06F;
+}
+
+.container_nghiphep_ntt .dong:active{
+    color: #C4A484;
+}
+

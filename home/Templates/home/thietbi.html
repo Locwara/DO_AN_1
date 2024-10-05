@@ -1,0 +1,194 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiết bị</title>
+    <link rel="stylesheet" href="{% static 'home/css/thietbi.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'home/css/trangchu.css' %}">
+    <script src="{% static 'home/js/trangchu.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'home/css/thietbi_ntt.css' %}">
+    <script src="{% static 'home/js/thietbi.js' %}"></script>
+</head>
+<body>
+    <div id="main">
+        <div id="h-sb">
+            
+            <div id="header">
+                <div id="nav1-2">
+                    <div id="nav1">
+                        <button id="btn-sidebar" class="ti-menu-alt" ></button>
+                        <a href="trangchu.html" class="ten">HA'</a>
+                    </div>
+                    <div id="nav2">
+                        <ul id ="ul1">
+                            <li>
+                                <a href="">Nhân Viên</a>
+            
+                            </li>
+                            <li><a href="">Trang Thiết Bị</a></li>
+                            <li><a href="">Nguyên Liệu</u></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="nav3">
+                    <li><a href="index.html" class="ti-user"></a></li>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            <div class="chuanv side-items">
+                <ul class="item nv">
+                    <li>
+                        <a href="#">Nhân Viên</a>
+                        <ul class="subnv sub">
+                            <li><a href="thongtinnhanvien.html">Thông Tin Nhân Viên</a></li>
+                            <li><a href="luongnhanvien.html">Lương Nhân Viên</a></li>
+                            <li><a href="socalam.html">Số Ca Làm</a></li>
+                            <li><a href="nghiphep.html">Lịch Nghỉ Phép</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="chuattb side-items">
+                <ul class="item ttb">
+                    <li>
+                        <a href="#">Trang Thiết Bị</a>
+                        <ul class="subtn sub">
+                            <li><a href="dungcu.html">Dụng Cụ</a></li>
+                            <li><a href="thietbi.html">Thiết Bị</a></li>
+                            <li><a href="baotri.html">Bảo Trì</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="chuanl side-items">
+                <ul class="item nl">
+                    <li>
+                        <a href="#">Nguyên Liệu</a>
+                        <ul class="subnl sub">
+                            <li><a href="thongtinnguyenlieu.html">Thông Tin Nguyên Liệu</a></li>
+                            <li><a href="khonguyenlieu.html">Kho Nguyên Liệu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="lichsu side-item1">
+                <a href="lichsunhaphang.html">Lịch Sử Nhập Hàng</a>
+            </div>
+            <div class="nhacungcap side-item1">
+                <a href="nhacungcap.html">Nhà Cung Cấp</a>
+            </div>
+        </div>
+        <div class="container_thietbi">
+            <h1>DANH SÁCH THIẾT BỊ</h1>
+            <div class="chuatimkiem">
+               <input type="text" placeholder="Tìm kiếm">
+               <button class="them" id="tcl">Thêm thiết bị</button>
+               <button class="in">In</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã thiết bị</th>
+                        <th>Tên thiết bị</th>
+                        <th>Loại thiết bị</th>
+                        <th>Số lượng</th>
+                        <th>Tình trạng</th>
+                        <th>Ngày mua</th>
+                        <th>Giá mua</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TB001</td>
+                        <td>Máy pha cà phê</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>3</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>39000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TB002</td>
+                        <td>Máy xay coffee</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>1</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>60000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TB003</td>
+                        <td>Máy xay sinh tố</td>
+                        <td>Thiết bị pha chế</td>
+                        <td>2</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>500000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td>TB004</td>
+                        <td>Máy tính tiền</td>
+                        <td>Thiết bị quản lý</td>
+                        <td>1</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>15000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TB005</td>
+                        <td>Tủ lạnh</td>
+                        <td>Thiết bị lưu trữ</td>
+                        <td>2</td>
+                        <td>Tốt</td>
+                        <td>2024-08-30</td>
+                        <td>1000000</td>
+                        <td class="chuanut">
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="container_thietbi_ntt" id="form_thietbi_ntt">
+                <p class="ti-close dong" id="dong"></p>
+                <h1>Điền thông tin</h1>
+                <div class="chuanut">
+                    <input type="text"placeholder="Mã thiết bị">
+                    <input type="text"placeholder="Tên thiết bị">
+                    <input type="text"placeholder="Loại thiết bị">
+                    <input type="text"placeholder="Số lượng">
+                    <input type="text"placeholder="Tình trạng">
+                    <input type="text"placeholder="Ngày mua">
+                    <input type="text"placeholder="Giá mua">
+        
+                </div>
+                <div class="chuanutthem">
+                    <button>Thêm</button>
+                </div>
+        </div>
+</body>
+</html>
