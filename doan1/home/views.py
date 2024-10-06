@@ -6,6 +6,7 @@ from .models import Nhanvien
 from.models  import Thietbi
 from.models  import Baotri
 from.models  import Dungcu
+from.models import Thongtinnguyenlieu
 
 # Create your views here.
 def get_index(request):
@@ -61,3 +62,12 @@ def Bao_tri(request):
 def Dung_cu(request):
     dung_cu_list = Dungcu.objects.all()
     return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list})
+
+def Nguyen_lieu(request):
+    nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
+    return render(request, 'home/thongtinnguyenlieu.html', {'nguyen_lieu_list': nguyen_lieu_list})
+
+
+def Kho_nguyen_lieu(request):
+    kho_nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
+    return render(request, 'home/khonguyenlieu.html', {'kho_nguyen_lieu_list': kho_nguyen_lieu_list})

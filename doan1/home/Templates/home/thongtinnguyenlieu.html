@@ -94,107 +94,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Mã nguyên liệu</th>
                         <th>Tên nguyên liệu</th>
                         <th>Giá</th>
-                        <th>Mã nhà cung cấp</th>
                         <th>Ngày hết hạng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>NL001</td>
-                        <td>Cà phê</td>
-                        <td>180000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>NL002</td>
-                        <td>Trà</td>
-                        <td>150000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>NL003</td>
-                        <td>Đường</td>
-                        <td>20000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL004</td>
-                        <td>Sữa đặc</td>
-                        <td>750000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL005</td>
-                        <td>Sữa tươ<i></i></td>
-                        <td>355000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL006</td>
-                        <td>Sting</td>
-                        <td>208000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL007</td>
-                        <td>Pepsi</td>
-                        <td>185000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL008</td>
-                        <td>Coca</td>
-                        <td>185000</td>
-                        <td>NCC001</td>
-                        <td>2025-01-01</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                   
-    
+                        {% for nguyenlieu in nguyen_lieu_list %}
+                   <tr>
+                    <td>{{nguyenlieu.manl}}</td>
+                    <td>{{nguyenlieu.tennl}}</td>
+                    <td>{{nguyenlieu.gia}}</td>
+                    <td>{{nguyenlieu.ngayhethan}}</td>
+                   </tr>
+                        {% empty %}
+                   <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                   </tr>
+                        {% endfor %}
                 </tbody>
             </table>
             </div>

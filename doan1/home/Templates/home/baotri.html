@@ -46,8 +46,8 @@
                     <li>
                         <a href="#">Nhân Viên</a>
                         <ul class="subnv sub">
-                            <li><a href="thongtinnhanvien.html">Thông Tin Nhân Viên</a></li>
-                            <li><a href="luongnhanvien.html">Lương Nhân Viên</a></li>
+                            <li><a href="thongtinbaotri.html">Thông Tin Nhân Viên</a></li>
+                            <li><a href="luongbaotri.html">Lương Nhân Viên</a></li>
                             <li><a href="socalam.html">Số Ca Làm</a></li>
                             <li><a href="nghiphep.html">Lịch Nghỉ Phép</a></li>
                         </ul>
@@ -104,46 +104,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>BT001</td>
-                        <td>TB001</td>
-                        <td>2024-09-03</td>
-                        <td>    </td>
-                        <td>50000</td>
-                        <td>DINH</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>BT002</td>
-                        <td>TB003</td>
-                        <td>2024-09-03</td>
-                        <td>    </td>
-                        <td>320000</td>
-                        <td>VAN</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-
-                    <tr></tr>
-                        <td>BT003</td>
-                        <td>TB004</td>
-                        <td>2024-09-03</td>
-                        <td>    </td>
-                        <td>100000</td>
-                        <td>LE</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                   
+                    {% for baotri in bao_tri_list %}
+                <tr>
+                    <td>{{ baotri.mabt }}</td>
+                    <td>{{ baotri.matb }}</td>
+                    <td>{{ baotri.ngaybt|date:"Y-m-d" }}</td>
+                    <td>{{ baotri.mota}}</td>
+                    <td>{{ baotri.diachi }}</td>
+                    <td>{{ baotri.chiphi|floatformat}}</td>
+                    <td>{{ baotri.nguoithuchien}}</td>
+                    <td class="chuanut"> 
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+                {% endfor %}
     
                 </tbody>
             </table>

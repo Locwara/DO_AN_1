@@ -29,6 +29,6 @@ urlpatterns = [
     path('nghiphep.html', home.nghi_phep),
     path('thietbi.html', home.thiet_bi),
     path('baotri.html', home.Bao_tri),
-    path('thongtinnguyenlieu.html', home.get_thongtinnguyenlieu),
-    path('khonguyenlieu.html', home.get_khonguyenlieu)
+    path('thongtinnguyenlieu.html', home.Nguyen_lieu),
+    path('khonguyenlieu.html', home.Kho_nguyen_lieu)
 ]

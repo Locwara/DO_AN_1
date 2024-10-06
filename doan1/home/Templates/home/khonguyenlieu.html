@@ -95,88 +95,24 @@
                 <thead>
                     <tr>
                         <th>Mã nguyên liệu</th>
+                        <th>Tên nguyên liệu</th>
                         <th>Đơn vị tính</th>
                         <th>Số lượng</th>
                     </tr>
                 </thead>
                 <tbody>
+                        {% for nguyenlieu in kho_nguyen_lieu_list %}
                     <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
+                        <td>{{nguyenlieu.manl}}</td>
+                        <td>{{nguyenlieu.tennl}}</td>
+                        <td>{{nguyenlieu.dvt}}</td>
+                        <td>{{nguyenlieu.soluong|floatformat}}</td>
                     </tr>
-    
+                        {% empty %}
                     <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
+                        <td colspan="6">Không có dữ liệu</td>
                     </tr>
-
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NL001</td>
-                        <td>kg</td>
-                        <td>15</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                   
-    
+                    {% endfor %}
                 </tbody>
             </table>
             </div>
