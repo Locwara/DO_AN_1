@@ -52,8 +52,8 @@ class Nhanvien(models.Model):
 
 class Thietbi(models.Model):
     matb = models.CharField(max_length=10, primary_key=True)
-    tentb = models.CharField(max_length=50)
-    loaibt = models.CharField(max_length=20)
+    tenthietbi = models.CharField(max_length=50)
+    loaithietbi = models.CharField(max_length=20)
     soluong =models.FloatField()
     tinhtrang =models.CharField(max_length=20)
     ngaymua =models.DateField()

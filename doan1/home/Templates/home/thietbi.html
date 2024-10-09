@@ -104,72 +104,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                        {% for thietbi in thiet_bi_list %}
                     <tr>
-                        <td>TB001</td>
-                        <td>Máy pha cà phê</td>
-                        <td>Thiết bị pha chế</td>
-                        <td>3</td>
-                        <td>Tốt</td>
-                        <td>2024-08-30</td>
-                        <td>39000000</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
+                        <td>{{thietbi.matb}}</td>
+                        <td>{{thietbi.tenthietbi}}</td>
+                        <td>{{thietbi.loaithietbi}}</td>
+                        <td>{{thietbi.soluong}}</td>
+                        <td>{{thietbi.tinhtrang}}</td>
+                        <td>{{thietbi.ngaymua|date:"Y-m-d"}}</td>
+                        <td>{{thietbi.giamua|floatformat}}</td>
                     </tr>
+                        {% empty %}
                     <tr>
-                        <td>TB002</td>
-                        <td>Máy xay coffee</td>
-                        <td>Thiết bị pha chế</td>
-                        <td>1</td>
-                        <td>Tốt</td>
-                        <td>2024-08-30</td>
-                        <td>60000000</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
+                        <td colspan="6">Không có dữ liệu</td>
                     </tr>
-                    <tr>
-                        <td>TB003</td>
-                        <td>Máy xay sinh tố</td>
-                        <td>Thiết bị pha chế</td>
-                        <td>2</td>
-                        <td>Tốt</td>
-                        <td>2024-08-30</td>
-                        <td>500000</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>TB004</td>
-                        <td>Máy tính tiền</td>
-                        <td>Thiết bị quản lý</td>
-                        <td>1</td>
-                        <td>Tốt</td>
-                        <td>2024-08-30</td>
-                        <td>15000000</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TB005</td>
-                        <td>Tủ lạnh</td>
-                        <td>Thiết bị lưu trữ</td>
-                        <td>2</td>
-                        <td>Tốt</td>
-                        <td>2024-08-30</td>
-                        <td>1000000</td>
-                        <td class="chuanut">
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                    </tr>
+                        {% endfor %}
                 </tbody>
             </table>
             </div>
