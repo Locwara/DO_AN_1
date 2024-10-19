@@ -23,8 +23,20 @@ class nhap_baotri(forms.ModelForm):
             'mabt': forms.TextInput(attrs={'placeholder': 'Mã bảo trì'}),
             'matb': forms.TextInput(attrs={'placeholder': 'Mã thiết bị'}),
             'ngaybt': forms.DateInput(attrs={'type' : 'date', 'placeholder': 'Ngày bảo trì'}),
-            'mota': forms.DateInput(attrs={'placeholder': 'Mô tả'}),
-            'chiphi': forms.DateInput(attrs={'placeholder': 'Chi phí'}),
-            'nguoithuchien': forms.DateInput(attrs={'placeholder': 'Người thực hiện'}),
+            'mota': forms.TextInput(attrs={'placeholder': 'Mô tả'}),
+            'chiphi': forms.TextInput(attrs={'placeholder': 'Chi phí'}),
+            'nguoithuchien': forms.TextInput(attrs={'placeholder': 'Người thực hiện'}),
         }
         
+class nhap_dungcu(forms.ModelForm):
+    class Meta:
+        model = Dungcu
+        fields = ['madc', 'tendc', 'soluong', 'dvt', 'ngaymua', 'giamua']
+        widgets = {
+            'madc': forms.TextInput(attrs={'placeholder': 'Mã dụng cụ'}),
+            'tendc': forms.TextInput(attrs={'placeholder': 'Tên dụng cụ'}),
+            'soluong': forms.TextInput(attrs={'placeholder': 'Số lượng'}),
+            'dvt': forms.TextInput(attrs={'placeholder': 'Đơn vị tính'}),
+            'ngaymua': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày mua'}),
+            'giamua': forms.TextInput(attrs={'placeholder': 'Giá mua'}),
+        }

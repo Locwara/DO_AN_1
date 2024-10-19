@@ -9,6 +9,7 @@ from.models  import Dungcu
 from.models import Thongtinnguyenlieu
 from .forms import nhap_calam
 from .forms import nhap_baotri
+from .forms import nhap_dungcu
 from django.http import HttpResponse
 # Create your views here.
 def get_index(request):
@@ -86,7 +87,14 @@ def Bao_tri(request):
 
 def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
-    return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list})
+    if request.method == "POST":
+        dc = nhap_dungcu(request.POST)
+        if dc.is_valid():
+            dc.save()
+            return redirect('home/dungcu.html')
+    else:
+        dc = nhap_dungcu()
+    return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list, 'dc':dc})
 
 def Nguyen_lieu(request):
     nguyen_lieu_list = Thongtinnguyenlieu.objects.all()

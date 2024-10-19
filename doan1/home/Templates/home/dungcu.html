@@ -114,6 +114,10 @@
                           <td>{{dungcu.dvt}}</td>
                           <td>{{dungcu.ngaymua|date:"Y-m-d"}}</td>
                           <td>{{dungcu.giamua|floatformat}}</td>
+                          <td class="chuanut"> 
+                            <button class="sua">Sửa</button>
+                            <button class="xoa">Xóa</button>
+                        </td>
                             
                         </tr>
                             {% empty %}
@@ -131,17 +135,21 @@
         <p class="ti-close dong" id="dong"></p>
         <h1>Thêm thông tin dụng cụ</h1>
         
-            <div class="chuanut">
-                <input type="text"placeholder="Mã dụng cụ">
-                <input type="text"placeholder="Tên dụng cụ">
-                <input type="text"placeholder="Số lượng">
-                <input type="text"placeholder="Đơn vị tính">
-                <input type="text"placeholder="Ngày mua">
-                <input type="text"placeholder="Giá">
-            </div>
-            <div class="chuanutthem">
-                <button>Thêm</button>
-            </div>  
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="chuanut">
+                    {{ dc.madc }}
+                    {{ dc.tendc }}
+                    {{ dc.soluong }}
+                    {{ dc.dvt }}
+                    {{ dc.ngaymua }}
+                    {{ dc.giamua }}
+                </div>
+                <div class="chuanutthem">
+                    <button>Thêm</button>
+                </div>  
+            </form>
+            
     </div>
     
 </body> 
