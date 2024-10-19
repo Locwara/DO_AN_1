@@ -130,19 +130,21 @@
             <div class="container_baotri_ntt" id="form_baotri_ntt">
                 <p class="ti-close dong" id="dong"></p>
                 <h1>Thêm thông tin bảo trì</h1>
-                <div class="chuanut">
-                    
-                    <input type="text"placeholder="Mã bảo trì">
-                    <input type="text"placeholder="Mã thiết bị">
-                    <input type="text"placeholder="Ngày bắt đầu">
-                    <input type="text"placeholder="Mô tả">
-                    <input type="text"placeholder="Chi phí">
-                    <input type="text"placeholder="Người thực hiện">
-        
-                </div>
-                <div class="chuanutthem">
-                    <button>Thêm</button>
-                </div>
+                <form  method="post">
+                    {% csrf_token %}
+                    <div class="chuanut">
+                        {{ bt.mabt }}
+                        {{ bt.matb }}
+                        {{ bt.ngaybt }}
+                        {{ bt.mota }}
+                        {{ bt.chiphi }}
+                        {{ bt.nguoithuchien }}
+                    </div>
+                    <div class="chuanutthem">
+                        <button type="submit">Thêm</button>
+                    </div>
+                </form>
+                
             </div>
 </body>
 </html>

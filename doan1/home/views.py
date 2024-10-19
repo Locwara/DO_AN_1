@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Calam
 from .models import Nghiphep
 from .models import Bangluong
@@ -7,7 +7,9 @@ from.models  import Thietbi
 from.models  import Baotri
 from.models  import Dungcu
 from.models import Thongtinnguyenlieu
-
+from .forms import nhap_calam
+from .forms import nhap_baotri
+from django.http import HttpResponse
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -36,10 +38,26 @@ def get_khonguyenlieu(request):
 
 def so_ca_lam(request):
     ca_lam_list = Calam.objects.all()
-    print(ca_lam_list) 
-    return render(request, 'home/socalam.html', {'ca_lam_list': ca_lam_list})
+    if request.method == 'POST':
+        form = nhap_calam(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home/socalam.html')
+    else:
+        form = nhap_calam()
+    return render(request, 'home/socalam.html', {'ca_lam_list': ca_lam_list, 'form': form})
 
 
+# def them_calam(request):
+#     if request.method == 'POST':
+#         form = nhap_calam(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home/socalam.html')  
+#     else:
+#         form = nhap_calam()
+#     return render(request, 'home/socalam.html', {'form': form})  
+   
 def nghi_phep(request):
     nghi_phep_list = Nghiphep.objects.all()
     return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list} )
@@ -57,9 +75,16 @@ def thiet_bi(request):
 
 def Bao_tri(request):
     bao_tri_list = Baotri.objects.all()
-    return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list})
+    if request.method == "POST":
+        bt = nhap_baotri(request.POST)
+        if bt.is_valid():
+            bt.save()
+            return redirect('home/baotri.html')
+    else:
+        bt = nhap_baotri()
+    return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list, 'bt':bt})
 
-def Dung_cu(request):
+def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
     return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list})
 

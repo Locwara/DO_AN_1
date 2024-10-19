@@ -118,21 +118,23 @@
                     </tbody>
                 </table>
                 </div>
-            <div class="container_calam_ntt" id="form_calam_ntt">
-                <p class="ti-close dong" id="dong"></p>
-                <h1>Điền thông tin</h1>
-                <div class="chuanut">
-                    <input type="text"placeholder="Mã ca làm">
-                    <input type="text"placeholder="Mã nhân viên">
-                    <input type="text"placeholder="Ngày">
-                    <input type="text"placeholder="Giờ bắt đầu">
-                    <input type="text"placeholder="Giờ kết thúc">
-        
+                <div class="container_calam_ntt" id="form_calam_ntt">
+                    <p class="ti-close dong" id="dong"></p>
+                    <h1>Thêm thông tin ca làm</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="chuanut">
+                            {{ form.macalam }}
+                            {{ form.manv }}
+                            {{ form.ngay }}
+                            {{ form.giobd }}
+                            {{ form.giokt }}
+                        </div>
+                        <div class="chuanutthem">
+                            <button type="submit">Thêm</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="chuanutthem">
-                    <button>Thêm</button>
-                </div>
-        </div>
         </div>
     </div>
 </html>

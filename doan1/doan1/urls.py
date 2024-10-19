@@ -30,5 +30,6 @@ urlpatterns = [
     path('thietbi.html', home.thiet_bi),
     path('baotri.html', home.Bao_tri),
     path('thongtinnguyenlieu.html', home.Nguyen_lieu),
-    path('khonguyenlieu.html', home.Kho_nguyen_lieu)
+    path('khonguyenlieu.html', home.Kho_nguyen_lieu),
+    path('nhap_calam/', home.nhap_calam, name='nhap_calam')
 ]
