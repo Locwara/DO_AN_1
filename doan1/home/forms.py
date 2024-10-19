@@ -1,7 +1,7 @@
 from .models import Calam
 from django import forms
 from .models import Baotri
-
+from .models import Dungcu
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -27,3 +27,4 @@ class nhap_baotri(forms.ModelForm):
             'chiphi': forms.DateInput(attrs={'placeholder': 'Chi phí'}),
             'nguoithuchien': forms.DateInput(attrs={'placeholder': 'Người thực hiện'}),
         }
+        
