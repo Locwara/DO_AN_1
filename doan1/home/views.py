@@ -12,6 +12,7 @@ from .forms import nhap_baotri
 from .forms import nhap_dungcu
 from django.http import HttpResponse
 from .forms import nhap_luongnhanvien
+from .forms import nhap_nghiphep
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -61,8 +62,27 @@ def so_ca_lam(request):
 #     return render(request, 'home/socalam.html', {'form': form})  
    
 def nghi_phep(request):
-    nghi_phep_list = Nghiphep.objects.all()
-    return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list} )
+    try:
+        nghi_phep_list = Nghiphep.objects.all()
+        
+        if request.method == "POST":
+            np = nhap_nghiphep(request.POST)
+            if np.is_valid():
+                np.save()
+                messages.success(request, 'Thêm đơn nghỉ phép thành công!')  # Thêm thông báo 
+                return redirect('nghiphep')  # Sử dụng tên URL pattern
+        else:
+            np = nhap_nghiphep()
+
+        context = {
+            'nghi_phep_list': nghi_phep_list,
+            'np': np
+        }
+        return render(request, 'home/nghiphep.html', context)
+        
+    except Exception as e:
+        messages.error(request, f'Đã xảy ra lỗi: {str(e)}')
+        return redirect('trangchu')  # Redirect về trang chủ nếu có lỗi
 
 def bang_luong(request):
     bang_luong_list = Bangluong.objects.all()
@@ -73,7 +93,7 @@ def bang_luong(request):
             return redirect('luongnhanvien.html')
     else:
         bl = nhap_luongnhanvien()
-    return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list, 'bl': bl})
+    return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list,'bl': bl})
 
 
 def nhan_vien(request):
