@@ -11,6 +11,7 @@ from .forms import nhap_calam
 from .forms import nhap_baotri
 from .forms import nhap_dungcu
 from django.http import HttpResponse
+from .forms import nhap_luongnhanvien
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -65,7 +66,15 @@ def nghi_phep(request):
 
 def bang_luong(request):
     bang_luong_list = Bangluong.objects.all()
-    return render(request, 'home/luongnhanvien.html', {'bang_luong_list': bang_luong_list} )
+    if request.method == "POST":
+        bl = nhap_luongnhanvien(request.POST)
+        if bl.is_valid():
+            bl.save()
+            return redirect('luongnhanvien.html')
+    else:
+        bl = nhap_luongnhanvien()
+    return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list, 'bl': bl})
+
 
 def nhan_vien(request):
     nhan_vien_list = Nhanvien.objects.all()
@@ -80,7 +89,7 @@ def Bao_tri(request):
         bt = nhap_baotri(request.POST)
         if bt.is_valid():
             bt.save()
-            return redirect('home/baotri.html')
+            return redirect('baotri.html')
     else:
         bt = nhap_baotri()
     return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list, 'bt':bt})
@@ -91,7 +100,7 @@ def Dung_cu(request):
         dc = nhap_dungcu(request.POST)
         if dc.is_valid():
             dc.save()
-            return redirect('home/dungcu.html')
+            return redirect('dungcu.html')
     else:
         dc = nhap_dungcu()
     return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list, 'dc':dc})

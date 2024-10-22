@@ -130,17 +130,21 @@
     <div class="container_luong_ntt" id="form_luong_ntt">
         <p class="ti-close dong" id="dong"></p>
         <h1>Điền thông tin</h1>
-        <div class="chuanut">
-            <input type="text"placeholder="Mã lương">
-            <input type="text"placeholder="Mã nhân viên">
-            <input type="text"placeholder="Số giờ">
-            <input type="text"placeholder="Lương cơ bản">
-            <input type="text"placeholder="Tổng lương">
-
-        </div>
-        <div class="chuanutthem">
-            <button>Thêm</button>
-        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="chuanut">
+                {{ bl.maluong }}
+                {{ bl.manv }}
+                {{ bl.sogio }}
+                {{ bl.luongcoban }}
+                {{ bl.tongluong }}
+               
+            </div>
+            <div class="chuanutthem">
+                <button>Thêm</button>
+            </div>  
+        </form>
+        
     </div>
 </div>
 </div>

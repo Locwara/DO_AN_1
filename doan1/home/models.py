@@ -91,4 +91,4 @@ class Thongtinnguyenlieu(models.Model):
     
     class Meta:
         db_table = 'nguyenlieu'
-         
+        

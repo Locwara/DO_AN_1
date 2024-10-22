@@ -2,6 +2,8 @@ from .models import Calam
 from django import forms
 from .models import Baotri
 from .models import Dungcu
+from .models import Thongtinnguyenlieu
+from .models import Bangluong
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -40,3 +42,16 @@ class nhap_dungcu(forms.ModelForm):
             'ngaymua': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày mua'}),
             'giamua': forms.TextInput(attrs={'placeholder': 'Giá mua'}),
         }
+class nhap_luongnhanvien(forms.ModelForm):
+    class Meta:
+        model = Bangluong
+        fields = ['maluong', 'manv', 'sogio', 'luongcoban', 'tongluong']
+        widgets = {
+            'maluong': forms.TextInput(attrs={'placeholder': 'Mã lương'}),
+            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên'}),
+            'sogio': forms.TextInput(attrs={'placeholder': 'Số giờ'}),
+            'luongcoban': forms.TextInput(attrs={'placeholder': 'Lương cơ bản'}),
+            'tongluong': forms.TextInput(attrs={'placeholder': 'Tổng lương'}),
+        }
+
+
