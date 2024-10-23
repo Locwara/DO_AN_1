@@ -13,6 +13,8 @@ from .forms import nhap_dungcu
 from django.http import HttpResponse
 from .forms import nhap_luongnhanvien
 from .forms import nhap_nghiphep
+from .forms import nhap_thietbi
+from .forms import nhap_nhanvien
 # Create your views here.
 def get_index(request):
     return render(request, 'home/index.html')
@@ -50,16 +52,7 @@ def so_ca_lam(request):
         form = nhap_calam()
     return render(request, 'home/socalam.html', {'ca_lam_list': ca_lam_list, 'form': form})
 
-
-# def them_calam(request):
-#     if request.method == 'POST':
-#         form = nhap_calam(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home/socalam.html')  
-#     else:
-#         form = nhap_calam()
-#     return render(request, 'home/socalam.html', {'form': form})  
+  
    
 def nghi_phep(request):
     nghi_phep_list = Nghiphep.objects.all()
@@ -86,10 +79,26 @@ def bang_luong(request):
 
 def nhan_vien(request):
     nhan_vien_list = Nhanvien.objects.all()
-    return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list})
+    if request.method == "POST":
+        nv = nhap_nhanvien(request.POST)
+        if nv.is_valid():
+            nv.save()
+            return redirect('thongtinnhanvien.html')
+    else:
+        nv = nhap_nhanvien()    
+    return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list, 'nv':nv})
+
+
 def thiet_bi(request):
     thiet_bi_list = Thietbi.objects.all()
-    return render(request, 'home/thietbi.html',{'thiet_bi_list':thiet_bi_list})
+    if request.method == "POST":
+        tb = nhap_thietbi(request.POST)
+        if tb.is_valid():
+            tb.save()
+            return redirect('thietbi.html')
+    else:
+        tb = nhap_thietbi()    
+    return render(request, 'home/thietbi.html',{'thiet_bi_list':thiet_bi_list, 'tb':tb})
 
 def Bao_tri(request):
     bao_tri_list = Baotri.objects.all()

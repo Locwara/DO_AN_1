@@ -137,23 +137,37 @@
     <div class="container_ntt" id="formtt">
         <p class="ti-close dong" id="dong"></p>
         <h1>Điền thông tin
-           
-        </h1>
-        <div class="chuanut">
-            <input type="text"placeholder="Mã nhân viên">
-            <input type="text"placeholder="Họ tên">
-            <input type="text"placeholder="Ngày sinh">
-            <input type="text"placeholder="Số điện thoại">
-            <input type="text"placeholder="Địa chỉ">
-            <input type="text"placeholder="Ngày vào làm">
-            <input type="text"placeholder="Vị trí công việc">
-            <input type="text"placeholder="Trạng thái">
-            <div class="chuanutthem">
-                <button>Thêm</button>
-            </div>
-        </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="chuanut">
+                    {{ nv.manv }}
+                    {{ nv.hoten }}
+                    <p>Ngày sinh</p>
+                    {{ nv.ngaysinh }}
+                    {{ nv.sodt }}
+                    {{ nv.diachi }}
+                    <p>Ngày vào làm</p>
+                    {{ nv.ngayvaolam }}
+                    {{ nv.vitricongviec }}
+                    {{ nv.trangthai }}
+                    
+                </div>
+                <div class="chuanutthem">
+                    <button>Thêm</button>
+                </div>  
+            </form>
         
+        
+        
+   
     </div>
-    </div>
+    <style>
+        .chuanut p{
+            margin-bottom: 8px;
+            color: #fff;
+            font-size: 15px;
+            text-align: start;
+        }
+    </style>
 </body>
 </html>

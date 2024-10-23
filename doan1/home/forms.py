@@ -6,6 +6,7 @@ from .models import Thongtinnguyenlieu
 from .models import Bangluong
 from .models import Nghiphep
 from .models import Thietbi
+from .models import Nhanvien
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -80,4 +81,18 @@ class nhap_thietbi(forms.ModelForm):
             'tinhtrang': forms.TextInput(attrs={'placeholder': 'Tình trạng'}),
             'ngaymua': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày mua'}),
             'giamua': forms.TextInput(attrs={'placeholder': 'Giá mua'}),
+        }
+class nhap_nhanvien(forms.ModelForm):
+    class Meta:
+        model = Nhanvien
+        fields = ['manv', 'hoten', 'ngaysinh', 'sdt', 'diachi', 'ngayvaolam', 'vitricongviec', 'trangthai']
+        widgets = {
+            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên'}),
+            'hoten': forms.TextInput(attrs={'placeholder': 'Họ tên'}),
+            'ngaysinh': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày sinh'}),
+            'sdt': forms.TextInput(attrs={'placeholder': 'Số điện thoại'}),
+            'diachi': forms.TextInput(attrs={'placeholder': 'Địa chỉ'}),
+            'ngayvaolam': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày vào làm'}),
+            'vitricongviec': forms.TextInput(attrs={'placeholder': 'Vị trí công việc'}),
+            'trangthai': forms.TextInput(attrs={'placeholder': 'Trạng thái'}),
         }
