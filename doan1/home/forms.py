@@ -4,6 +4,7 @@ from .models import Baotri
 from .models import Dungcu
 from .models import Thongtinnguyenlieu
 from .models import Bangluong
+from .models import Nghiphep
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -54,4 +55,15 @@ class nhap_luongnhanvien(forms.ModelForm):
             'tongluong': forms.TextInput(attrs={'placeholder': 'Tổng lương'}),
         }
 
-
+class nhap_nghiphep(forms.ModelForm):
+    class Meta:
+        model = Nghiphep
+        fields = ['manp', 'manv', 'ngaybd', 'ngaykt', 'lydonghi', 'trangthai']
+        widgets = {
+            'manp': forms.TextInput(attrs={'placeholder': 'Mã nghỉ phép'}),
+            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên'}),
+            'ngaybd': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày bắt đầu'}),
+            'ngaykt': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày kết thúc'}),
+            'lydonghi': forms.TextInput(attrs={'placeholder': 'Lý do nghỉ'}),
+            'trangthai': forms.TextInput(attrs={'placeholder': 'Trạng thái'}),
+        }
