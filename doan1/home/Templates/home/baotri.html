@@ -1,150 +1,67 @@
-
+{% extends 'home/trangchu.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảo trì</title>
+{% block content %}
     <link rel="stylesheet" href="{% static 'home/css/baotri.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
-    <link rel="stylesheet" href="{% static 'home/css/trangchu.css' %}">
-    <script src="{% static 'home/js/trangchu.js' %}"></script>
     <link rel="stylesheet" href="{% static 'home/css/baotri_ntt.css' %}">
     <script src="{% static 'home/js/baotri.js' %}"></script>
-</head>
-<body>
-   
-    <div id="main">
-        <div id="h-sb">
-            
-            <div id="header">
-                <div id="nav1-2">
-                    <div id="nav1">
-                        <button id="btn-sidebar" class="ti-menu-alt" ></button>
-                        <a href="trangchu.html" class="ten">HA'</a>
-                    </div>
-                    <div id="nav2">
-                        <ul id ="ul1">
-                            <li>
-                                <a href="">Nhân Viên</a>
-            
-                            </li>
-                            <li><a href="">Trang Thiết Bị</a></li>
-                            <li><a href="">Nguyên Liệu</u></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="nav3">
-                    <li><a href="index.html" class="ti-user"></a></li>
-                </div>
-            </div>
+    <div class="container_baotri">
+        <h1>DANH SÁCH BẢO TRÌ</h1>
+        <div class="chuatimkiem">
+        <input type="text" placeholder="Tìm kiếm">
+        <button class="them" id="tcl">Thêm bảo trì</button>
+        <button class="in">In</button>
         </div>
-        <div id="sidebar">
-            <div class="chuanv side-items">
-                <ul class="item nv">
-                    <li>
-                        <a href="#">Nhân Viên</a>
-                        <ul class="subnv sub">
-                            <li><a href="thongtinbaotri.html">Thông Tin Nhân Viên</a></li>
-                            <li><a href="luongbaotri.html">Lương Nhân Viên</a></li>
-                            <li><a href="socalam.html">Số Ca Làm</a></li>
-                            <li><a href="nghiphep.html">Lịch Nghỉ Phép</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="chuattb side-items">
-                <ul class="item ttb">
-                    <li>
-                        <a href="#">Trang Thiết Bị</a>
-                        <ul class="subtn sub">
-                            <li><a href="dungcu.html">Dụng Cụ</a></li>
-                            <li><a href="thietbi.html">Thiết Bị</a></li>
-                            <li><a href="baotri.html">Bảo Trì</a></li>
-                            
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="chuanl side-items">
-                <ul class="item nl">
-                    <li>
-                        <a href="#">Nguyên Liệu</a>
-                        <ul class="subnl sub">
-                            <li><a href="thongtinnguyenlieu.html">Thông Tin Nguyên Liệu</a></li>
-                            <li><a href="khonguyenlieu.html">Kho Nguyên Liệu</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="lichsu side-item1">
-                <a href="lichsunhaphang.html">Lịch Sử Nhập Hàng</a>
-            </div>
-            <div class="nhacungcap side-item1">
-                <a href="nhacungcap.html">Nhà Cung Cấp</a>
-            </div>
-        </div>
-        <div class="container_baotri">
-            <h1>DANH SÁCH BẢO TRÌ</h1>
-            <div class="chuatimkiem">
-               <input type="text" placeholder="Tìm kiếm">
-               <button class="them" id="tcl">Thêm bảo trì</button>
-               <button class="in">In</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã bảo trì</th>
-                        <th>Mã thiết bị</th>
-                        <th>Ngày bắt đầu</th>
-                        <th>Mô tả</th>
-                        <th>Chi phí</th>
-                        <th>Người thực hiện</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for baotri in bao_tri_list %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ baotri.mabt }}</td>
-                    <td>{{ baotri.matb }}</td>
-                    <td>{{ baotri.ngaybt|date:"Y-m-d" }}</td>
-                    <td>{{ baotri.mota}}</td>
-                    <td>{{ baotri.diachi }}</td>
-                    <td>{{ baotri.chiphi|floatformat}}</td>
-                    <td>{{ baotri.nguoithuchien}}</td>
-                    <td class="chuanut"> 
-                        <button class="sua">Sửa</button>
-                        <button class="xoa">Xóa</button>
-                    </td>
+                    <th>Mã bảo trì</th>
+                    <th>Mã thiết bị</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Mô tả</th>
+                    <th>Chi phí</th>
+                    <th>Người thực hiện</th>
                 </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">Không có dữ liệu</td>
-                </tr>
-                {% endfor %}
-    
-                </tbody>
+            </thead>
+            <tbody>
+                {% for baotri in bao_tri_list %}
+            <tr>
+                <td>{{ baotri.mabt }}</td>
+                <td>{{ baotri.matb }}</td>
+                <td>{{ baotri.ngaybt|date:"Y-m-d" }}</td>
+                <td>{{ baotri.mota}}</td>
+                <td>{{ baotri.diachi }}</td>
+                <td>{{ baotri.chiphi|floatformat}}</td>
+                <td>{{ baotri.nguoithuchien}}</td>
+                <td class="chuanut"> 
+                    <button class="sua">Sửa</button>
+                    <button class="xoa">Xóa</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Không có dữ liệu</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
             </table>
-            </div>
-            <div class="container_baotri_ntt" id="form_baotri_ntt">
-                <p class="ti-close dong" id="dong"></p>
-                <h1>Thêm thông tin bảo trì</h1>
-                <form  method="post">
-                    {% csrf_token %}
-                    <div class="chuanut">
-                        {{ bt.mabt }}
-                        {{ bt.matb }}
-                        {{ bt.ngaybt }}
-                        {{ bt.mota }}
-                        {{ bt.chiphi }}
-                        {{ bt.nguoithuchien }}
-                    </div>
-                    <div class="chuanutthem">
-                        <button type="submit">Thêm</button>
-                    </div>
-                </form>
-                
-            </div>
-</body>
-</html>
+    </div>
+    <div class="container_baotri_ntt" id="form_baotri_ntt">
+            <p class="ti-close dong" id="dong"></p>
+            <h1>Thêm thông tin bảo trì</h1>
+            <form  method="post">
+                {% csrf_token %}
+                <div class="chuanut">
+                    {{ bt.mabt }}
+                    {{ bt.matb }}
+                    {{ bt.ngaybt }}
+                    {{ bt.mota }}
+                    {{ bt.chiphi }}
+                    {{ bt.nguoithuchien }}
+                </div>
+                <div class="chuanutthem">
+                    <button type="submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+{% endblock %}

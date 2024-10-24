@@ -15,7 +15,10 @@ from .forms import nhap_luongnhanvien
 from .forms import nhap_nghiphep
 from .forms import nhap_thietbi
 from .forms import nhap_nhanvien
+from .forms import nhap_thongtinnguyenlieu
 # Create your views here.
+def get_trangcanhan(request):
+    return render(request, 'home/trangcanhan.html')
 def get_index(request):
     return render(request, 'home/index.html')
 def get_dangnhap(request):
@@ -124,7 +127,15 @@ def Dung_cu(request):
 
 def Nguyen_lieu(request):
     nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
-    return render(request, 'home/thongtinnguyenlieu.html', {'nguyen_lieu_list': nguyen_lieu_list})
+    if request.method =="POST":
+        nl = nhap_thongtinnguyenlieu(request.POST)
+        if nl.is_valid():
+            nl.save()
+            return redirect('thongtinnguyenlieu.html')
+    else:
+        nl = nhap_thongtinnguyenlieu()
+    
+    return render(request, 'home/thongtinnguyenlieu.html', {'nguyen_lieu_list': nguyen_lieu_list, 'nl': nl})
 
 
 def Kho_nguyen_lieu(request):

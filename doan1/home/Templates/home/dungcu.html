@@ -1,136 +1,57 @@
+{% extends 'home/trangchu.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dụng cụ</title>
-    <script src="{% static 'home/js/trangchu.js'%}"></script>
-    <link rel="stylesheet" href="{% static 'home/css/font/themify-icons-font/themify-icons/themify-icons.css'%}">
+
+{% block content %}
     <link rel="stylesheet" href="{% static 'home/css/dungcu.css'%}">
-    <link rel="stylesheet" href="{% static 'home/css/trangchu.css'%}">
     <link rel="stylesheet" href="{% static 'home/css/dungcu_ntt.css' %}">
     <script src="{% static 'home/js/dungcu.js' %}"></script>
-</head> 
-<body>
-    <div id="main">
-        <div id="h-sb">
-            
-            <div id="header">
-                <div id="nav1-2">
-                    <div id="nav1">
-                        <button id="btn-sidebar" class="ti-menu-alt" ></button>
-                        <a href="trangchu.html" class="ten">HA'</a>
-                    </div>
-                    <div id="nav2">
-                        <ul id ="ul1">
-                            <li>
-                                <a href="">Nhân Viên</a>
-            
-                            </li>
-                            <li><a href="">Trang Thiết Bị</a></li>
-                            <li><a href="">Nguyên Liệu</u></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="nav3">
-                    <li><a href="" class="ti-user"></a></li>
-                </div>
-            </div>
+    <div class="container-dungcu ctn-ttbnl">
+        <div class="tieude">
+            <h1>DỤNG CỤ</h1>
         </div>
-        <div id="sidebar">
-            <div class="chuanv side-items">
-                <ul class="item nv">
-                    <li>
-                        <a href="#">Nhân Viên</a>
-                        <ul class="subnv sub">
-                            <li><a href="thongtinnhanvien.html">Thông Tin Nhân Viên</a></li>
-                            <li><a href="luongnhanvien.html">Lương Nhân Viên</a></li>
-                            <li><a href="socalam.html">Số Ca Làm</a></li>
-                            <li><a href="nghiphep.html">Lịch Nghỉ Phép</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="chuattb side-items">
-                <ul class="item ttb">
-                    <li>
-                        <a href="#">Trang Thiết Bị</a>
-                        <ul class="subtn sub">
-                            <li><a href="dungcu.html">Dụng Cụ</a></li>
-                            <li><a href="thietbi.html">Thiết Bị</a></li>
-                            <li><a href="baotri.html">Bảo Trì</a></li>
-                            
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="chuanl side-items">
-                <ul class="item nl">
-                    <li>
-                        <a href="#">Nguyên Liệu</a>
-                        <ul class="subnl sub">
-                            <li><a href="thongtinnguyenlieu.html">Thông Tin Nguyên Liệu</a></li>
-                            <li><a href="khonguyenlieu.html">Kho Nguyên Liệu</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>  
-            <div class="lichsu side-item1">
-                <a href="lichsunhaphang.html">Lịch Sử Nhập Hàng</a>
-            </div>
-            <div class="nhacungcap side-item1">
-                <a href="nhacungcap.html">Nhà Cung Cấp</a>
-            </div>
-        </div>
-        <div class="container-dungcu ctn-ttbnl">
-            <div class="tieude">
-                <h1>DỤNG CỤ</h1>
-            </div>
-            <div class="chuatimkiem">
-                
-                <input type="text" placeholder="Tìm kiếm">
-                <button id="tcl">Thêm dụng cụ</button>
-                <button>In</button>
-            </div>
-            <div class="chuabang">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Mã Dụng Cụ</th>
-                            <th>Tên Dụng Cụ</th>
-                            <th>Số Lượng</th>
-                            <th>Đơn Vị Tính</th>
-                            <th>Ngày Mua</th>
-                            <th>Giá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            {% for dungcu in dung_cu_list %}
-                        <tr>
-                          <td>{{dungcu.madc}}</td>
-                          <td>{{dungcu.tendc}}</td>
-                          <td>{{dungcu.soluong}}</td>
-                          <td>{{dungcu.dvt}}</td>
-                          <td>{{dungcu.ngaymua|date:"Y-m-d"}}</td>
-                          <td>{{dungcu.giamua|floatformat}}</td>
-                          <td class="chuanut"> 
-                            <button class="sua">Sửa</button>
-                            <button class="xoa">Xóa</button>
-                        </td>
-                            
-                        </tr>
-                            {% empty %}
-                        <tr>
-                            <td colspan="6">Không có dữ liệu</td>
-                        </tr>
-                            {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="chuatimkiem">
             
-        </div> 
-    </div>
+            <input type="text" placeholder="Tìm kiếm">
+            <button id="tcl">Thêm dụng cụ</button>
+            <button>In</button>
+        </div>
+        <div class="chuabang">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Dụng Cụ</th>
+                        <th>Tên Dụng Cụ</th>
+                        <th>Số Lượng</th>
+                        <th>Đơn Vị Tính</th>
+                        <th>Ngày Mua</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for dungcu in dung_cu_list %}
+                    <tr>
+                    <td>{{dungcu.madc}}</td>
+                    <td>{{dungcu.tendc}}</td>
+                    <td>{{dungcu.soluong}}</td>
+                    <td>{{dungcu.dvt}}</td>
+                    <td>{{dungcu.ngaymua|date:"Y-m-d"}}</td>
+                    <td>{{dungcu.giamua|floatformat}}</td>
+                    <td class="chuanut"> 
+                        <button class="sua">Sửa</button>
+                        <button class="xoa">Xóa</button>
+                    </td>
+                        
+                    </tr>
+                        {% empty %}
+                    <tr>
+                        <td colspan="6">Không có dữ liệu</td>
+                    </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div> 
     <div class="container_dungcu_ntt" id="form_dungcu_ntt">
         <p class="ti-close dong" id="dong"></p>
         <h1>Thêm thông tin dụng cụ</h1>
@@ -151,6 +72,5 @@
             </form>
             
     </div>
-    
-</body> 
-</html>
+
+{% endblock %}
