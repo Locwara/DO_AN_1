@@ -1,13 +1,5 @@
-from .models import Calam
+from .models import Calam, Baotri, Dungcu, Thongtinnguyenlieu, Bangluong, Nghiphep, Thietbi, Nhanvien
 from django import forms
-from .models import Baotri
-from .models import Dungcu
-from .models import Thongtinnguyenlieu
-from .models import Bangluong
-from .models import Nghiphep
-from .models import Thietbi
-from .models import Nhanvien
-from .models import Thongtinnguyenlieu
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -109,3 +101,4 @@ class nhap_thongtinnguyenlieu(forms.ModelForm):
             'soluong': forms.TextInput(attrs={'placeholder': 'Số lượng'}),
             'ngayhethan': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày hết hạn'}),
         }
+        

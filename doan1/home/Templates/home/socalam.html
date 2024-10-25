@@ -12,6 +12,7 @@
        <input type="text" placeholder="Tìm kiếm">
        <button class="them" id="tcl">Thêm ca làm</button>
        <button class="in">In</button>
+       <button class="in" id="import" >Import</button>
     </div>
     <table>
         <thead>
@@ -57,4 +58,64 @@
             </div>
         </form>
     </div>
+    <div id="form_import_calam" class="import">
+        <p class="ti-close dong" id="dongimport"></p>
+        <h1>Import ca làm từ excel</h1>
+        <form action="{% url 'socalam.html/import' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="file" name="file" id="file" accept=".xlsx">
+            <button type="submit">Import</button>
+        </form>
+        <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+        <p>- Các trường bắt buộc phải là: Mã ca làm, Mã nhân viên, Ngày, Giờ bắt đầu, Giờ kết thúc</p>
+    <style>
+            html{
+                font-family: Arial, Helvetica, sans-serif;
+                color: #fff;
+            }
+            
+            .import input{
+                color: #000;
+            }
+            .import #dongimport{
+                width: 50px;
+            }
+            .import{
+                width: 400px;
+                height: 250px;
+                background-color: #4B3F3A;
+                margin-top: 50px;
+                border: 2px solid #A67B5B;
+                box-shadow: 0 0 10px #A67B5B;
+                border-radius: 4px;
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                display: none;
+                transform: translate(-50%, -50%);
+                border-radius: 8px;
+                padding: 16px;
+            }
+            h1{
+                text-align: center;
+                margin-bottom: 16px;
+            }.import input{
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: beige;
+            
+            }
+            .import button{
+                padding: 15px;
+                background-color: #C4A484;
+                border-radius: 5px;
+            }
+            .import p{
+                margin-bottom: 8px;
+            }
+        </style>
+    </div>
+
 {% endblock %}

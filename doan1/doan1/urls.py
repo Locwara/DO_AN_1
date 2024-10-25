@@ -24,7 +24,7 @@ urlpatterns = [
     path('trangchu.html', home.get_trangchu),
     path('thongtinnhanvien.html', home.nhan_vien),
     path('luongnhanvien.html', home.bang_luong),
-    path('socalam.html', home.so_ca_lam),
+    path('socalam.html', home.so_ca_lam, name='socalam'),
     path('dungcu.html', home.Dung_cu), 
     path('nghiphep.html', home.nghi_phep),
     path('thietbi.html', home.thiet_bi),
@@ -32,5 +32,6 @@ urlpatterns = [
     path('thongtinnguyenlieu.html', home.Nguyen_lieu),
     path('khonguyenlieu.html', home.Kho_nguyen_lieu),
     path('nhap_calam/', home.nhap_calam, name='nhap_calam'),
-    path('trangcanhan.html', home.get_trangcanhan)
+    path('trangcanhan.html', home.get_trangcanhan),
+    path('socalam.html/import', home.import_excel_calam, name='socalam.html/import')
 ]

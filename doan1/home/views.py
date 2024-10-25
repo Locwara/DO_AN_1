@@ -1,21 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Calam
-from .models import Nghiphep
-from .models import Bangluong
-from .models import Nhanvien
-from.models  import Thietbi
-from.models  import Baotri
-from.models  import Dungcu
-from.models import Thongtinnguyenlieu
-from .forms import nhap_calam
-from .forms import nhap_baotri
-from .forms import nhap_dungcu
+from .models import Calam, Nghiphep, Bangluong, Nhanvien, Thietbi, Baotri, Dungcu, Thongtinnguyenlieu
+from .forms import nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
 from django.http import HttpResponse
-from .forms import nhap_luongnhanvien
-from .forms import nhap_nghiphep
-from .forms import nhap_thietbi
-from .forms import nhap_nhanvien
-from .forms import nhap_thongtinnguyenlieu
+import pandas as pd
+from django.contrib import messages
 # Create your views here.
 def get_trangcanhan(request):
     return render(request, 'home/trangcanhan.html')
@@ -44,8 +32,26 @@ def get_thongtinnguyenlieu(request):
 def get_khonguyenlieu(request):
     return render(request, 'home/khonguyenlieu.html')
 
+
+def import_excel_calam(request):
+    if request.method == "POST" and request.FILES['file']:
+        excel_f = request.FILES['file']
+        df = pd.read_excel(excel_f)
+        
+        for index, row in df.iterrows():
+            Calam.objects.create(
+                macalam = row['Mã ca làm'],
+                manv = row['Mã nhân viên'],
+                ngay = row['Ngày'],
+                giobd = row['Giờ bắt đầu'],
+                giokt = row['Giờ kết thúc']
+            )
+        return redirect('socalam')
+    return render(request, 'home/socalam.html')
+
 def so_ca_lam(request):
     ca_lam_list = Calam.objects.all()
+    
     if request.method == 'POST':
         form = nhap_calam(request.POST)
         if form.is_valid():
