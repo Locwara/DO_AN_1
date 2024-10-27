@@ -18,5 +18,24 @@ document.addEventListener('DOMContentLoaded', () =>{
         form.style.display = 'none';
         form_open = false;
     });
+    const btnimport = document.getElementById('import');
+    const btndongimport = document.getElementById('dongimport');
+    const form_import = document.getElementById('form_import_thongtinnguyenlieu');
+    let form_import_open = false;
+
+    btnimport.addEventListener('click', () =>{
+        if(!form_import_open){
+            form_import.style.display = 'block';
+            form_import_open = true;
+        }else{
+            form_import.style.display = 'none';
+            form_import_open = false;
+        }
+    });
+
+    btndongimport.addEventListener('click', () =>{
+        form_import.style.display = 'none';
+        form_import_open = false;
+    });
 });
 

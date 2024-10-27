@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Calam, Nghiphep, Bangluong, Nhanvien, Thietbi, Baotri, Dungcu, Thongtinnguyenlieu
 from .forms import nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
 from django.http import HttpResponse
@@ -35,17 +35,28 @@ def get_khonguyenlieu(request):
 
 def import_excel_calam(request):
     if request.method == "POST" and request.FILES['file']:
-        excel_f = request.FILES['file']
-        df = pd.read_excel(excel_f)
+        try: 
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_count = 0
         
-        for index, row in df.iterrows():
-            Calam.objects.create(
-                macalam = row['Mã ca làm'],
-                manv = row['Mã nhân viên'],
-                ngay = row['Ngày'],
-                giobd = row['Giờ bắt đầu'],
-                giokt = row['Giờ kết thúc']
-            )
+            for index, row in df.iterrows():
+                try:
+                    Calam.objects.create(
+                        macalam = row['Mã ca làm'],
+                        manv = row['Mã nhân viên'],
+                        ngay = row['Ngày'],
+                        giobd = row['Giờ bắt đầu'],
+                        giokt = row['Giờ kết thúc']
+                    )
+                    success_count += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_count > 0:
+                messages.success(request, f'Import thành công {success_count} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+    
         return redirect('socalam')
     return render(request, 'home/socalam.html')
 
@@ -74,6 +85,35 @@ def nghi_phep(request):
         np = nhap_nghiphep()
     return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list,'np':np})
 
+
+def import_excel_nghiphep(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Nghiphep.objects.create(
+                        manp = row['Mã nghỉ phép'],
+                        manv = row['Mã nhân viên'],
+                
+                        ngaybd = row['Ngày bắt đầu'],
+                        ngaykt = row['Ngày kết thúc'],
+                        lydonghi = row['Lý do nghỉ'],
+                        trangthai = row['Trạng thái']
+                       
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('nghiphep')
+    return render(request, 'home/nghiphep.html')
+
 def bang_luong(request):
     bang_luong_list = Bangluong.objects.all()
     if request.method == "POST":
@@ -86,6 +126,32 @@ def bang_luong(request):
     return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list,'bl': bl})
 
 
+def import_excel_bangluong(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Bangluong.objects.create(
+                        maluong = row['Mã lương'],
+                        manv = row['Mã nhân viên'],
+                        sogio = row['Số giờ'],
+                        luongcoban = row['Lương cơ bản'],
+                        tongluong = row['Tổng lương']
+                       
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('bangluong')
+    return render(request, 'home/luongnhanvien.html')
+
 def nhan_vien(request):
     nhan_vien_list = Nhanvien.objects.all()
     if request.method == "POST":
@@ -97,6 +163,36 @@ def nhan_vien(request):
         nv = nhap_nhanvien()    
     return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list, 'nv':nv})
 
+def import_excel_thongtinnhanvien(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Nhanvien.objects.create(
+                        manv= row['Mã nhân viên'],
+                        hoten = row['Họ tên'],
+                
+                        ngaysinh = row['Ngày sinh'],
+                        sdt = row['Số điện thoại'],
+                        diachi = row['Địa chỉ'],
+                        ngayvaolam = row['Ngày vào làm'],
+                        vitricongviec = row['Vị trí công việc'],
+                        trangthai = row['Trạng thái']
+
+                       
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('thongtinnhanvien')
+    return render(request, 'home/thongtinnhanvien.html')
 
 def thiet_bi(request):
     thiet_bi_list = Thietbi.objects.all()
@@ -109,6 +205,62 @@ def thiet_bi(request):
         tb = nhap_thietbi()    
     return render(request, 'home/thietbi.html',{'thiet_bi_list':thiet_bi_list, 'tb':tb})
 
+def import_excel_thietbi(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Thietbi.objects.create(
+                        matb = row['Mã thiết bị'],
+                        tentb = row['Tên thiết bị'],
+                
+                        loaitb = row['Loại thiết bị'],
+                        soluong = row['Số lượng'],
+                        tinhtrang = row['Tình trạng'],
+                        ngaymua = row['Ngày mua'],
+                        giamua = row['Giá mua']
+
+                       
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('thietbi')
+    return render(request, 'home/thietbi.html')
+
+def import_excel_baotri(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Baotri.objects.create(
+                        mabt = row['Mã bảo trì'],
+                        matb = row['Mã thiết bị'],
+                        ngaybt = row['Ngày bảo trì'],
+                        mota = row['Mô tả'],
+                        chiphi = row['Chi phí'],
+                        nguoithuchien = row['Người thực hiện']
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('baotri')
+    return render(request, 'home/baotri.html')
+                
 def Bao_tri(request):
     bao_tri_list = Baotri.objects.all()
     if request.method == "POST":
@@ -120,6 +272,13 @@ def Bao_tri(request):
         bt = nhap_baotri()
     return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list, 'bt':bt})
 
+def delete_baotri(request, mabt):
+
+        baotri = get_object_or_404(Baotri, mabt=mabt)
+        baotri.delete()
+        messages.success(request, 'Xóa bản ghi bảo trì thành công!')
+        return redirect('baotri') 
+
 def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
     if request.method == "POST":
@@ -130,6 +289,32 @@ def Dung_cu(request):
     else:
         dc = nhap_dungcu()
     return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list, 'dc':dc})
+
+def import_excel_dungcu(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Dungcu.objects.create(
+                        madc = row['Mã dụng cụ'],
+                        tendc = row['Tên dụng cụ'],
+                        soluong = row['Số lượng'],
+                        dvt = row['Đơn vị tính'],
+                        ngaymua = row['Ngày mua'],
+                        giamua = row['Giá mua']
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('dungcu')
+    return render(request, 'home/dungcu.html')
 
 def Nguyen_lieu(request):
     nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
@@ -143,6 +328,31 @@ def Nguyen_lieu(request):
     
     return render(request, 'home/thongtinnguyenlieu.html', {'nguyen_lieu_list': nguyen_lieu_list, 'nl': nl})
 
+def import_excel_thongtinnguyenlieu(request):
+    if request.method == "POST" and request.FILES['file']:
+        try:
+            excel_f = request.FILES['file']
+            df = pd.read_excel(excel_f)
+            success_ip = 0
+            for index, row in df.iterrows():
+                try:
+                    Thongtinnguyenlieu.objects.create(
+                        manl = row['Mã nguyên liệu'],
+                        tennl = row['Tên nguyên liệu'],
+                        gia = row['Giá'],
+                        dvt = row['Đơn vị tính'],
+                        soluong = row['Số lượng'],
+                        ngayhethan = row['Ngày hết hạn']
+                    )
+                    success_ip += 1
+                except Exception as e:
+                    messages.error(request, f'Lỗi ở dòng {index + 2}: {str(e)}')
+            if success_ip > 0:
+                messages.success(request, f'Import Thành công {success_ip} bản ghi')
+        except Exception as e:
+            messages.error(request, f'Import thất bại: {str(e)}')
+        return redirect('thongtinnguyenlieu')
+    return render(request, 'home/thongtinnguyenlieu.html')
 
 def Kho_nguyen_lieu(request):
     kho_nguyen_lieu_list = Thongtinnguyenlieu.objects.all()

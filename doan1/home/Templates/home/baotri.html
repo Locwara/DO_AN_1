@@ -1,6 +1,50 @@
 {% extends 'home/trangchu.html' %}
 {% load static %}
 {% block content %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <span class="close-btn">&times;</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<style>
+    .messages {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+    }
+
+    .alert-error {
+        background-color: #dc3545;
+    }
+
+    .alert-success {
+        background-color: #28a745;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+</style>
+
     <link rel="stylesheet" href="{% static 'home/css/baotri.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/baotri_ntt.css' %}">
     <script src="{% static 'home/js/baotri.js' %}"></script>
@@ -9,14 +53,14 @@
         <div class="chuatimkiem">
         <input type="text" placeholder="Tìm kiếm">
         <button class="them" id="tcl">Thêm bảo trì</button>
-        <button class="in">In</button>
+        <button class="in" id="import" >Import</button>
         </div>
         <table>
             <thead>
                 <tr>
                     <th>Mã bảo trì</th>
                     <th>Mã thiết bị</th>
-                    <th>Ngày bắt đầu</th>
+                    <th>Ngày bảo trì</th>
                     <th>Mô tả</th>
                     <th>Chi phí</th>
                     <th>Người thực hiện</th>
@@ -29,12 +73,11 @@
                 <td>{{ baotri.matb }}</td>
                 <td>{{ baotri.ngaybt|date:"Y-m-d" }}</td>
                 <td>{{ baotri.mota}}</td>
-                <td>{{ baotri.diachi }}</td>
                 <td>{{ baotri.chiphi|floatformat}}</td>
                 <td>{{ baotri.nguoithuchien}}</td>
                 <td class="chuanut"> 
                     <button class="sua">Sửa</button>
-                    <button class="xoa">Xóa</button>
+                    <a href="{% url 'delete_baotri' baotri.mabt %}">Xóa</a>
                 </td>
             </tr>
             {% empty %}
@@ -54,6 +97,7 @@
                 <div class="chuanut">
                     {{ bt.mabt }}
                     {{ bt.matb }}
+                    <p>Ngày bảo trì</p>
                     {{ bt.ngaybt }}
                     {{ bt.mota }}
                     {{ bt.chiphi }}
@@ -63,5 +107,88 @@
                     <button type="submit">Thêm</button>
                 </div>
             </form>
+        </div>
+        <div id="form_import_baotri" class="import">
+            <p class="ti-close dong" id="dongimport"></p>
+            <h1>Import ca làm từ excel</h1>
+            <form action="{% url 'baotri.html/import' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+    
+                <input type="file" name="file" id="file" accept=".xlsx">
+                <button type="submit">Import</button>
+            </form>
+            <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+            <p>- Các trường bắt buộc phải là: Mã bảo trì, Mã thiết bị, Ngày bảo trì, Mô tả, Chi phí, Người thực hiện</p>
+        <style>
+            .chuanut p{
+                margin-bottom: 8px;
+                color: #fff;
+            }
+                html{
+                    font-family: Arial, Helvetica, sans-serif;
+                    color: #fff;
+                }
+                
+                .import input{
+                    color: #000;
+                }
+                .import #dongimport{
+                    width: 50px;
+                }
+                .import{
+                    width: 400px;
+                    height: 250px;
+                    background-color: #4B3F3A;
+                    margin-top: 50px;
+                    border: 2px solid #A67B5B;
+                    box-shadow: 0 0 10px #A67B5B;
+                    border-radius: 4px;
+                    position: absolute;
+                    top: 45%;
+                    left: 50%;
+                    display: none;
+                    transform: translate(-50%, -50%);
+                    border-radius: 8px;
+                    padding: 16px;
+                }
+                h1{
+                    text-align: center;
+                    margin-bottom: 16px;
+                }.import input{
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    border-radius: 5px;
+                    background-color: beige;
+                
+                }
+                .import button{
+                    padding: 15px;
+                    background-color: #C4A484;
+                    border-radius: 5px;
+                }
+                .import p{
+                    margin-bottom: 8px;
+                }
+                .chuanut p{
+                    margin-bottom: 8px;
+                    color: #fff;
+                }
+            </style>
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const alerts = document.querySelectorAll('.alert')
+                    alerts.forEach(function(alert){
+                        setTimeout(function(){
+                            alert.style.display = 'none'
+                        }, 5000)
+                    })
+                    const dong = document.querySelectorAll('.close-btn')
+                    dong.forEach(function(btn){
+                        btn.addEventListener('click', function(){
+                            this.parentElement.style.display = 'none'
+                        })
+                    })
+                })
+            </script>
         </div>
 {% endblock %}
