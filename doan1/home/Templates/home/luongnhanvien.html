@@ -80,7 +80,20 @@
                 <td>{{ bangluong.tongluong }}</td>
                 <td class="chuanut"> 
                     <button class="sua">Sửa</button>
-                    <button class="xoa">Xóa</button>
+                        <button class="nut-xoa" data-id="{{ bangluong.maluong }}">
+                            Xóa
+                        </button>
+                        <div class="xoa-form" id="form-xoa-{{ bangluong.maluong }}" style="display: none;">
+                            <div class="chuaxoa">
+                                <p>Bạn có muốn xóa bảo trì: {{ bangluong.maluong }}?</p>
+                                <div class="chuanut">
+                                    <button class="nut-huy" data-id="{{ bangluong.maluong }}">Hủy</button>
+                                    <button onclick="window.location.href='{% url 'delete_bangluong' bangluong.maluong %}'">
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                 </td>
             </tr>
             {% empty %}
@@ -180,6 +193,68 @@
             color: #fff;
         }
     </style>
+      <style>
+    .xoa-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 300px;
+        background-color: #4B3F3A;
+        border-radius: 4px;
+        border: 2px solid #A67B5B;
+        padding: 16px;
+        z-index: 1000;
+    }
+    
+    .chuanut {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .chuaxoa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .xoa-form button {
+        padding: 8px 16px;
+        background-color: #C4A484;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        min-width: 80px;
+    }
+    
+    .xoa-form button:hover {
+        background-color: #6D4C41;
+        color: #F4D06F;
+    }
+    
+    .xoa-form button:active {
+        background-color: #2E2A26;
+        color: #C4A484;
+    }
+    
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+    </style>
+    
+    <script>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -197,4 +272,111 @@
         })
     })
 </script>
+<style>
+    .xoa-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 300px;
+        background-color: #4B3F3A;
+        border-radius: 4px;
+        border: 2px solid #A67B5B;
+        padding: 16px;
+        z-index: 1000;
+    }
+    
+    .chuanut {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .chuaxoa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .xoa-form button {
+        padding: 8px 16px;
+        background-color: #C4A484;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        min-width: 80px;
+    }
+    
+    .xoa-form button:hover {
+        background-color: #6D4C41;
+        color: #F4D06F;
+    }
+    
+    .xoa-form button:active {
+        background-color: #2E2A26;
+        color: #C4A484;
+    }
+    
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+    </style>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+    
+        const deleteButtons = document.querySelectorAll('.nut-xoa');
+        const cancelButtons = document.querySelectorAll('.nut-huy');
+    
+   
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                
+         
+                document.querySelectorAll('.xoa-form').forEach(f => {
+                    if (f !== form) {
+                        f.style.display = 'none';
+                    }
+                });
+    
+          
+                form.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+    
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                form.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+    
+  
+        overlay.addEventListener('click', function() {
+            document.querySelectorAll('.xoa-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            overlay.style.display = 'none';
+        });
+    });
+    </script>
 {% endblock %}

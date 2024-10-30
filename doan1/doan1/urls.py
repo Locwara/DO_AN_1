@@ -30,7 +30,7 @@ urlpatterns = [
     path('thietbi.html', home.thiet_bi, name='thietbi'),
     path('baotri.html', home.Bao_tri, name='baotri'),
     path('thongtinnguyenlieu.html', home.Nguyen_lieu, name='thongtinnguyenlieu'),
-    path('khonguyenlieu.html', home.Kho_nguyen_lieu),
+    path('khonguyenlieu.html', home.Kho_nguyen_lieu, name='khonguyenlieu'),
     path('nhap_calam/', home.nhap_calam, name='nhap_calam'),
     path('trangcanhan.html', home.get_trangcanhan),
     path('socalam.html/import', home.import_excel_calam, name='socalam.html/import'),
@@ -42,4 +42,9 @@ urlpatterns = [
     path('thongtinnguyenlieu.html/import', home.import_excel_thongtinnguyenlieu, name='thongtinnguyenlieu.html/import'),
     path('thongtinnhanvien.html/import', home.import_excel_thongtinnhanvien, name='thongtinnhanvien.html/import'),
     path('delete_baotri/<str:mabt>/', home.delete_baotri, name='delete_baotri'),
+    path('delete_dungcu/<str:madc>/', home.delete_dungcu, name='delete_dungcu'),
+    path('delete_khonguyenlieu/<str:manl>/', home.delete_khonguyenlieu, name='delete_khonguyenlieu'),
+    path('delete_bangluong/<str:maluong>/', home.delete_bangluong, name='delete_bangluong'),
+    path('delete_nghiphep/<str:manp>/', home.delete_nghiphep, name='delete_nghiphep'),
+    path('delete_calam/<str:macl>/', home.delete_calam, name='delete_calam'),
 ]

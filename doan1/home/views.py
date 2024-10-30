@@ -125,6 +125,12 @@ def bang_luong(request):
     else:
         bl = nhap_luongnhanvien()
     return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list,'bl': bl})
+def delete_bangluong(request, maluong):
+    
+        bangluong = get_object_or_404(Bangluong, maluong=maluong)
+        bangluong.delete()
+        messages.success(request, 'Xóa bản ghi bảng lương thành công!')
+        return redirect('bangluong') 
 
 
 def import_excel_bangluong(request):
@@ -280,7 +286,22 @@ def delete_baotri(request, mabt):
         messages.success(request, 'Xóa bản ghi bảo trì thành công!')
         return redirect('baotri') 
     
-    
+def delete_dungcu(request, madc):
+        dungcu = get_object_or_404(Dungcu, madc=madc)
+        dungcu.delete()
+        messages.success(request, 'Xóa bản ghi dụng cụ thành công!')
+        return redirect('dungcu')
+
+def delete_nghiphep(request, manp):
+        manghiphep = get_object_or_404(Nghiphep, manp=manp)
+        manghiphep.delete()
+        messages.success(request, 'Xóa bản ghi nghỉ phép thành công!')
+        return redirect('nghiphep')
+def delete_calam(request, macl):
+        macalam = get_object_or_404(Nghiphep, macl=macl)
+        macalam.delete()
+        messages.success(request, 'Xóa bản ghi ca làm thành công!')
+        return redirect('calam')
     
 
 def Dung_cu(request):   
@@ -361,3 +382,9 @@ def import_excel_thongtinnguyenlieu(request):
 def Kho_nguyen_lieu(request):
     kho_nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
     return render(request, 'home/khonguyenlieu.html', {'kho_nguyen_lieu_list': kho_nguyen_lieu_list})
+
+def delete_khonguyenlieu(request, manl):
+        khonguyenlieu = get_object_or_404(Thongtinnguyenlieu, manl=manl)
+        khonguyenlieu.delete()
+        messages.success(request, 'Xóa bản ghi kho nguyên liệu thành công!')
+        return redirect('khonguyenlieu')
