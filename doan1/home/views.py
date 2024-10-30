@@ -280,29 +280,63 @@ def Bao_tri(request):
     return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list, 'bt':bt})
 
 def delete_baotri(request, mabt):
-    
+    try:
         baotri = get_object_or_404(Baotri, mabt=mabt)
         baotri.delete()
         messages.success(request, 'Xóa bản ghi bảo trì thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
         return redirect('baotri') 
     
 def delete_dungcu(request, madc):
+    try:
         dungcu = get_object_or_404(Dungcu, madc=madc)
         dungcu.delete()
         messages.success(request, 'Xóa bản ghi dụng cụ thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
         return redirect('dungcu')
 
 def delete_nghiphep(request, manp):
+    try:
         manghiphep = get_object_or_404(Nghiphep, manp=manp)
         manghiphep.delete()
         messages.success(request, 'Xóa bản ghi nghỉ phép thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
         return redirect('nghiphep')
 def delete_calam(request, macl):
+    try:
         macalam = get_object_or_404(Nghiphep, macl=macl)
         macalam.delete()
         messages.success(request, 'Xóa bản ghi ca làm thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
         return redirect('calam')
-    
+def delete_thietbi(request, matb):
+    try:
+        mathietbi = get_object_or_404(Thietbi, matb=matb)
+        mathietbi.delete()
+        messages.success(request, 'Xóa bản ghi thiết bị thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
+        return redirect('thietbi')
+def delete_thongtinnguyenlieu(request, manl):
+    try:
+        ttnguyenlieu = get_object_or_404(Thongtinnguyenlieu, manl=manl)
+        ttnguyenlieu.delete()
+        messages.success(request, 'Xóa bản ghi thông tin nguyên liệu thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
+        return redirect('thongtinnguyenlieu')
+def delete_thongtinnhanvien(request, manv):
+    try:
+        ttnhanvien = get_object_or_404(Nhanvien, manv=manv)
+        ttnhanvien.delete()
+        messages.success(request, 'Xóa bản ghi thông tin nhân viên thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
+    return redirect('thongtinnhanvien')
 
 def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
@@ -384,7 +418,10 @@ def Kho_nguyen_lieu(request):
     return render(request, 'home/khonguyenlieu.html', {'kho_nguyen_lieu_list': kho_nguyen_lieu_list})
 
 def delete_khonguyenlieu(request, manl):
+    try:
         khonguyenlieu = get_object_or_404(Thongtinnguyenlieu, manl=manl)
         khonguyenlieu.delete()
         messages.success(request, 'Xóa bản ghi kho nguyên liệu thành công!')
+    except Exception as e:
+        messages.error(request, f'Xóa không thành công: {str(e)}')
         return redirect('khonguyenlieu')

@@ -47,4 +47,8 @@ urlpatterns = [
     path('delete_bangluong/<str:maluong>/', home.delete_bangluong, name='delete_bangluong'),
     path('delete_nghiphep/<str:manp>/', home.delete_nghiphep, name='delete_nghiphep'),
     path('delete_calam/<str:macl>/', home.delete_calam, name='delete_calam'),
+    path('delete_thietbi/<str:matb>/', home.delete_thietbi, name='delete_thietbi'),
+    path('delete_thongtinnguyenlieu/<str:manl>/', home.delete_thongtinnguyenlieu, name='delete_thongtinnguyenlieu'),
+    path('delete_thongtinnhanvien/<str:manv>/', home.delete_thongtinnhanvien, name='delete_thongtinnhanvien'),
+    
 ]
