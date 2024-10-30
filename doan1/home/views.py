@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Calam, Nghiphep, Bangluong, Nhanvien, Thietbi, Baotri, Dungcu, Thongtinnguyenlieu
 from .forms import nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
 from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 import pandas as pd
 from django.contrib import messages
 # Create your views here.
@@ -273,19 +274,13 @@ def Bao_tri(request):
     return render(request, 'home/baotri.html', {'bao_tri_list': bao_tri_list, 'bt':bt})
 
 def delete_baotri(request, mabt):
-
+    
         baotri = get_object_or_404(Baotri, mabt=mabt)
         baotri.delete()
         messages.success(request, 'Xóa bản ghi bảo trì thành công!')
         return redirect('baotri') 
     
     
-def delete_dungcu(request, mabt):
-    
-        Dungcu = get_object_or_404(Baotri, mabt=mabt)
-        Dungcu.delete()
-        messages.success(request, 'Xóa bản ghi bảo trì thành công!')
-        return redirect('baotri') 
     
 
 def Dung_cu(request):   
