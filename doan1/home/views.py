@@ -278,6 +278,15 @@ def delete_baotri(request, mabt):
         baotri.delete()
         messages.success(request, 'Xóa bản ghi bảo trì thành công!')
         return redirect('baotri') 
+    
+    
+def delete_dungcu(request, mabt):
+    
+        Dungcu = get_object_or_404(Baotri, mabt=mabt)
+        Dungcu.delete()
+        messages.success(request, 'Xóa bản ghi bảo trì thành công!')
+        return redirect('baotri') 
+    
 
 def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
