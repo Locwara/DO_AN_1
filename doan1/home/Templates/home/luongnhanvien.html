@@ -79,7 +79,43 @@
                 <td>{{ bangluong.luongcoban|floatformat }}</td>
                 <td>{{ bangluong.tongluong }}</td>
                 <td class="chuanut"> 
-                    <button class="sua">Sửa</button>
+                    <button class="sua" data-id="{{ bangluong.maluong }}">Sửa</button>
+                    <div class="container_luong_ntt" id="form_luong_sua">
+                        <p class="ti-close dong" id="dong_sua"></p>
+                        <h1>Sửa thông tin</h1>
+                        <form action="{% url 'sua_bangluong' maluong=bangluong.maluong %}" method="post">
+                            {% csrf_token %}
+                            <div class="chuanut">
+                                {{ form.maluong }}
+                                {{ form.manv }}
+                                {{ form.sogio }}
+                                {{ form.luongcoban }}
+                                {{ form.tongluong }}
+                               
+                            </div>
+                            <div class="chuanutthem">
+                                <button type="submit">Cập nhật</button>
+                            </div>  
+                            <style>
+                                #form_luong_sua h1{
+                                    text-align: center;
+                                }
+                                #form_luong_sua .chuanut{
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                                #form_luong_sua input{
+                                    width: 300px;
+                                }
+                                #form_luong_sua button{
+                                    padding: 8px;
+                                }
+                            </style>
+                        </form>
+                        
+                    </div>
                         <button class="nut-xoa" data-id="{{ bangluong.maluong }}">
                             Xóa
                         </button>
@@ -108,25 +144,8 @@
     </table>
     
 </div>
-<div class="container_luong_ntt" id="form_luong_ntt">
-    <p class="ti-close dong" id="dong"></p>
-    <h1>Điền thông tin</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        <div class="chuanut">
-            {{ bl.maluong }}
-            {{ bl.manv }}
-            {{ bl.sogio }}
-            {{ bl.luongcoban }}
-            {{ bl.tongluong }}
-           
-        </div>
-        <div class="chuanutthem">
-            <button>Thêm</button>
-        </div>  
-    </form>
-    
-</div>
+
+
 <div id="form_import_bangluong" class="import">
     <p class="ti-close dong" id="dongimport"></p>
     <h1>Import ca làm từ excel</h1>
@@ -192,8 +211,7 @@
             margin-bottom: 8px;
             color: #fff;
         }
-    </style>
-      <style>
+
     .xoa-form {
         position: fixed;
         top: 50%;
@@ -254,7 +272,7 @@
     }
     </style>
     
-    <script>
+
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -271,6 +289,7 @@
             })
         })
     })
+
 </script>
 <style>
     .xoa-form {
@@ -377,6 +396,30 @@
             });
             overlay.style.display = 'none';
         });
+
+        var nutsua = document.querySelectorAll('.sua')
+        var formsua = document.getElementById('form_luong_sua')
+        var dongform = document.getElementById('dong_sua')
+
+        nutsua.forEach(button =>{
+            button.addEventListener('click', function(){
+                var maluong = this.getAttribute('data-id')
+                //goi API
+                fetch(`/lay_bangluong/${maluong}/`)
+                .then(response => response.json())
+                .then(data =>{
+                    document.querySelector('[name="maluong"]').value = data.maluong
+                    document.querySelector('[name="manv"]').value = data.manv
+                    document.querySelector('[name="sogio"]').value = data.sogio
+                    document.querySelector('[name="luongcoban"]').value = data.luongcoban
+                    document.querySelector('[name="tongluong"]').value = data.tongluong
+                })
+                formsua.style.display = 'block'
+            })
+        })
+        dongform.addEventListener('click', function(){
+            formsua.style.display = 'none'
+        })
     });
     </script>
 {% endblock %}

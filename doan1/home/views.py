@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 import pandas as pd
 from django.contrib import messages
+from django.http import JsonResponse
 # Create your views here.
 def get_trangcanhan(request):
     return render(request, 'home/trangcanhan.html')
@@ -114,17 +115,21 @@ def import_excel_nghiphep(request):
             messages.error(request, f'Import thất bại: {str(e)}')
         return redirect('nghiphep')
     return render(request, 'home/nghiphep.html')
-
+    
 def bang_luong(request):
     bang_luong_list = Bangluong.objects.all()
     if request.method == "POST":
         bl = nhap_luongnhanvien(request.POST)
         if bl.is_valid():
             bl.save()
-            return redirect('luongnhanvien.html')
+            return redirect('bangluong')  
     else:
         bl = nhap_luongnhanvien()
-    return render(request, 'home/luongnhanvien.html',{'bang_luong_list':bang_luong_list,'bl': bl})
+    return render(request, 'home/luongnhanvien.html',{
+        'bang_luong_list': bang_luong_list,
+        'bl': bl,
+        'bangluong': None  
+    })
 def delete_bangluong(request, maluong):
     
         bangluong = get_object_or_404(Bangluong, maluong=maluong)
@@ -132,6 +137,31 @@ def delete_bangluong(request, maluong):
         messages.success(request, 'Xóa bản ghi bảng lương thành công!')
         return redirect('bangluong') 
 
+def sua_bangluong(request, maluong):
+    bangluong = get_object_or_404(Bangluong, maluong=maluong)
+    if request.method == 'POST':
+        form = nhap_luongnhanvien(request.POST,  instance=bangluong)
+        if form.is_valid():
+            form.save()
+            return redirect('bangluong')
+    else:
+        form = nhap_luongnhanvien(instance=bangluong)
+    return render(request, 'home/luongnhanvien.html', {
+        'form': form,
+        'bangluong': bangluong,
+        'bang_luong_list': Bangluong.objects.all()  
+    })
+
+def lay_bangluong(request, maluong):
+    bangluong = get_object_or_404(Bangluong, maluong=maluong)
+    data = {
+        'maluong': bangluong.maluong,
+        'manv': bangluong.manv,
+        'sogio': bangluong.sogio,
+        'luongcoban': bangluong.luongcoban,
+        'tongluong': bangluong.tongluong
+    }
+    return JsonResponse(data)
 
 def import_excel_bangluong(request):
     if request.method == "POST" and request.FILES['file']:
