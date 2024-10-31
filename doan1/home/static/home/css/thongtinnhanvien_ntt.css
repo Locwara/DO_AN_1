@@ -5,7 +5,7 @@ body{
 
 .container_ntt{
     width: 400px;
-    height: 650px;
+    height: 750px;
     background-color: #4B3F3A;
     margin-top: 50px;
     border: 2px solid #A67B5B;
@@ -17,6 +17,7 @@ body{
     transform: translate(-50%, -50%);
     display: none;
 }
+
 h1{
     text-align: center;
 }

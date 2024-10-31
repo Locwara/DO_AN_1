@@ -52,5 +52,6 @@ urlpatterns = [
     path('delete_thongtinnhanvien/<str:manv>/', home.delete_thongtinnhanvien, name='delete_thongtinnhanvien'),
     path('sua_bangluong/<str:maluong>/', home.sua_bangluong, name='sua_bangluong'),
     path('lay_bangluong/<str:maluong>/', home.lay_bangluong, name='lay_bangluong'),
-    
+    path('sua_baotri/<str:mabt>/', home.sua_baotri, name='sua_baotri'),
+    path('lay_baotri/<str:mabt>/', home.lay_baotri, name='lay_baotri'),
 ]

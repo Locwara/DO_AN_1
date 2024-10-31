@@ -144,7 +144,25 @@
     </table>
     
 </div>
-
+<div class="container_luong_ntt" id="form_luong_ntt">
+    <p class="ti-close dong" id="dong"></p>
+    <h1>Điền thông tin</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="chuanut">
+            {{ bl.maluong }}
+            {{ bl.manv }}
+            {{ bl.sogio }}
+            {{ bl.luongcoban }}
+            {{ bl.tongluong }}
+           
+        </div>
+        <div class="chuanutthem">
+            <button>Thêm</button>
+        </div>  
+    </form>
+    
+</div>  
 
 <div id="form_import_bangluong" class="import">
     <p class="ti-close dong" id="dongimport"></p>
