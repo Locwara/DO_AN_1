@@ -102,3 +102,14 @@ class nhap_thongtinnguyenlieu(forms.ModelForm):
             'ngayhethan': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày hết hạn'}),
         }
         
+class nhap_khonguyenlieu(forms.ModelForm):
+    class Meta:
+        model = Thongtinnguyenlieu
+        fields = ['manl', 'tennl', 'dvt', 'soluong']
+        widgets = {
+            'manl': forms.TextInput(attrs={'placeholder': 'Mã nguyên liệu'}),
+            'tennl': forms.TextInput(attrs={'placeholder': 'Tên nguyên liệu'}),
+            'dvt': forms.TextInput(attrs={'placeholder': 'Đơn vị tính'}),
+            'soluong': forms.TextInput(attrs={'placeholder': 'Số lượng'}),
+        }
+        

@@ -80,7 +80,13 @@
                 <td>{{ thietbi.ngaymua|date:"Y-m-d" }}</td>
                 <td>{{ thietbi.giamua|floatformat }}</td>
                 <td class="chuanut"> 
-                    <button class="sua">Sửa</button>
+                    <button class="sua" data-id="{{ thietbi.matb}}" 
+                        data-tentb="{{ thietbi.tentb }}"
+                        data-loaitb="{{ thietbi.loaitb }}"
+                        data-soluong="{{ thietbi.soluong }}"
+                        data-tinhtrang="{{ thietbi.tinhtrang }}"
+                        data-ngaymua="{{ thietbi.ngaymua }}"
+                        data-giamua="{{ thietbi.giamua }}">Sửa</button>
                         <button class="nut-xoa" data-id="{{ thietbi.matb }}">
                             Xóa
                         </button>

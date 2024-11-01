@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Calam, Nghiphep, Bangluong, Nhanvien, Thietbi, Baotri, Dungcu, Thongtinnguyenlieu
-from .forms import nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
+from .forms import nhap_khonguyenlieu, nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 import pandas as pd
@@ -60,29 +60,14 @@ def Bao_tri(request):
 def sua_baotri(request, mabt):
     baotri = get_object_or_404(Baotri, mabt=mabt)
     if request.method == 'POST':
-        form = nhap_baotri(request.POST,  instance=baotri)
+        form = nhap_baotri(request.POST, instance=baotri)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Đã cập nhật thành công bảo trì {mabt}')
             return redirect('baotri')
-    else:
-        form = nhap_baotri(instance=baotri)
-    return render(request, 'home/baotri.html', { 
-    'form': form,
-    'bao_tri_list': Baotri.objects.all(),
-    'baotri':baotri
-    })
-
-def lay_baotri(request, mabt):
-    baotri = get_object_or_404(Baotri, mabt=mabt)
-    data = {
-        'mabt': baotri.mabt,
-        'matb': baotri.matb,
-        'ngaybt': baotri.ngaybt,
-        'mota': baotri.mota,
-        'chiphi': baotri.chiphi,
-        'nguoithuchien': baotri.nguoithuchien,
-    }
-    return JsonResponse(data)
+        else:
+            messages.error(request, 'Có lỗi xảy ra khi cập nhật. Vui lòng kiểm tra lại thông tin.')
+    return redirect('baotri')
 
 def delete_baotri(request, mabt):
     try:
@@ -101,7 +86,7 @@ def delete_dungcu(request, madc):
         messages.success(request, 'Xóa bản ghi dụng cụ thành công!')
     except Exception as e:
         messages.error(request, f'Xóa không thành công: {str(e)}')
-        return redirect('dungcu')
+    return redirect('dungcu')
 def Dung_cu(request):   
     dung_cu_list = Dungcu.objects.all()
     if request.method == "POST":
@@ -111,7 +96,7 @@ def Dung_cu(request):
             return redirect('dungcu.html')
     else:
         dc = nhap_dungcu()
-    return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list, 'dc':dc})
+    return render(request, 'home/dungcu.html', {'dung_cu_list': dung_cu_list, 'dc':dc, 'dungcu': None})
 
 def import_excel_dungcu(request):
     if request.method == "POST" and request.FILES['file']:
@@ -138,6 +123,19 @@ def import_excel_dungcu(request):
             messages.error(request, f'Import thất bại: {str(e)}')
         return redirect('dungcu')
     return render(request, 'home/dungcu.html')
+
+def sua_dungcu(request, madc):
+    dungcu = get_object_or_404(Dungcu, madc=madc)
+    if request.method == 'POST':
+        form = nhap_dungcu(request.POST, instance=dungcu)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công dụng cụ {madc}')
+            return redirect('dungcu')
+        else:
+            messages.error(request, 'Có lỗi xảy ra khi cập nhật. Vui lòng kiểm tra lại thông tin.')
+    return redirect('dungcu')
+
 #khonguyenlieu
 def Kho_nguyen_lieu(request):
     kho_nguyen_lieu_list = Thongtinnguyenlieu.objects.all()
@@ -150,7 +148,20 @@ def delete_khonguyenlieu(request, manl):
         messages.success(request, 'Xóa bản ghi kho nguyên liệu thành công!')
     except Exception as e:
         messages.error(request, f'Xóa không thành công: {str(e)}')
-        return redirect('khonguyenlieu')
+    return redirect('khonguyenlieu')
+def sua_khonguyenlieu(request, manl):
+    khonguyenlieu = get_object_or_404(Thongtinnguyenlieu, manl=manl)
+    if request.method == 'POST':
+        form = nhap_khonguyenlieu(request.POST, instance=khonguyenlieu)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công kho nguyen lieu {manl}')
+            return redirect('khonguyenlieu')
+        else:
+            print(form.errors)
+            messages.error(request, f'Có lỗi xảy ra khi cập nhật: {form.errors}')
+    return redirect('khonguyenlieu')
+  
 
 #luongnhanvien
 def bang_luong(request):
@@ -177,27 +188,14 @@ def delete_bangluong(request, maluong):
 def sua_bangluong(request, maluong):
     bangluong = get_object_or_404(Bangluong, maluong=maluong)
     if request.method == 'POST':
-        form = nhap_luongnhanvien(request.POST,  instance=bangluong)
+        form = nhap_luongnhanvien(request.POST, instance=bangluong)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Đã cập nhật thành công lương {maluong}')
             return redirect('bangluong')
-    else:
-        form = nhap_luongnhanvien(instance=bangluong)
-    return render(request, 'home/luongnhanvien.html', {
-        'form': form,
-        'bangluong': bangluong,
-        'bang_luong_list': Bangluong.objects.all()  
-    })
-def lay_bangluong(request, maluong):
-    bangluong = get_object_or_404(Bangluong, maluong=maluong)
-    data = {
-        'maluong': bangluong.maluong,
-        'manv': bangluong.manv,
-        'sogio': bangluong.sogio,
-        'luongcoban': bangluong.luongcoban,
-        'tongluong': bangluong.tongluong
-    }
-    return JsonResponse(data)
+        else:
+            messages.error(request, 'Có lỗi xảy ra khi cập nhật. Vui lòng kiểm tra lại thông tin.')
+    return redirect('bangluong')
 
 def import_excel_bangluong(request):
     if request.method == "POST" and request.FILES['file']:
@@ -235,7 +233,17 @@ def nghi_phep(request):
     else:
         np = nhap_nghiphep()
     return render(request, 'home/nghiphep.html', {'nghi_phep_list': nghi_phep_list,'np':np})
-
+def sua_nghiphep(request, manp):
+    nghiphep = get_object_or_404(Nghiphep, manp=manp)
+    if request.method == 'POST':
+        form = nhap_nghiphep(request.POST, instance=nghiphep)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công nghỉ phép {manp}')
+            return redirect('nghiphep')
+        else:
+            messages.error(request, f'Có lỗi xảy ra: {form.errors.as_json()}')  
+    return redirect('nghiphep')
 def delete_nghiphep(request, manp):
     try:
         manghiphep = get_object_or_404(Nghiphep, manp=manp)
@@ -299,6 +307,17 @@ def import_excel_calam(request):
     
         return redirect('socalam')
     return render(request, 'home/socalam.html')
+def sua_calam(request, macalam):
+    calam = get_object_or_404(Calam, macalam=macalam)
+    if request.method == 'POST':
+        form = nhap_calam(request.POST, instance=calam)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công ca làm {macalam}')
+            return redirect('socalam')
+        else:
+            messages.error(request, f'Có lỗi xảy ra: {form.errors.as_json()}')  
+    return redirect('socalam')
 
 def so_ca_lam(request):
     ca_lam_list = Calam.objects.all()
@@ -312,14 +331,14 @@ def so_ca_lam(request):
         form = nhap_calam()
     return render(request, 'home/socalam.html', {'ca_lam_list': ca_lam_list, 'form': form})
 
-def delete_calam(request, macl):
+def delete_calam(request, macalam):
     try:
-        macalam = get_object_or_404(Nghiphep, macl=macl)
+        macalam = get_object_or_404(Calam, macalam=macalam)
         macalam.delete()
         messages.success(request, 'Xóa bản ghi ca làm thành công!')
     except Exception as e:
         messages.error(request, f'Xóa không thành công: {str(e)}')
-        return redirect('calam')
+    return redirect('calam')
 #thietbi
 def thiet_bi(request):
     thiet_bi_list = Thietbi.objects.all()
@@ -331,7 +350,17 @@ def thiet_bi(request):
     else:
         tb = nhap_thietbi()    
     return render(request, 'home/thietbi.html',{'thiet_bi_list':thiet_bi_list, 'tb':tb})
-
+def sua_thietbi(request, matb):
+    thietbi = get_object_or_404(Thietbi, matb=matb)
+    if request.method == 'POST':
+        form = nhap_thietbi(request.POST, instance=thietbi)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công thiết bị {matb}')
+            return redirect('thietbi')
+        else:
+            messages.error(request, f'Có lỗi xảy ra: {form.errors.as_json()}')  
+    return redirect('thietbi')
 def import_excel_thietbi(request):
     if request.method == "POST" and request.FILES['file']:
         try:

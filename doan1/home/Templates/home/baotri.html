@@ -77,44 +77,13 @@
                     <td>{{ baotri.chiphi|floatformat }}</td>
                     <td>{{ baotri.nguoithuchien }}</td>
                     <td class="chuanut"> 
-                        <button class="sua" data-id="{{ baotri.mabt }}">Sửa</button>
-                    <div class="container_baotri_ntt" id="form_bao_tri_sua">
-                        <p class="ti-close dong" id="dong_sua"></p>
-                        <h1>Sửa thông tin</h1>
-                        <form action="{% url 'sua_baotri' mabt=baotri.mabt %}" method="post">
-                            {% csrf_token %}
-                            <div class="chuanut">
-                                {{ form.mabt }}
-                                {{ form.matb }}
-                                {{ form.ngaybt }}
-                                {{ form.mota }}
-                                {{ form.chiphi }}
-                                {{ form.nguoithuchien }}
-                               
-                            </div>
-                            <div class="chuanutthem">
-                                <button type="submit">Cập nhật</button>
-                            </div>  
-                            <style>
-                                #form_bao_tri_sua h1{
-                                    text-align: center;
-                                }
-                                #form_bao_tri_sua .chuanut{
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: center;
-                                }
-                                #form_bao_tri_sua input{
-                                    width: 300px;
-                                }
-                                #form_bao_tri_sua button{
-                                    padding: 8px;
-                                }
-                            </style>
-                        </form>
-                        
-                    </div>
+                        <button class="sua" data-id="{{ baotri.mabt}}" 
+                        data-matb="{{ baotri.matb }}"
+                        data-ngaybt="{{ baotri.ngaybt }}"
+                        data-mota="{{ baotri.mota }}"
+                        data-chiphi="{{ baotri.chiphi }}"
+                        data-nguoithuchien="{{ baotri.nguoithuchien}}">Sửa</button>
+                    
                         <button class="nut-xoa" data-id="{{ baotri.mabt }}">
                             Xóa
                         </button>
@@ -139,7 +108,41 @@
             </tbody>
         </table>
     </div>
-    
+    <div class="container_baotri_ntt" id="form_bao_tri_sua">
+        <p class="ti-close dong dongsua" id="dong_sua"></p>
+        <h1>Sửa thông tin</h1>
+        <form method="POST" id="form_sua">
+            {% csrf_token %}
+            <div class="chuanut">
+                <input type="text" name="mabt" id="mabt" readonly>
+                <input type="text" name="matb" id="matb" required>
+                <input type="date" name="ngaybt" id="ngaybt" required>
+                <input type="text" name="mota" id="mota" required>
+                <input type="number" name="chiphi" id="chiphi" required>
+                <input type="text" name="nguoithuchien" id="nguoithuchien" required>
+            </div>
+            <div class="chuanutthem">
+                <button type="submit">Cập nhật</button>
+            </div>  
+        </form>
+        <style>
+            #form_bao_tri_sua h1{
+                text-align: center;
+            }
+            #form_bao_tri_sua .chuanut{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #form_bao_tri_sua input{
+                width: 300px;
+            }
+            #form_bao_tri_sua button{
+                padding: 8px;
+            }
+        </style>
+    </div>
     <style>
     .xoa-form {
         position: fixed;
@@ -346,30 +349,48 @@
                             this.parentElement.style.display = 'none'
                         })
                     })
-                    var nutsua = document.querySelectorAll('.sua')
-                    var formsua = document.getElementById('form_bao_tri_sua')
-                    var dongform = document.getElementById('dong_sua')
-            
-                    nutsua.forEach(button =>{
-                        button.addEventListener('click', function(){
-                            var mabt = this.getAttribute('data-id')
-                            //goi API
-                            fetch(`/lay_baotri/${mabt}/`)
-                            .then(response => response.json())
-                            .then(data =>{
-                                document.querySelector('[name="mabt"]').value = data.mabt
-                                document.querySelector('[name="matb"]').value = data.matb
-                                document.querySelector('[name="ngaybt"]').value = data.ngaybt
-                                document.querySelector('[name="mota"]').value = data.mota
-                                document.querySelector('[name="chiphi"]').value = data.chiphi
-                                document.querySelector('[nguoithuchien]').value = data.nguoithuchien
-                            })
-                            formsua.style.display = 'block'
-                        })
-                    })
-                    dongform.addEventListener('click', function(){
-                        formsua.style.display = 'none'
-                    })
+                    const nutSua = document.querySelectorAll('.sua');
+                    const popup = document.getElementById('form_bao_tri_sua');
+                    const closeBtn = document.querySelector('.dongsua');
+                    const form = document.getElementById('form_sua');
+                
+    
+                    nutSua.forEach(button => {
+                        button.addEventListener('click', function() {
+    
+                            const mabt = this.getAttribute('data-id');
+                            const matb = this.getAttribute('data-matb');
+                            const ngaybt = this.getAttribute('data-ngaybt');
+                            const mota = this.getAttribute('data-mota');
+                            const chiphi = this.getAttribute('data-chiphi');
+                            const nguoithuchien = this.getAttribute('data-nguoithuchien');
+                
+    
+                            document.getElementById('mabt').value = mabt;
+                            document.getElementById('matb').value = matb;
+                            document.getElementById('ngaybt').value = ngaybt;
+                            document.getElementById('mota').value = mota;
+                            document.getElementById('chiphi').value = chiphi;
+                            document.getElementById('nguoithuchien').value = nguoithuchien;
+                
+    
+                            const form = document.getElementById('form_sua');
+                            form.action = `/sua_baotri/${mabt}/`;
+                            popup.style.display = 'block';
+                        });
+                    });
+                
+    
+                    closeBtn.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                    });
+                
+    
+                    window.addEventListener('click', function(e) {
+                        if (e.target == popup) {
+                            popup.style.display = 'none';
+                        }
+                    });
                 })
             </script>
         </div>

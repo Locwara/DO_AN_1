@@ -79,7 +79,12 @@
                 <td>{{ nghiphep.trangthai}}</td>
 
                 <td class="chuanut">
-                    <button class="sua">Sửa</button>
+                        <button class="sua" data-id="{{ nghiphep.manp}}" 
+                        data-manv="{{ nghiphep.manv }}"
+                        data-ngaybd="{{ nghiphep.ngaybd }}"
+                        data-ngaykt="{{ nghiphep.ngaykt }}"
+                        data-lydonghi="{{ nghiphep.lydonghi }}"
+                        data-trangthai="{{ nghiphep.trangthai }}">Sửa</button>
                         <button class="nut-xoa" data-id="{{ nghiphep.manp }}">
                             Xóa
                         </button>
@@ -99,6 +104,41 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
+    <div class="container_nghiphep_ntt" id="form_nghiphep_sua">
+        <p class="ti-close dong dongsua" id="dong_sua"></p>
+        <h1>Sửa thông tin</h1>
+        <form method="POST" id="form_sua">
+            {% csrf_token %}
+            <div class="chuanut">
+                <input type="text" name="manp" id="manp" readonly>
+                <input type="text" name="manv" id="manv" required>
+                <input type="date" name="ngaybd" id="ngaybd" required>
+                <input type="date" name="ngaykt" id="ngaykt" required>
+                <input type="text" name="lydonghi" id="lydonghi" required>
+                <input type="text" name="trangthai" id="trangthai" required>
+            </div>
+            <div class="chuanutthem">
+                <button type="submit">Cập nhật</button>
+            </div>  
+        </form>
+        <style>
+            #form_bao_tri_sua h1{
+                text-align: center;
+            }
+            #form_bao_tri_sua .chuanut{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #form_bao_tri_sua input{
+                width: 300px;
+            }
+            #form_bao_tri_sua button{
+                padding: 8px;
+            }
+        </style>
     </div>
     <style>
         .xoa-form {
@@ -316,6 +356,48 @@
                 this.parentElement.style.display = 'none'
             })
         })
+                    const nutSua = document.querySelectorAll('.sua');
+                    const popup = document.getElementById('form_nghiphep_sua');
+                    const closeBtn = document.querySelector('.dongsua');
+                    const form = document.getElementById('form_sua');
+                
+    
+                    nutSua.forEach(button => {
+                        button.addEventListener('click', function() {
+    
+                            const manp = this.getAttribute('data-id');
+                            const manv = this.getAttribute('data-manv');
+                            const ngaybd = this.getAttribute('data-ngaybd');
+                            const ngaykt = this.getAttribute('data-ngaykt');
+                            const lydonghi = this.getAttribute('data-lydonghi');
+                            const trangthai = this.getAttribute('data-trangthai');
+                
+    
+                            document.getElementById('manp').value = manp;
+                            document.getElementById('manv').value = manv;
+                            document.getElementById('ngaybd').value = ngaybd;
+                            document.getElementById('ngaykt').value = ngaykt;
+                            document.getElementById('lydonghi').value = lydonghi;
+                            document.getElementById('trangthai').value = trangthai;
+                
+    
+                            const form = document.getElementById('form_sua');
+                            form.action = `/sua_nghiphep/${manp}/`;
+                            popup.style.display = 'block';
+                        });
+                    });
+                
+    
+                    closeBtn.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                    });
+                
+    
+                    window.addEventListener('click', function(e) {
+                        if (e.target == popup) {
+                            popup.style.display = 'none';
+                        }
+                    });
     })
 </script>
 {% endblock %}

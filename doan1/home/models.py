@@ -84,9 +84,9 @@ class Dungcu(models.Model):
 class Thongtinnguyenlieu(models.Model):
     manl = models.CharField(max_length=10, primary_key=True)
     tennl = models.CharField(max_length=30)
-    gia = models.FloatField()
     dvt = models.CharField(max_length=10)
     soluong = models.FloatField()
+    gia = models.FloatField()
     ngayhethan = models.DateField()
     
     class Meta:

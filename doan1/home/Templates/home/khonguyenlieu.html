@@ -3,6 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'home/css/khonguyenlieu.css' %}">
 <link rel="stylesheet" href="{% static 'home/css/khonguyenlieu_ntt.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/baotri_ntt.css' %}">
 <script src="{% static 'home/js/khonguyenlieu.js' %}"></script>
 <div class="container_khonguyenlieu">
     <h1>KHO NGUYÊN LIỆU</h1>
@@ -28,7 +29,10 @@
                 <td>{{nguyenlieu.dvt}}</td>
                 <td>{{nguyenlieu.soluong|floatformat}}</td>
                 <td class="chuanut"> 
-                    <button class="sua">Sửa</button>
+                    <button class="sua" data-id="{{ nguyenlieu.manl}}" 
+                        data-tennl="{{ nguyenlieu.tennl }}"
+                        data-dvt="{{ nguyenlieu.dvt }}"
+                        data-soluong="{{ nguyenlieu.soluong}}">Sửa</button>
                         <button class="nut-xoa" data-id="{{ nguyenlieu.manl }}">
                             Xóa
                         </button>
@@ -52,6 +56,39 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
+    <div class="container_baotri_ntt" id="form_khonguyenlieu_sua">
+        <p class="ti-close dong dongsua" id="dong_sua"></p>
+        <h1>Sửa thông tin</h1>
+        <form method="POST" id="form_sua">
+            {% csrf_token %}
+            <div class="chuanut">
+                <input type="text" name="manl" id="manl" readonly>
+                <input type="text" name="tennl" id="tennl" required>
+                <input type="text" name="dvt" id="dvt" required>
+                <input type="number" name="soluong" id="soluong" required>
+            </div>
+            <div class="chuanutthem">
+                <button type="submit">Cập nhật</button>
+            </div>  
+        </form>
+        <style>
+            #form_bao_tri_sua h1{
+                text-align: center;
+            }
+            #form_bao_tri_sua .chuanut{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #form_bao_tri_sua input{
+                width: 300px;
+            }
+            #form_bao_tri_sua button{
+                padding: 8px;
+            }
+        </style>
     </div>
     <style>
         .xoa-form {
@@ -158,6 +195,44 @@
                 });
                 overlay.style.display = 'none';
             });
+            const nutSua = document.querySelectorAll('.sua');
+                    const popup = document.getElementById('form_khonguyenlieu_sua');
+                    const closeBtn = document.querySelector('.dongsua');
+                    const form = document.getElementById('form_sua');
+                
+    
+                    nutSua.forEach(button => {
+                        button.addEventListener('click', function() {
+    
+                            const manl = this.getAttribute('data-id');
+                            const tennl = this.getAttribute('data-tennl');
+                            const dvt = this.getAttribute('data-dvt');
+                            const soluong = this.getAttribute('data-soluong');
+                
+    
+                            document.getElementById('manl').value = manl;
+                            document.getElementById('tennl').value = tennl;
+                            document.getElementById('dvt').value = dvt;
+                            document.getElementById('soluong').value = soluong;
+                           
+    
+                            const form = document.getElementById('form_sua');
+                            form.action = `/sua_khonguyenlieu/${manl}/`;
+                            popup.style.display = 'block';
+                        });
+                    });
+                
+    
+                    closeBtn.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                    });
+                
+    
+                    window.addEventListener('click', function(e) {
+                        if (e.target == popup) {
+                            popup.style.display = 'none';
+                        }
+                    });
         });
         </script>   
 {% endblock %}

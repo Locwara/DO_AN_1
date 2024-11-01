@@ -79,7 +79,13 @@
                     <td>{{dungcu.ngaymua|date:"Y-m-d"}}</td>
                     <td>{{dungcu.giamua|floatformat}}</td>
                     <td class="chuanut"> 
-                        <button class="sua">Sửa</button>
+                        <button class="sua" data-id="{{ dungcu.madc}}" 
+                        data-tendc="{{ dungcu.tendc }}"
+                        data-soluong="{{ dungcu.soluong }}"
+                        data-dvt="{{ dungcu.dvt }}"
+                        data-ngaymua="{{ dungcu.ngaymua }}"
+                        data-giamua ="{{ dungcu.giamua }}">Sửa</button>
+                    
                         <button class="nut-xoa" data-id="{{ dungcu.madc }}">
                             Xóa
                         </button>
@@ -107,6 +113,41 @@
         </div>
         
     </div> 
+    <div class="container_dungcu_ntt" id="form_dungcu_sua">
+        <p class="ti-close dong dongsua" id="dong_sua"></p>
+        <h1>Sửa thông tin</h1>
+        <form method="POST" id="form_sua">
+            {% csrf_token %}
+            <div class="chuanut">
+                <input type="text" name="madc" id="madc" readonly>
+                <input type="text" name="tendc" id="tendc" required>
+                <input type="number" name="soluong" id="soluong" required>
+                <input type="text" name="dvt" id="dvt" required>
+                <input type="date" name="ngaymua" id="ngaymua" required>
+                <input type="number" name="giamua" id="giamua" required>
+            </div>
+            <div class="chuanutthem">
+                <button type="submit">Cập nhật</button>
+            </div>  
+        </form>
+        <style>
+            #form_dungcu_sua h1{
+                text-align: center;
+            }
+            #form_dungcu_sua .chuanut{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            #form_dungcu_sua input{
+                width: 300px;
+            }
+            #form_dungcu_sua button{
+                padding: 8px;
+            }
+        </style>
+    </div>
     <style>
         .xoa-form {
             position: fixed;
@@ -314,6 +355,50 @@
                         this.parentElement.style.display = 'none'
                     })
                 })
+
+                const nutSua = document.querySelectorAll('.sua');
+                const popup = document.getElementById('form_dungcu_sua');
+                const closeBtn = document.querySelector('.dongsua');
+                const form = document.getElementById('form_sua');
+            
+
+                nutSua.forEach(button => {
+                    button.addEventListener('click', function() {
+
+                        const madc = this.getAttribute('data-id');
+                        const tendc = this.getAttribute('data-tendc');
+                        const soluong = this.getAttribute('data-soluong');
+                        const dvt = this.getAttribute('data-dvt');
+                        const ngaymua = this.getAttribute('data-ngaymua');
+                        const giamua = this.getAttribute('data-giamua');
+            
+
+                        document.getElementById('madc').value = madc;
+                        document.getElementById('tendc').value = tendc;
+                        document.getElementById('soluong').value = soluong;
+                        document.getElementById('dvt').value = dvt;
+                        document.getElementById('ngaymua').value = ngaymua;
+                        document.getElementById('giamua').value = giamua;
+            
+
+                        const form = document.getElementById('form_sua');
+                        form.action = `/sua_dungcu/${madc}/`;
+
+                        popup.style.display = 'block';
+                    });
+                });
+            
+
+                closeBtn.addEventListener('click', function() {
+                    popup.style.display = 'none';
+                });
+            
+
+                window.addEventListener('click', function(e) {
+                    if (e.target == popup) {
+                        popup.style.display = 'none';
+                    }
+                });
             })
         </script>
     </div>
