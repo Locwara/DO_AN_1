@@ -24,14 +24,14 @@ max-width: 120vh;
 tbody{
 max-width: 120vh;
 }
-.container_luongnhanvien table tbody {
+.container_luong table tbody {
     display: block;          
     max-height: 400px;       
     overflow-y: auto;       
 }
 
-.container_luongnhanvien table thead, 
-.container_luongnhanvien table tbody tr {
+.container_luong table thead, 
+.container_luong table tbody tr {
     display: table;          
     width: 100%;
     table-layout: fixed;     

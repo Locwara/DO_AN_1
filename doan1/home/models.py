@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager
 # Create your models here.,...
 
 
@@ -13,7 +13,49 @@ class Calam(models.Model):
     class Meta:  
         db_table = 'calam'
         
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not username:
+            raise ValueError('Username là bắt buộc')
+        if not email:
+            raise ValueError('Email là bắt buộc')
         
+        email = self.normalize_email(email)
+        user = self.model(
+            username=username,
+            email=email,
+            **extra_fields
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_active', True)
+        return self.create_user(username, email, password, **extra_fields)
+
+class CustomUser(AbstractBaseUser):
+    username = models.CharField(max_length=40, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(null=True)
+
+    # Thêm manager vào đây
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    class Meta:
+        db_table = 'users'
+
+    def __str__(self):
+        return self.username
         
 class Nghiphep(models.Model):
     manp = models.CharField(max_length=10, primary_key=True)

@@ -20,8 +20,10 @@ from home import views as home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.get_index),
-    path('dangnhap.html', home.get_dangnhap),
-    path('trangchu.html', home.get_trangchu),
+    path('login/', home.login_view, name="login"),
+    path('register/', home.register, name='register'),
+    path('loginql/', home.login_viewql, name="loginql"),
+    path('trangchu.html', home.trangchu, name="trangchu"),
     path('thongtinnhanvien.html', home.nhan_vien, name='thongtinnhanvien'),
     path('luongnhanvien.html', home.bang_luong, name='bangluong'),
     path('socalam.html', home.so_ca_lam, name='socalam'),

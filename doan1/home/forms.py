@@ -1,5 +1,6 @@
-from .models import Calam, Baotri, Dungcu, Thongtinnguyenlieu, Bangluong, Nghiphep, Thietbi, Nhanvien
+from .models import CustomUser ,Calam, Baotri, Dungcu, Thongtinnguyenlieu, Bangluong, Nghiphep, Thietbi, Nhanvien
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 class nhap_calam(forms.ModelForm):
     class Meta:
         model = Calam
@@ -17,7 +18,19 @@ class nhap_calam(forms.ModelForm):
         self.fields['manv'].queryset = Nhanvien.objects.all()
         self.fields['manv'].label_from_instance = lambda obj: f"{obj.manv} - {obj.hoten}"
         
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ('username', 'email', 'phone', 'address', 'birth_date', 'password1', 'password2')
         
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Thêm các trường tùy chỉnh
+        self.fields['phone'].widget.attrs.update({'class': 'input', 'placeholder': 'Số điện thoại'})
+        self.fields['address'].widget.attrs.update({'class': 'input', 'placeholder': 'Địa chỉ'})
+        self.fields['birth_date'].widget.attrs.update({'class': 'input', 'type': 'date'})
+        self.fields['email'].widget.attrs.update({'class': 'input', 'placeholder': 'Email'})
 class nhap_baotri(forms.ModelForm):
     class Meta:
         model = Baotri

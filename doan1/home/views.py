@@ -8,12 +8,83 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import F
 from django.db.models import Q
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
+from .forms import CustomUser
 # Create your views here.
+#dangnhapdangky
+def home(request):
+    return render(request, 'home/trangchu.html')
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Đăng ký thành công!')
+            return redirect('home')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
+    return render(request, 'home/dangky.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Đăng nhập thành công!')
+            return redirect('trangchu')
+        else:
+            messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
+    return render(request, 'home/dangnhap.html')
+
+def login_viewql(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Đăng nhập thành công!')
+            return redirect('trangchu')
+        else:
+            messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
+    return render(request, 'home/dangnhapquanly.html')
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Đăng xuất thành công!')
+    return redirect('login')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        # Cập nhật thông tin profile
+        user = request.user
+        user.phone = request.POST.get('phone', '')
+        user.address = request.POST.get('address', '')
+        user.birth_date = request.POST.get('birth_date', None)
+        user.save()
+        messages.success(request, 'Cập nhật thông tin thành công!')
+        return redirect('profile')
+    return render(request, 'home/profile.html')
+
+#nganchan
+@login_required
+def trangchu(request):
+    return render(request, 'home/trangchu.html')
 #giaodien
 def get_index(request):
     return render(request, 'home/index.html')
 def get_dangnhap(request):
     return render(request, 'home/dangnhap.html')
+def get_dangky(request):
+    return render(request, 'home/dangky.html')
 def get_trangchu(request):
     return render(request, 'home/trangchu.html')
 def get_trangcanhan(request):

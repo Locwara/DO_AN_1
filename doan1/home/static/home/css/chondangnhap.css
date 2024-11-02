@@ -17,10 +17,10 @@ html{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.582);
     border-radius: 15px;
     border-style: solid;
-    border-color: black;
+    border-color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
