@@ -4,31 +4,33 @@
 
 {% block content %}
 {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{message.tags}}">
-                {{message}}
-            </div>
-            <span class="close-btn">&times;</span>
-        {% endfor %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+        {{message}}
     </div>
+    <span class="close-btn">&times;</span>
+    {% endfor %}
+</div>
 {% endif %}
 
 <style>
-    .messages{
+    .messages {
         position: fixed;
         top: 100px;
         right: 20px;
         z-index: 1000;
         min-width: 300px;
     }
-    .alert{
+
+    .alert {
         padding: 15px;
         margin-bottom: 10px;
         border-radius: 4px;
         color: white;
         position: relative;
     }
+
     .alert-error {
         background-color: #dc3545;
     }
@@ -43,16 +45,28 @@
         top: 10px;
         cursor: pointer;
     }
-    </style>
+</style>
 <link rel="stylesheet" href="{% static 'home/css/socalam.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/socalam_ntt.css' %}">
-    <script src="{% static 'home/js/socalam_ntt.js' %}"></script>
+<link rel="stylesheet" href="{% static 'home/css/socalam_ntt.css' %}">
 <div class="container_calam">
     <h1>DANH SÁCH CA LÀM</h1>
     <div class="chuatimkiem">
-       <input type="text" placeholder="Tìm kiếm">
-       <button class="them" id="tcl">Thêm ca làm</button>
-       <button class="in" id="import" >Import</button>
+        <input type="text" placeholder="Tìm kiếm">
+        <div class="loc-container">
+            <button class="loc-nut">Lọc theo thời gian <i class="ti-angle-down"></i></button>
+            <ul class="date-filter">
+                <li>
+                    <label for="">Từ ngày: </label>
+                    <input type="date" name="" id="ngaybatdau">
+                </li>
+                <li>
+                    <label for="">Đến ngày: </label>
+                    <input type="date" name="" id="ngayketthuc">
+                </li>
+            </ul>
+        </div>
+        <button class="them" id="tcl">Thêm ca làm</button>
+        <button class="in" id="import">Import</button>
     </div>
     <table>
         <thead>
@@ -62,58 +76,59 @@
                 <th>Ngày</th>
                 <th>Giờ bắt đầu</th>
                 <th>Giờ kết thúc</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="maintenanceTableBody">
             {% for ca_lam in ca_lam_list %}
-            <tr>
+            <tr data-date="{{ ca_lam.ngay|date:'Y-m-d' }}">
                 <td>{{ ca_lam.macalam }}</td>
-                <td>{{ ca_lam.manv }}</td>
+                <td>{{ ca_lam.manv.hoten }}</td>
                 <td>{{ ca_lam.ngay|date:"Y-m-d" }}</td>
                 <td>{{ ca_lam.giobd|time:"H:i:s" }}</td>
                 <td>{{ ca_lam.giokt|time:"H:i:s" }}</td>
                 <td class="chuanut">
-                    <button class="sua" data-id="{{ ca_lam.macalam}}" 
-                        data-manv="{{ ca_lam.manv }}"
-                        data-ngay="{{ ca_lam.ngay }}"
-                        data-giobd="{{ ca_lam.giobd }}"
+                    <button class="sua" data-id="{{ ca_lam.macalam}}" data-manv="{{ ca_lam.manv }}"
+                        data-ngay="{{ ca_lam.ngay }}" data-giobd="{{ ca_lam.giobd }}"
                         data-giokt="{{ ca_lam.giokt }}">Sửa</button>
-                        <button class="nut-xoa" data-id="{{ ca_lam.macalam }}">
-                            Xóa
-                        </button>
-                        <div class="xoa-form" id="form-xoa-{{ ca_lam.macalam }}" style="display: none;">
-                            <div class="chuaxoa">
-                                <p>Bạn có muốn xóa bảng số ca làm: {{ ca_lam.macalam }}?</p>
-                                <div class="chuanut">
-                                    <button class="nut-huy" data-id="{{ ca_lam.macalam }}">Hủy</button>
-                                    <button onclick="window.location.href='{% url 'delete_calam' ca_lam.macalam %}'">
-                                        Xác nhận
-                                    </button>
-                                </div>
+                    <button class="nut-xoa" data-id="{{ ca_lam.macalam }}">
+                        Xóa
+                    </button>
+                    <div class="xoa-form" id="form-xoa-{{ ca_lam.macalam }}" style="display: none;">
+                        <div class="chuaxoa">
+                            <p>Bạn có muốn xóa bảng số ca làm: {{ ca_lam.macalam }}?</p>
+                            <div class="chuanut">
+                                <button class="nut-huy" data-id="{{ ca_lam.macalam }}">Hủy</button>
+                                <button onclick="window.location.href='{% url 'delete_calam' ca_lam.macalam %}'">
+                                    Xác nhận
+                                </button>
                             </div>
                         </div>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    </div>
-    <div class="container_calam_ntt" id="form_calam_sua">
-        <p class="ti-close dong dongsua" id="dong_sua"></p>
-        <h1>Sửa thông tin</h1>
-        <form method="POST" id="form_sua">
-            {% csrf_token %}
-            <div class="chuanut">
-                <input type="text" name="macalam" id="macalam" readonly>
-                <input type="text" name="manv" id="manv" required>
-                <input type="date" name="ngay" id="ngay" required>
-                <input type="time" name="giobd" id="giobd" required>
-                <input type="time" name="giokt" id="giokt" required>
-            </div>
-            <div class="chuanutthem">
-                <button type="submit">Cập nhật</button>
-            </div>  
-        </form>
+</div>
+<div class="container_calam_ntt" id="form_calam_sua">
+    <p class="ti-close dong dongsua" id="dong_sua"></p>
+    <h1>Sửa thông tin</h1>
+    <form method="POST" id="form_sua">
+        {% csrf_token %}
+        <div class="chuanut">
+            <input type="text" name="macalam" id="macalam" readonly>
+            <input type="text" name="manv" id="manv" required>
+            <input type="date" name="ngay" id="ngay" required>
+            <input type="time" name="giobd" id="giobd" required>
+            <input type="time" name="giokt" id="giokt" required>
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Cập nhật</button>
+        </div>
+    </form>
+</div>
+
     <div class="container_calam_ntt" id="form_calam_ntt">
         <p class="ti-close dong" id="dong"></p>
         <h1>Thêm thông tin ca làm</h1>
@@ -121,7 +136,9 @@
             {% csrf_token %}
             <div class="chuanut">
                 {{ form.macalam }}
+                <p>Nhân viên</p>
                 {{ form.manv }}
+                <p>Ngày</p>
                 {{ form.ngay }}
                 <p>Giờ bắt đầu</p>
                 {{ form.giobd }}
@@ -133,6 +150,91 @@
             </div>
         </form>
     </div>
+    <!-- phần lọc -->
+    <style>
+        .loc-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .loc-btn {
+            padding: 8px 16px;
+            background-color: #C4A484;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loc-btn:hover {
+            background-color: #A67B5B;
+        }
+
+        .date-filter {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background-color: #4B3F3A;
+            border: 1px solid #A67B5B;
+            border-radius: 4px;
+            padding: 16px;
+            list-style: none;
+            z-index: 1000;
+            min-width: 250px;
+        }
+
+        .date-filter.show {
+            display: block;
+        }
+
+        .date-filter li {
+            margin-bottom: 12px;
+        }
+
+        .date-filter li:last-child {
+            margin-bottom: 0;
+
+        }
+
+        .date-filter label {
+            display: block;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .date-filter input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #A67B5B;
+            background-color: white;
+            color: black;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .date-filter.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+    </style>
+
+
     <style>
         .xoa-form {
             position: fixed;
@@ -147,14 +249,14 @@
             padding: 16px;
             z-index: 1000;
         }
-        
+
         .chuanut {
             margin-top: 20px;
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-        
+
         .chuaxoa {
             display: flex;
             flex-direction: column;
@@ -162,7 +264,7 @@
             align-items: center;
             text-align: center;
         }
-        
+
         .xoa-form button {
             padding: 8px 16px;
             background-color: #C4A484;
@@ -171,17 +273,17 @@
             border: none;
             min-width: 80px;
         }
-        
+
         .xoa-form button:hover {
             background-color: #6D4C41;
             color: #F4D06F;
         }
-        
+
         .xoa-form button:active {
             background-color: #2E2A26;
             color: #C4A484;
         }
-        
+
         .overlay {
             position: fixed;
             top: 0;
@@ -192,54 +294,55 @@
             z-index: 999;
             display: none;
         }
-        </style>
-        
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const overlay = document.createElement('div');
             overlay.className = 'overlay';
             document.body.appendChild(overlay);
-        
+
             const deleteButtons = document.querySelectorAll('.nut-xoa');
             const cancelButtons = document.querySelectorAll('.nut-huy');
-        
-       
+
+
             deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
                     const form = document.getElementById(`form-xoa-${id}`);
-                    
-             
+
+
                     document.querySelectorAll('.xoa-form').forEach(f => {
                         if (f !== form) {
                             f.style.display = 'none';
                         }
                     });
-        
-              
+
+
                     form.style.display = 'block';
                     overlay.style.display = 'block';
                 });
             });
-        
+
             cancelButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
                     const form = document.getElementById(`form-xoa-${id}`);
                     form.style.display = 'none';
                     overlay.style.display = 'none';
                 });
             });
-        
-      
-            overlay.addEventListener('click', function() {
+
+
+            overlay.addEventListener('click', function () {
                 document.querySelectorAll('.xoa-form').forEach(form => {
                     form.style.display = 'none';
                 });
                 overlay.style.display = 'none';
             });
+            
         });
-        </script>
+    </script>
     <div id="form_import_calam" class="import">
         <p class="ti-close dong" id="dongimport"></p>
         <h1>Import ca làm từ excel</h1>
@@ -251,19 +354,21 @@
         </form>
         <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
         <p>- Các trường bắt buộc phải là: Mã ca làm, Mã nhân viên, Ngày, Giờ bắt đầu, Giờ kết thúc</p>
-    <style>
-            html{
+        <style>
+            html {
                 font-family: Arial, Helvetica, sans-serif;
                 color: #fff;
             }
-            
-            .import input{
+
+            .import input {
                 color: #000;
             }
-            .import #dongimport{
+
+            .import #dongimport {
                 width: 50px;
             }
-            .import{
+
+            .import {
                 width: 400px;
                 height: 250px;
                 background-color: #4B3F3A;
@@ -279,87 +384,141 @@
                 border-radius: 8px;
                 padding: 16px;
             }
-            h1{
+
+            h1 {
                 text-align: center;
                 margin-bottom: 16px;
-            }.import input{
+            }
+
+            .import input {
                 margin-bottom: 20px;
                 padding: 10px;
                 border-radius: 5px;
                 background-color: beige;
-            
+
             }
-            .import button{
+
+            .import button {
                 padding: 15px;
                 background-color: #C4A484;
                 border-radius: 5px;
             }
-            .import p{
+
+            .import p {
                 margin-bottom: 8px;
             }
-            .chuanut p{
+
+            .chuanut p {
                 margin-bottom: 8px;
                 color: #fff;
             }
         </style>
     </div>
     <script>
-document.addEventListener('DOMContentLoaded', function(){
-    const alerts = document.querySelectorAll('.alert')
-    alerts.forEach(function(alert){
-        setTimeout(function(){
-            alert.style.display = 'none'
-        }, 5000)
-    })
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.alert')
+            alerts.forEach(function (alert) {
+                setTimeout(function () {
+                    alert.style.display = 'none'
+                }, 5000)
+            })
 
-    const dong = document.querySelectorAll('.close-btn')
-    dong.forEach(function(dong){
-        dong.addEventListener('click', function(){
-            this.parentElement.style.display = 'none'
-        })
-    })
-    const nutSua = document.querySelectorAll('.sua');
-                    const popup = document.getElementById('form_calam_sua');
-                    const closeBtn = document.querySelector('.dongsua');
+            const dong = document.querySelectorAll('.close-btn')
+            dong.forEach(function (dong) {
+                dong.addEventListener('click', function () {
+                    this.parentElement.style.display = 'none'
+                })
+            })
+            const nutSua = document.querySelectorAll('.sua');
+            const popup = document.getElementById('form_calam_sua');
+            const closeBtn = document.querySelector('.dongsua');
+            const form = document.getElementById('form_sua');
+
+
+            nutSua.forEach(button => {
+                button.addEventListener('click', function () {
+
+                    const macalam = this.getAttribute('data-id');
+                    const manv = this.getAttribute('data-manv');
+                    const ngay = this.getAttribute('data-ngay');
+                    const giobd = this.getAttribute('data-giobd');
+                    const giokt = this.getAttribute('data-giokt');
+
+
+                    document.getElementById('macalam').value = macalam;
+                    document.getElementById('manv').value = manv;
+                    document.getElementById('ngay').value = ngay;
+                    document.getElementById('giobd').value = giobd;
+                    document.getElementById('giokt').value = giokt;
+
+
                     const form = document.getElementById('form_sua');
-                
-    
-                    nutSua.forEach(button => {
-                        button.addEventListener('click', function() {
-    
-                            const macalam = this.getAttribute('data-id');
-                            const manv = this.getAttribute('data-manv');
-                            const ngay = this.getAttribute('data-ngay');
-                            const giobd = this.getAttribute('data-giobd');
-                            const giokt = this.getAttribute('data-giokt');
-                           
-    
-                            document.getElementById('macalam').value = macalam;
-                            document.getElementById('manv').value = manv;
-                            document.getElementById('ngay').value = ngay;
-                            document.getElementById('giobd').value = giobd;
-                            document.getElementById('giokt').value = giokt;
-                           
-    
-                            const form = document.getElementById('form_sua');
-                            form.action = `/sua_calam/${macalam}/`;
-                            popup.style.display = 'block';
-                        });
-                    });
-                
-    
-                    closeBtn.addEventListener('click', function() {
-                        popup.style.display = 'none';
-                    });
-                
-    
-                    window.addEventListener('click', function(e) {
-                        if (e.target == popup) {
-                            popup.style.display = 'none';
-                        }
-                    });
-})
+                    form.action = `/sua_calam/${macalam}/`;
+                    popup.style.display = 'block';
+                });
+            });
+
+
+            closeBtn.addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+
+
+            window.addEventListener('click', function (e) {
+                if (e.target == popup) {
+                    popup.style.display = 'none';
+                }
+            });
+
+
+            const filterBtn = document.querySelector('.loc-nut');
+            const dateFilter = document.querySelector('.date-filter');
+            const startDate = document.getElementById('ngaybatdau');
+            const endDate = document.getElementById('ngayketthuc');
+            const tableRows = document.querySelectorAll('#maintenanceTableBody tr[data-date]');
+
+            // Toggle dropdown
+            filterBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dateFilter.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!dateFilter.contains(e.target) && !filterBtn.contains(e.target)) {
+                    dateFilter.classList.remove('show');
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            dateFilter.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            function filterTable() {
+                const start = startDate.value;
+                const end = endDate.value;
+
+                if (!start || !end) return;
+
+                tableRows.forEach(row => {
+                    const rowDate = row.getAttribute('data-date');
+                    if (rowDate >= start && rowDate <= end) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                       }
+                });
+
+                // Update button text to show active filter
+                filterBtn.innerHTML = `Từ ${start} đến ${end} <i class="ti-angle-down"></i>`;
+            }
+
+            startDate.addEventListener('change', filterTable);
+            endDate.addEventListener('change', filterTable);
+        })
 
 
     </script>
-{% endblock %}
+    <script src="{% static 'home/js/socalam_ntt.js' %}"></script>
+    {% endblock %}

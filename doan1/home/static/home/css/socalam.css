@@ -10,7 +10,30 @@
 
 }
 
+td{
+    font-size: 13px;
+}
+th{
+    font-size: 15px;
+}
+thead{
+max-width: 120vh;
+}
+tbody{
+max-width: 120vh;
+}
+.container_socalam table tbody {
+    display: block;          
+    max-height: 400px;       
+    overflow-y: auto;       
+}
 
+.container_socalam table thead, 
+.container_socalam table tbody tr {
+    display: table;          
+    width: 100%;
+    table-layout: fixed;     
+}
 
 .container_calam .them{
     border-radius: 5px;

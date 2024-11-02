@@ -67,6 +67,7 @@
                 <th>Tình trạng</th>
                 <th>Ngày mua</th>
                 <th>Giá mua</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -112,6 +113,21 @@
         </tbody>
     </table>
     </div>
+    <style>
+        .container_thietbi table tbody {
+            display: block;          
+            max-height: 400px;       
+            overflow-y: auto;       
+        }
+        
+        .container_thietbi table thead, 
+        .container_thietbi table tbody tr {
+            display: table;          
+            width: 100%;
+            table-layout: fixed;     
+        }
+        
+    </style>
     <style>
         .xoa-form {
             position: fixed;
@@ -172,7 +188,42 @@
             display: none;
         }
         </style>
-        
+        <div class="container_thietbi_ntt" id="form_thietbi_sua">
+            <p class="ti-close dong dongsua" id="dong_sua"></p>
+            <h1>Sửa thông tin</h1>
+            <form method="POST" id="form_sua">
+                {% csrf_token %}
+                <div class="chuanut">
+                    <input type="text" name="matb" id="matb" readonly>
+                    <input type="text" name="tentb" id="tentb" required>
+                    <input type="text" name="loaitb" id="loaitb" required>
+                    <input type="number" name="soluong" id="soluong" required>
+                    <input type="text" name="tinhtrang" id="tinhtrang" required>
+                    <input type="date" name="ngaymua" id="ngaymua" required>
+                    <input type="number" name="giamua" id="giamua" required>
+                </div>
+                <div class="chuanutthem">
+                    <button type="submit">Cập nhật</button>
+                </div>  
+            </form>
+            <style>
+                #form_thietbi_sua h1{
+                    text-align: center;
+                }
+                #form_thietbi_sua .chuanut{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                #form_thietbi_sua input{
+                    width: 300px;
+                }
+                #form_thietbi_sua button{
+                    padding: 8px;
+                }
+            </style>
+        </div>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             const overlay = document.createElement('div');
@@ -327,6 +378,50 @@
                 this.parentElement.style.display = 'none'
             })
         })
+                    const nutSua = document.querySelectorAll('.sua');
+                    const popup = document.getElementById('form_thietbi_sua');
+                    const closeBtn = document.querySelector('.dongsua');
+                    const form = document.getElementById('form_sua');
+                
+    
+                    nutSua.forEach(button => {
+                        button.addEventListener('click', function() {
+    
+                            const matb = this.getAttribute('data-id');
+                            const tentb = this.getAttribute('data-tentb');
+                            const loaitb = this.getAttribute('data-loaitb');
+                            const soluong = this.getAttribute('data-soluong');
+                            const tinhtrang = this.getAttribute('data-tinhtrang');
+                            const ngaymua = this.getAttribute('data-ngaymua');
+                            const giamua = this.getAttribute('data-giamua');
+                
+    
+                            document.getElementById('matb').value = matb;
+                            document.getElementById('tentb').value = tentb;
+                            document.getElementById('loaitb').value = loaitb;
+                            document.getElementById('soluong').value = soluong;
+                            document.getElementById('tinhtrang').value = tinhtrang;
+                            document.getElementById('ngaymua').value = ngaymua;
+                            document.getElementById('giamua').value = giamua;
+                
+    
+                            const form = document.getElementById('form_sua');
+                            form.action = `/sua_thietbi/${matb}/`;
+                            popup.style.display = 'block';
+                        });
+                    });
+                
+    
+                    closeBtn.addEventListener('click', function() {
+                        popup.style.display = 'none';
+                    });
+                
+    
+                    window.addEventListener('click', function(e) {
+                        if (e.target == popup) {
+                            popup.style.display = 'none';
+                        }
+                    });
     })
 </script>
 {% endblock %}

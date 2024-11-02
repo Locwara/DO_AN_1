@@ -46,6 +46,7 @@ margin-right: 10px;
     border-radius: 5px;
 }
 .container_thietbi th{
+    font-size: 15px;
     background-color: #4B3F3A;
     color: #fff;
     padding: 10px 15px;
@@ -66,11 +67,19 @@ margin-right: 10px;
     
     
 }
+.container_thietbi thead{
+    max-width: 120vh;
+}
+.container_thietbi tbody{
+    max-width: 120vh;
+}
 .container_thietbi td{
     padding: 12px;
     text-align: left;
     border: 1px solid black;
     color: #fff;
+    font-size: 13px;
+
 }
 
 .container_thietbi table button{

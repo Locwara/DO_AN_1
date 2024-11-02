@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Calam, Nghiphep, Bangluong, Nhanvien, Thietbi, Baotri, Dungcu, Thongtinnguyenlieu
-from .forms import nhap_khonguyenlieu, nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
+from .forms import nhap_nguyenlieu, nhap_khonguyenlieu, nhap_calam, nhap_baotri, nhap_dungcu, nhap_luongnhanvien, nhap_nghiphep, nhap_thietbi, nhap_nhanvien, nhap_thongtinnguyenlieu
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 import pandas as pd
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import F
+from django.db.models import Q
 # Create your views here.
 #giaodien
 def get_index(request):
@@ -76,7 +78,7 @@ def delete_baotri(request, mabt):
         messages.success(request, 'Xóa bản ghi bảo trì thành công!')
     except Exception as e:
         messages.error(request, f'Xóa không thành công: {str(e)}')
-        return redirect('baotri') 
+    return redirect('baotri') 
 #dungcu
 
 def delete_dungcu(request, madc):
@@ -320,7 +322,9 @@ def sua_calam(request, macalam):
     return redirect('socalam')
 
 def so_ca_lam(request):
-    ca_lam_list = Calam.objects.all()
+    ca_lam_list = Calam.objects.select_related('manv').annotate(
+        tennv=F('manv__hoten')
+    ).all()
     
     if request.method == 'POST':
         form = nhap_calam(request.POST)
@@ -411,7 +415,17 @@ def Nguyen_lieu(request):
         nl = nhap_thongtinnguyenlieu()
     
     return render(request, 'home/thongtinnguyenlieu.html', {'nguyen_lieu_list': nguyen_lieu_list, 'nl': nl})
-
+def sua_thongtinnguyenlieu(request, manl):
+    nguyenlieu = get_object_or_404(Thongtinnguyenlieu, manl=manl)
+    if request.method == 'POST':
+        form = nhap_nguyenlieu(request.POST, instance=nguyenlieu)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công nguyên liệu {manl}')
+            return redirect('thongtinnguyenlieu')
+        else:
+            messages.error(request, f'Có lỗi xảy ra: {form.errors.as_json()}')  
+    return redirect('thongtinnguyenlieu')
 def import_excel_thongtinnguyenlieu(request):
     if request.method == "POST" and request.FILES['file']:
         try:
@@ -454,6 +468,20 @@ def delete_thongtinnhanvien(request, manv):
     except Exception as e:
         messages.error(request, f'Xóa không thành công: {str(e)}')
     return redirect('thongtinnhanvien')
+
+def search_thongtinnhanvien(request):
+    query = Nhanvien.objects.all()
+    search = request.GET.get('search')
+    if search:
+        query = query.filter(
+            Q(hoten__icontains=search) |
+            Q(manv__icontains=search) |
+            Q(sdt__icontains=search) |
+            Q(diachi__icontains=search)
+        )
+    print(query)  
+    return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': query})
+
 def nhan_vien(request):
     nhan_vien_list = Nhanvien.objects.all()
     if request.method == "POST":
@@ -464,7 +492,17 @@ def nhan_vien(request):
     else:
         nv = nhap_nhanvien()    
     return render(request, 'home/thongtinnhanvien.html', {'nhan_vien_list': nhan_vien_list, 'nv':nv})
-
+def sua_thongtinnhanvien(request, manv):
+    nhanvien = get_object_or_404(Nhanvien, manv=manv)
+    if request.method == 'POST':
+        form = nhap_nhanvien(request.POST, instance=nhanvien)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Đã cập nhật thành công nhân viên {manv}')
+            return redirect('thongtinnhanvien')
+        else:
+            messages.error(request, f'Có lỗi xảy ra: {form.errors.as_json()}')  
+    return redirect('thongtinnhanvien')
 def import_excel_thongtinnhanvien(request):
     if request.method == "POST" and request.FILES['file']:
         try:

@@ -1,20 +1,20 @@
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
     const btnntt = document.getElementById('tcl');
     const btndong = document.getElementById('dong');
     const form = document.getElementById('form_calam_ntt');
     let form_open = false;
 
-    btnntt.addEventListener('click', () =>{
-        if(!form_open){
+    btnntt.addEventListener('click', () => {
+        if (!form_open) {
             form.style.display = 'block';
             form_open = true;
-        }else{
+        } else {
             form.style.display = 'none';
             form_open = false;
         }
     });
 
-    btndong.addEventListener('click', () =>{
+    btndong.addEventListener('click', () => {
         form.style.display = 'none';
         form_open = false;
     });
@@ -23,17 +23,17 @@ document.addEventListener('DOMContentLoaded', () =>{
     const form_import = document.getElementById('form_import_calam');
     let form_import_open = false;
 
-    btnimport.addEventListener('click', () =>{
-        if(!form_import_open){
+    btnimport.addEventListener('click', () => {
+        if (!form_import_open) {
             form_import.style.display = 'block';
             form_import_open = true;
-        }else{
+        } else {
             form_import.style.display = 'none';
             form_import_open = false;
         }
     });
 
-    btndongimport.addEventListener('click', () =>{
+    btndongimport.addEventListener('click', () => {
         form_import.style.display = 'none';
         form_import_open = false;
     });

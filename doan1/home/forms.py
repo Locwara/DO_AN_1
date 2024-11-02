@@ -6,11 +6,16 @@ class nhap_calam(forms.ModelForm):
         fields = ['macalam', 'manv', 'ngay', 'giobd', 'giokt']
         widgets = {
             'macalam': forms.TextInput(attrs={'placeholder': 'Mã ca làm'}),
-            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên'}),
+            'manv': forms.Select(attrs={'placeholder': 'Chọn nhân viên'}),  # Thay đổi thành Select
             'ngay': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày'}),
             'giobd': forms.TimeInput(attrs={'type': 'time', 'placeholder': 'Giờ bắt đầu'}),
             'giokt': forms.TimeInput(attrs={'type': 'time','placeholder': 'Giờ kết thúc'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(nhap_calam, self).__init__(*args, **kwargs)
+        self.fields['manv'].queryset = Nhanvien.objects.all()
+        self.fields['manv'].label_from_instance = lambda obj: f"{obj.manv} - {obj.hoten}"
         
         
 class nhap_baotri(forms.ModelForm):
@@ -113,3 +118,16 @@ class nhap_khonguyenlieu(forms.ModelForm):
             'soluong': forms.TextInput(attrs={'placeholder': 'Số lượng'}),
         }
         
+        
+        
+class nhap_nguyenlieu(forms.ModelForm):
+    class Meta:
+        model = Thongtinnguyenlieu
+        fields = ['manl', 'tennl', 'gia', 'ngayhethan']
+        widgets = {
+            'manl': forms.TextInput(attrs={'placeholder': 'Mã nguyên liệu'}),
+            'tennl': forms.TextInput(attrs={'placeholder': 'Tên nguyên liệu'}),
+            'gia': forms.TextInput(attrs={'placeholder': 'Giá'}),
+            'ngayhethan': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày hết hạn'}),
+        }
+             

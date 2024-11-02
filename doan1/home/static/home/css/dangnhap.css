@@ -32,7 +32,30 @@ html{
 .chuatendn{
 
 
+td{
+    font-size: 13px;
+}
+th{
+    font-size: 15px;
+}
+thead{
+max-width: 120vh;
+}
+tbody{
+max-width: 140vh;
+}
+.container_baotri table tbody {
+    display: block;          
+    max-height: 400px;       
+    overflow-y: auto;       
+}
 
+.container_baotri table thead, 
+.container_baotri table tbody tr {
+    display: table;          
+    width: 100%;
+    table-layout: fixed;     
+}
    
 }
 .input{

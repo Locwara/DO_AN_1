@@ -32,7 +32,7 @@ margin-top: 10px;
 
 }
 .container_baotri input[type="text"]{
-    padding: 10px;
+padding: 10px;
 width: 30%;
 border: 1px solid black;
 background-color: beige;
@@ -89,7 +89,30 @@ margin-right: 10px;
     background-color: #C4A484;
     border-radius: 5px;
 }
+td{
+    font-size: 13px;
+}
+th{
+    font-size: 15px;
+}
+thead{
+max-width: 120vh;
+}
+tbody{
+max-width: 120vh;
+}
+.container_baotri table tbody {
+    display: block;          
+    max-height: 400px;       
+    overflow-y: auto;       
+}
 
+.container_baotri table thead, 
+.container_baotri table tbody tr {
+    display: table;          
+    width: 100%;
+    table-layout: fixed;     
+}
 
 
 .container_baotri .xoa{

@@ -5,7 +5,7 @@ from django.db import models
 
 class Calam(models.Model):
     macalam = models.CharField(max_length=10, primary_key=True)
-    manv = models.CharField(max_length=10)
+    manv = models.ForeignKey('Nhanvien', on_delete=models.CASCADE, db_column='manv')
     ngay = models.DateField()
     giobd = models.TimeField()
     giokt = models.TimeField()
@@ -39,7 +39,7 @@ class Bangluong(models.Model):
         
 class Nhanvien(models.Model):
      manv = models.CharField(max_length=10, primary_key=True)
-     hoten = models.CharField(max_length=10)
+     hoten = models.CharField(max_length=30)
      ngaysinh = models.DateField()
      sdt = models.IntegerField()
      diachi = models.CharField(max_length=70)

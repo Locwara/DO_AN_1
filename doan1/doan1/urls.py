@@ -56,4 +56,9 @@ urlpatterns = [
     path('sua_khonguyenlieu/<str:manl>/', home.sua_khonguyenlieu, name='sua_khonguyenlieu'),
     path('sua_nghiphep/<str:manp>/', home.sua_nghiphep, name='sua_nghiphep'),
     path('sua_calam/<str:macalam>/', home.sua_calam, name='sua_calam'),
+    path('sua_thietbi/<str:matb>/', home.sua_thietbi, name='sua_thietbi'),
+    path('sua_thongtinnguyenlieu/<str:manl>/', home.sua_thongtinnguyenlieu, name='sua_thongtinnguyenlieu'),
+    path('sua_thongtinnhanvien/<str:manv>/', home.sua_thongtinnhanvien, name='sua_thongtinnhanvien'),
+    path('search_thongtinnhanvin/', home.search_thongtinnhanvien, name='search_thongtinnhanvien'),
+
 ]

@@ -16,7 +16,30 @@ body{
 
 }
 
+td{
+    font-size: 13px;
+}
+th{
+    font-size: 15px;
+}
+thead{
+max-width: 120vh;
+}
+tbody{
+max-width: 120vh;
+}
+.container table tbody {
+    display: block;          
+    max-height: 400px;       
+    overflow-y: auto;       
+}
 
+.container table thead, 
+.container table tbody tr {
+    display: table;          
+    width: 100%;
+    table-layout: fixed;     
+}
 
 .container .them{
     border-radius: 5px;
@@ -67,11 +90,8 @@ margin-right: 10px;
     max-width: 2000px;
     border-radius: 5px;
     background-color: #4B3F3A;
-
-
-    
-    
 }
+
 .container td{
     padding: 12px;
     text-align: left;

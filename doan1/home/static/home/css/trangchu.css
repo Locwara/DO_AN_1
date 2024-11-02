@@ -4,6 +4,7 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 #main{
     /* background: url(https://images.pexels.com/photos/1144176/pexels-photo-1144176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); */
     min-height: 100vh;
@@ -11,6 +12,7 @@
     background: url(./images/z5963733104493_79076b0fb5bccfffd059f6cdd94df8ee.jpg);
     background-size: cover;
 }
+
 #main #header{
     height: 60px;
     background-color: #4B3F3A;
@@ -141,16 +143,21 @@ body{
 /* sidebar */
 
 #main #sidebar{
-    height: 100vh;
+    min-height: 100vh;
     width: 300px;
+    top: 0;
+    left: 0;
     background-color: #2E2A26;
     position: fixed;
     top: 60px;
-    overflow: hidden;
     box-shadow: 0 0 10px #A67B5B;
+    overflow-y: auto;
 }
-
-
+#main #sidebar {
+    display: block;          
+    max-height: 400px;       
+    overflow-y: auto;       
+}
 
 #main .item >li> a{
     color: #fff;
@@ -259,6 +266,6 @@ body{
 .lichsu a:active{
     text-shadow: 0 0 20px #fff;
 }
-
-
-
+.nhacungcap{
+    margin-bottom: 50px;
+}
