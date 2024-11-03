@@ -14,8 +14,7 @@ from .forms import CustomUserCreationForm
 from .forms import CustomUser
 # Create your views here.
 #dangnhapdangky
-def home(request):
-    return render(request, 'home/trangchu.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -24,42 +23,68 @@ def register(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Đăng ký thành công!')
-            return redirect('home')
+            return redirect('login')
         else:
             for error in form.errors.values():
                 messages.error(request, error)
     return render(request, 'home/dangky.html')
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+
 def login_view(request):
+    # Nếu user đã đăng nhập, chuyển hướng đến trang chủ
+    if request.user.is_authenticated:
+        return redirect('trangchu')
+        
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
+        print(f"Login attempt: username={username}")  # Debug print
+        
         user = authenticate(request, username=username, password=password)
+        
+        print(f"Authentication result: user={user}")  # Debug print
+        
         if user is not None:
             login(request, user)
             messages.success(request, 'Đăng nhập thành công!')
             return redirect('trangchu')
         else:
             messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
+    
     return render(request, 'home/dangnhap.html')
 
+# Có thể gộp login_viewql vào login_view vì chúng giống nhau
 def login_viewql(request):
+    # Nếu user đã đăng nhập, chuyển hướng đến trang chủ
+    if request.user.is_authenticated:
+        return redirect('trangchu')
+        
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
+        print(f"Login attempt: username={username}")  # Debug print
+        
         user = authenticate(request, username=username, password=password)
+        
+        print(f"Authentication result: user={user}")  # Debug print
+        
         if user is not None:
             login(request, user)
             messages.success(request, 'Đăng nhập thành công!')
             return redirect('trangchu')
         else:
             messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng!')
+    
     return render(request, 'home/dangnhapquanly.html')
-@login_required
+
 def logout_view(request):
     logout(request)
-    messages.success(request, 'Đăng xuất thành công!')
-    return redirect('login')
+    return redirect('index')  
 
 @login_required
 def profile(request):
@@ -408,7 +433,7 @@ def so_ca_lam(request):
 
 def delete_calam(request, macalam):
     try:
-        macalam = get_object_or_404(Calam, macalam=macalam)
+        macalam = get_object_or_404(Calam, macalam=macalam) 
         macalam.delete()
         messages.success(request, 'Xóa bản ghi ca làm thành công!')
     except Exception as e:

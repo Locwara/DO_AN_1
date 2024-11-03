@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 # Create your models here.,...
 
 
@@ -35,17 +35,19 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_active', True)
         return self.create_user(username, email, password, **extra_fields)
 
-class CustomUser(AbstractBaseUser):
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):  # Thêm PermissionsMixin
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False) 
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(null=True)
 
-    # Thêm manager vào đây
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
@@ -56,7 +58,8 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.username
-        
+    
+    
 class Nghiphep(models.Model):
     manp = models.CharField(max_length=10, primary_key=True)
     manv = models.CharField(max_length=10)

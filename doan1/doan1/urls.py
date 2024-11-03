@@ -19,10 +19,11 @@ from home import views as home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home.get_index),
-    path('login/', home.login_view, name="login"),
+    path('', home.get_index, name="index"),
     path('register/', home.register, name='register'),
+    path('login/', home.login_view, name="login"),
     path('loginql/', home.login_viewql, name="loginql"),
+    path('logout/', home.logout_view, name='logout'),
     path('trangchu.html', home.trangchu, name="trangchu"),
     path('thongtinnhanvien.html', home.nhan_vien, name='thongtinnhanvien'),
     path('luongnhanvien.html', home.bang_luong, name='bangluong'),

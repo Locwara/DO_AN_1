@@ -1,3 +1,4 @@
+# home/middleware.py
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -6,16 +7,25 @@ class AuthenticationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Danh sách các URL không cần xác thực
+        # Debug prints
+        print(f"Current path: {request.path}")
+        print(f"Is authenticated: {request.user.is_authenticated}")
+        
         public_urls = [
             reverse('login'),
+            reverse('loginql'),
             reverse('register'),
-            # Thêm các URL khác không cần đăng nhập vào đây
+            reverse('index'),
+            '/admin/',
+            '/static/',
+            '/media/',
         ]
 
-        # Kiểm tra nếu user chưa đăng nhập và không ở trong public_urls
-        if not request.user.is_authenticated and request.path not in public_urls:
-            return redirect('login')  # Chuyển hướng đến trang đăng nhập
+        is_public = any(request.path.startswith(url) for url in public_urls)
 
+        if not is_public and not request.user.is_authenticated:
+            print("Redirecting to index because not authenticated and not public URL")
+            return redirect('index') 
+        
         response = self.get_response(request)
         return response

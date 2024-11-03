@@ -11,9 +11,10 @@
     /* background-image: linear-gradient(to right, #213A57, #0B6477, #14919B, #0AD1C8, #80ED99); */
     background: url(./images/z5963733104493_79076b0fb5bccfffd059f6cdd94df8ee.jpg);
     background-size: cover;
+    z-index: 995; 
 }
 
-#main #header{
+#main #header {
     height: 60px;
     background-color: #4B3F3A;
     top: 0px;
@@ -22,6 +23,7 @@
     position: fixed;
     color: #FFFFFF;
     border: 1px solid #A67B5B;
+    z-index: 997; /* Thêm z-index cho header */
 }
 #main #h-sb .ten{
    color: #fff; 
@@ -103,19 +105,15 @@ body{
 #main #nav2{
     margin-left: 120px;
 }
-#main #nav3{
-    display: flex;
-    align-items: center;
-    
-}
 
-#main #nav3 a{
+/* 
+ #main #nav3 a{
     text-decoration: none;
     color: #fff;
     list-style-type: none;
     font-size: 20px;
 
-}
+}  */
 
 #main #nav3 a:hover{
     text-shadow: 0 0 10px #F4D06F;
@@ -125,12 +123,7 @@ body{
     text-shadow: 0 0 20px #f7d67d;
 }
 
-#main #nav3 li{
-    list-style-type: none;
-    line-height: 60px;
-    min-width: 50px;
-    text-align: center;
-}
+
 
 #main #nav2 .subnav{
     background-color: rgba(0, 0, 0, 0.4);
@@ -142,16 +135,16 @@ body{
 
 /* sidebar */
 
-#main #sidebar{
+#main #sidebar {
     min-height: 100vh;
     width: 300px;
-    top: 0;
+    top: 60px;
     left: 0;
     background-color: #2E2A26;
     position: fixed;
-    top: 60px;
     box-shadow: 0 0 10px #A67B5B;
     overflow-y: auto;
+    z-index: 996;
 }
 #main #sidebar {
     display: block;          

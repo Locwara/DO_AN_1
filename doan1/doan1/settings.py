@@ -35,8 +35,10 @@ CACHES = {
     }
 }
 # Application definition
-
-
+AUTH_USER_MODEL = 'home.CustomUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,8 +50,8 @@ INSTALLED_APPS = [
     'import_export',
 ]
     
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'trangchu.html'
+LOGIN_URL = 'index'
+LOGIN_REDIRECT_URL = 'trangchu'
 LOGOUT_REDIRECT_URL = 'login'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'home.middleware.AuthenticationMiddleware',  # Thêm dòng này
+    'home.middleware.AuthenticationMiddleware',  
 ]
 
 ROOT_URLCONF = 'doan1.urls'
