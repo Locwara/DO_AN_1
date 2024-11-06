@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'import_export',
+
 ]
     
 LOGIN_URL = 'index'

@@ -14,6 +14,27 @@
 {% endif %}
 
 <style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuanv{
+        background-color: var(--nuthover);
+    }
+    .subnv #lnv{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#nvul{
+        display: block;
+    }
     .messages {
         position: fixed;
         top: 20px;
@@ -53,10 +74,22 @@
 <div class="container_luong">
     <h1>DANH SÁCH LƯƠNG</h1>
     <div class="chuatimkiem">
-       <input type="text" placeholder="Tìm kiếm">
+        <form method="GET" action="{% url 'bangluong' %}">
+            <div class="search-container">
+                <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <select name="status" id="search-status">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="Đang làm">Đang làm việc</option>
+                    <option value="Nghỉ việc">Nghỉ việc</option>    
+                </select>
+                <input type="date" name="date" id="search-date">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button" onclick="window.location.href='{% url 'thongtinnhanvien' %}'">Hiển thị tất cả</button>
+            </div>
+            
+        </form>
        <button class="them" id="tcl">Thêm </button>
        <button class="in" id="import" >Import</button>
-
     </div>
     <table>
         <thead>
@@ -71,7 +104,6 @@
             </tr>
         </thead>
         <tbody>
-            
             {% for bangluong in bang_luong_list %}
             <tr>
                 <td>{{ bangluong.maluong }}</td>
@@ -180,28 +212,50 @@
     <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
     <p>- Các trường bắt buộc phải là: Mã lương, Mã nhân viên, Số giờ, Lương cơ bản, Tổng lương</p>
 <style>
-    .chuanut p{
-        margin-bottom: 8px;
-        color: #fff;
-    }
-        html{
-            font-family: Arial, Helvetica, sans-serif;
-            color: #fff;
+    <style>
+        :root{
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
         }
-        
-        .import input{
+        .chuanut p {
+            margin-bottom: 8px;
             color: #000;
         }
-        .import #dongimport{
+        .dong:hover{
+            color: var(--nuthover);
+        }
+        .dong:active{
+            color: var(--nutactive);
+        }
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        .import input {
+            color: #000;
+        }
+
+        .import #dongimport {
             width: 50px;
         }
-        .import{
+
+        .import {
             width: 400px;
             height: 250px;
-            background-color: #4B3F3A;
+            background-color: #fff;
             margin-top: 50px;
-            border: 2px solid #A67B5B;
-            box-shadow: 0 0 10px #A67B5B;
+            border: 2px solid var(--tddam);
+            box-shadow: 0 0 10px var(--tddam);
             border-radius: 4px;
             position: absolute;
             top: 45%;
@@ -211,88 +265,37 @@
             border-radius: 8px;
             padding: 16px;
         }
-        h1{
+
+        h1 {
             text-align: center;
             margin-bottom: 16px;
-        }.import input{
+        }
+
+        .import input {
             margin-bottom: 20px;
             padding: 10px;
             border-radius: 5px;
-            background-color: beige;
-        
+            background-color: #fff;
+            border: solid 1px var(--tddam);
         }
-        .import button{
+
+        .import button {
             padding: 15px;
-            background-color: #C4A484;
+            background-color: var(--nut);
             border-radius: 5px;
-        }
-        .import p{
-            margin-bottom: 8px;
-        }
-        .chuanut p{
-            margin-bottom: 8px;
             color: #fff;
         }
 
-    .xoa-form {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 120px;
-        width: 300px;
-        background-color: #4B3F3A;
-        border-radius: 4px;
-        border: 2px solid #A67B5B;
-        padding: 16px;
-        z-index: 1000;
-    }
-    
-    .chuanut {
-        margin-top: 20px;
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-    }
-    
-    .chuaxoa {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .xoa-form button {
-        padding: 8px 16px;
-        background-color: #C4A484;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        min-width: 80px;
-    }
-    
-    .xoa-form button:hover {
-        background-color: #6D4C41;
-        color: #F4D06F;
-    }
-    
-    .xoa-form button:active {
-        background-color: #2E2A26;
-        color: #C4A484;
-    }
-    
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        display: none;
-    }
+        .import p {
+            margin-bottom: 8px;
+        }
+
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #fff;
+        }
     </style>
+    
     
 
 </div>
@@ -314,6 +317,19 @@
 
 </script>
 <style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --tddam: #75a9ed;
+        --tdnhat: #aec8ea;
+        --bgf: #e2ebf8;
+    }
     .xoa-form {
         position: fixed;
         top: 50%;
@@ -321,47 +337,55 @@
         transform: translate(-50%, -50%);
         height: 120px;
         width: 300px;
-        background-color: #4B3F3A;
+        background-color: #fff;
         border-radius: 4px;
-        border: 2px solid #A67B5B;
+        border: 2px solid var(--tddam);
         padding: 16px;
         z-index: 1000;
     }
-    
+
     .chuanut {
         margin-top: 20px;
         display: flex;
         gap: 10px;
         justify-content: center;
     }
-    
+
     .chuaxoa {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
+ 
     }
-    
+
+    .chuaxoa p{
+        color: #000;
+        font-weight: bold;
+
+    }
+
     .xoa-form button {
         padding: 8px 16px;
-        background-color: #C4A484;
+        background-color: var(--nut);
         border-radius: 5px;
         cursor: pointer;
         border: none;
         min-width: 80px;
+        color: #fff;
     }
-    
+
     .xoa-form button:hover {
-        background-color: #6D4C41;
-        color: #F4D06F;
+        background-color: var(--nuthover);
+
     }
-    
+
     .xoa-form button:active {
-        background-color: #2E2A26;
-        color: #C4A484;
+        background-color: var(--nutactive);
+
     }
-    
+
     .overlay {
         position: fixed;
         top: 0;
@@ -369,8 +393,8 @@
         right: 0;
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        display: none;
+        z-index: 998;
+        display: none;  
     }
     </style>
     

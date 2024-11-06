@@ -24,7 +24,7 @@ urlpatterns = [
     path('login/', home.login_view, name="login"),
     path('loginql/', home.login_viewql, name="loginql"),
     path('logout/', home.logout_view, name='logout'),
-    path('trangchu.html', home.trangchu, name="trangchu"),
+    path('trangchu.html', home.thong_ke_nhan_vien, name="trangchu"),
     path('thongtinnhanvien.html', home.nhan_vien, name='thongtinnhanvien'),
     path('luongnhanvien.html', home.bang_luong, name='bangluong'),
     path('socalam.html', home.so_ca_lam, name='socalam'),
@@ -62,6 +62,5 @@ urlpatterns = [
     path('sua_thietbi/<str:matb>/', home.sua_thietbi, name='sua_thietbi'),
     path('sua_thongtinnguyenlieu/<str:manl>/', home.sua_thongtinnguyenlieu, name='sua_thongtinnguyenlieu'),
     path('sua_thongtinnhanvien/<str:manv>/', home.sua_thongtinnhanvien, name='sua_thongtinnhanvien'),
-    path('search_thongtinnhanvin/', home.search_thongtinnhanvien, name='search_thongtinnhanvien'),
-
+    
 ]

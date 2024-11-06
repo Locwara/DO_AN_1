@@ -15,6 +15,27 @@
 {% endif %}
 
 <style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuanv{
+        background-color: var(--nuthover);
+    }
+    .subnv #scl{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#nvul{
+        display: block;
+    }
     .messages {
         position: fixed;
         top: 100px;
@@ -51,7 +72,34 @@
 <div class="container_calam">
     <h1>DANH SÁCH CA LÀM</h1>
     <div class="chuatimkiem">
-        <input type="text" placeholder="Tìm kiếm">
+        <form method="GET" action="{% url 'socalam' %}">
+            <div class="search-container">
+                <div class="chua2">
+                    <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button"  onclick="window.location.href='{% url 'socalam' %}'">Hiển thị tất cả</button>
+                </div>
+               
+                <div class="chua2">
+                    <label for="">Ngày làm</label>
+                <input type="date" name="date" id="search-date">
+                </div>
+                
+            </div>
+            <style>
+                .search-container{
+                    display: flex;
+                    width: 100vh;
+                }
+                .search-container #search{
+                    height: 35px;
+                }
+                
+        
+            </style>
+        </form>
+        <button class="them" id="tcl">Thêm ca làm</button>
+        <button class="in" id="import">Import</button>
         <div class="loc-container">
             <button class="loc-nut">Lọc theo thời gian <i class="ti-angle-down"></i></button>
             <ul class="date-filter">
@@ -65,8 +113,6 @@
                 </li>
             </ul>
         </div>
-        <button class="them" id="tcl">Thêm ca làm</button>
-        <button class="in" id="import">Import</button>
     </div>
     <table>
         <thead>
@@ -85,12 +131,12 @@
                 <td>{{ ca_lam.macalam }}</td>
                 <td>{{ ca_lam.manv.hoten }}</td>
                 <td>{{ ca_lam.ngay|date:"Y-m-d" }}</td>
-                <td>{{ ca_lam.giobd|time:"H:i:s" }}</td>
-                <td>{{ ca_lam.giokt|time:"H:i:s" }}</td>
+                <td>{{ ca_lam.giobd|time:"H:i" }}</td>
+                <td>{{ ca_lam.giokt|time:"H:i" }}</td>
                 <td class="chuanut">
-                    <button class="sua" data-id="{{ ca_lam.macalam}}" data-manv="{{ ca_lam.manv }}"
-                        data-ngay="{{ ca_lam.ngay }}" data-giobd="{{ ca_lam.giobd }}"
-                        data-giokt="{{ ca_lam.giokt }}">Sửa</button>
+                    <button class="sua" data-id="{{ ca_lam.macalam}}" data-manv="{{ ca_lam.manv.hoten }}"
+                        data-ngay="{{ ca_lam.ngay }}" data-giobd="{{ ca_lam.giobd|time:'H:i' }}"
+                        data-giokt="{{ ca_lam.giokt|time:'H:i' }}">Sửa</button>
                     <button class="nut-xoa" data-id="{{ ca_lam.macalam }}">
                         Xóa
                     </button>
@@ -159,7 +205,7 @@
 
         .loc-btn {
             padding: 8px 16px;
-            background-color: #C4A484;
+            background-color: var(--nut);
             border: none;
             border-radius: 4px;
             color: white;
@@ -170,7 +216,7 @@
         }
 
         .loc-btn:hover {
-            background-color: #A67B5B;
+            background-color: var(--nuthover);
         }
 
         .date-filter {
@@ -179,8 +225,8 @@
             top: 100%;
             left: 0;
             margin-top: 8px;
-            background-color: #4B3F3A;
-            border: 1px solid #A67B5B;
+            background-color: var(--tdnhat);
+            border: 3px solid var(--tddam);
             border-radius: 4px;
             padding: 16px;
             list-style: none;
@@ -203,7 +249,7 @@
 
         .date-filter label {
             display: block;
-            color: white;
+            color: #000;
             margin-bottom: 4px;
         }
 
@@ -236,6 +282,19 @@
 
 
     <style>
+        :root{
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
+        }
         .xoa-form {
             position: fixed;
             top: 50%;
@@ -243,47 +302,55 @@
             transform: translate(-50%, -50%);
             height: 120px;
             width: 300px;
-            background-color: #4B3F3A;
+            background-color: #fff;
             border-radius: 4px;
-            border: 2px solid #A67B5B;
+            border: 2px solid var(--tddam);
             padding: 16px;
             z-index: 1000;
         }
-
+    
         .chuanut {
             margin-top: 20px;
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-
+    
         .chuaxoa {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+     
         }
-
+    
+        .chuaxoa p{
+            color: #000 !important;
+            font-weight: bold;
+    
+        }
+    
         .xoa-form button {
             padding: 8px 16px;
-            background-color: #C4A484;
+            background-color: var(--nut);
             border-radius: 5px;
             cursor: pointer;
             border: none;
             min-width: 80px;
+            color: #fff;
         }
-
+    
         .xoa-form button:hover {
-            background-color: #6D4C41;
-            color: #F4D06F;
+            background-color: var(--nuthover);
+    
         }
-
+    
         .xoa-form button:active {
-            background-color: #2E2A26;
-            color: #C4A484;
+            background-color: var(--nutactive);
+    
         }
-
+    
         .overlay {
             position: fixed;
             top: 0;
@@ -291,10 +358,10 @@
             right: 0;
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
+            z-index: 998;
+            display: none;  
         }
-    </style>
+        </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -355,26 +422,49 @@
         <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
         <p>- Các trường bắt buộc phải là: Mã ca làm, Mã nhân viên, Ngày, Giờ bắt đầu, Giờ kết thúc</p>
         <style>
+            :root{
+                --bg: #fff;
+                --nut: #0047a5;
+                --nuthover: #0b62d4;
+                --xanhnhat: #95c0f8c4;
+                --nutactive: #5b99eb;
+                --chu: #000;
+                --header: #005bb5;
+                --sidebar: #003f8a;
+                --tddam: #75a9ed;
+                --tdnhat: #aec8ea;
+                --bgf: #e2ebf8;
+            }
+            .chuanut p {
+                margin-bottom: 8px;
+                color: #000;
+            }
+            .dong:hover{
+                color: var(--nuthover);
+            }
+            .dong:active{
+                color: var(--nutactive);
+            }
             html {
                 font-family: Arial, Helvetica, sans-serif;
-                color: #fff;
+                color: #000;
             }
-
+    
             .import input {
                 color: #000;
             }
-
+    
             .import #dongimport {
                 width: 50px;
             }
-
+    
             .import {
                 width: 400px;
                 height: 250px;
-                background-color: #4B3F3A;
+                background-color: #fff;
                 margin-top: 50px;
-                border: 2px solid #A67B5B;
-                box-shadow: 0 0 10px #A67B5B;
+                border: 2px solid var(--tddam);
+                box-shadow: 0 0 10px var(--tddam);
                 border-radius: 4px;
                 position: absolute;
                 top: 45%;
@@ -384,30 +474,31 @@
                 border-radius: 8px;
                 padding: 16px;
             }
-
+    
             h1 {
                 text-align: center;
                 margin-bottom: 16px;
             }
-
+    
             .import input {
                 margin-bottom: 20px;
                 padding: 10px;
                 border-radius: 5px;
-                background-color: beige;
-
+                background-color: #fff;
+                border: solid 1px var(--tddam);
             }
-
+    
             .import button {
                 padding: 15px;
-                background-color: #C4A484;
+                background-color: var(--nut);
                 border-radius: 5px;
+                color: #fff;
             }
-
+    
             .import p {
                 margin-bottom: 8px;
             }
-
+    
             .chuanut p {
                 margin-bottom: 8px;
                 color: #fff;
@@ -437,27 +528,31 @@
 
             nutSua.forEach(button => {
                 button.addEventListener('click', function () {
-
                     const macalam = this.getAttribute('data-id');
                     const manv = this.getAttribute('data-manv');
-                    const ngay = this.getAttribute('data-ngay');
-                    const giobd = this.getAttribute('data-giobd');
-                    const giokt = this.getAttribute('data-giokt');
-
-
+                    let ngay = this.getAttribute('data-ngay');
+                    let giobd = this.getAttribute('data-giobd'); 
+                    let giokt = this.getAttribute('data-giokt'); 
+            
+                    if(ngay) {
+                        const dateObj = new Date(ngay);
+                        ngay = dateObj.toISOString().split('T')[0];
+                    }
+            
+                    
                     document.getElementById('macalam').value = macalam;
                     document.getElementById('manv').value = manv;
                     document.getElementById('ngay').value = ngay;
                     document.getElementById('giobd').value = giobd;
                     document.getElementById('giokt').value = giokt;
-
-
+            
+                    console.log('Values:', {macalam, manv, ngay, giobd, giokt}); 
+            
                     const form = document.getElementById('form_sua');
                     form.action = `/sua_calam/${macalam}/`;
                     popup.style.display = 'block';
                 });
             });
-
 
             closeBtn.addEventListener('click', function () {
                 popup.style.display = 'none';

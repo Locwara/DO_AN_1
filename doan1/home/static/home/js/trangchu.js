@@ -26,9 +26,112 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         });
     });
-
+    
 });
+//ttnv
+function openEmployeeMenuttnv() {
+    const nvulLink = document.getElementById('nvul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/thongtinnhanvien.html') {
+      openEmployeeMenuttnv();
+    }
+  });   
+//lnv
+function openEmployeeMenulnv() {
+    const nvulLink = document.getElementById('nvul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/luongnhanvien.html') {
+      openEmployeeMenulnv();
+    }
+  });   
+//scl
+function openEmployeeMenuscl() {
+    const nvulLink = document.getElementById('nvul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/socalam.html') {
+      openEmployeeMenuscl();
+    }
+  });   
+//lnp
+function openEmployeeMenulnp() {
+    const nvulLink = document.getElementById('nvul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/nghiphep.html') {
+      openEmployeeMenulnp();
+    }
+  });   
 
+//dc
+function openEmployeeMenudc() {
+    const tbul = document.getElementById('tbul');
+    const employeeSubmenu = tbul.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/dungcu.html') {
+      openEmployeeMenudc();
+    }
+  });   
+//tb
+function openEmployeeMenutb() {
+    const tbul = document.getElementById('tbul');
+    const employeeSubmenu = tbul.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/thietbi.html') {
+      openEmployeeMenutb();
+    }
+  });   
+
+//bt
+function openEmployeeMenubt() {
+    const tbul = document.getElementById('tbul');
+    const employeeSubmenu = tbul.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/baotri.html') {
+      openEmployeeMenubt();
+    }
+  });   
 function navigateTo(path) {
     window.location.href = `http://127.0.0.1:8000${path}`;
 }
+//ttnl
+function openEmployeeMenuttnl() {
+    const nvulLink = document.getElementById('nlul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/thongtinnguyenlieu.html') {
+      openEmployeeMenuttnl();
+    }
+  });   
+
+//knl
+function openEmployeeMenuknl() {
+    const nvulLink = document.getElementById('nlul');
+    const employeeSubmenu = nvulLink.nextElementSibling;
+    employeeSubmenu.style.display = 'block';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === '/khonguyenlieu.html') {
+      openEmployeeMenuknl();
+    }
+  });   
+
+  

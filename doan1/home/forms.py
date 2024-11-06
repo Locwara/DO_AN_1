@@ -98,14 +98,14 @@ class nhap_nhanvien(forms.ModelForm):
         model = Nhanvien
         fields = ['manv', 'hoten', 'ngaysinh', 'sdt', 'diachi', 'ngayvaolam', 'vitricongviec', 'trangthai']
         widgets = {
-            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên'}),
-            'hoten': forms.TextInput(attrs={'placeholder': 'Họ tên'}),
-            'ngaysinh': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày sinh'}),
-            'sdt': forms.TextInput(attrs={'placeholder': 'Số điện thoại'}),
-            'diachi': forms.TextInput(attrs={'placeholder': 'Địa chỉ'}),
-            'ngayvaolam': forms.DateInput(attrs={'type': 'date', 'placeholder': 'Ngày vào làm'}),
-            'vitricongviec': forms.TextInput(attrs={'placeholder': 'Vị trí công việc'}),
-            'trangthai': forms.TextInput(attrs={'placeholder': 'Trạng thái'}),
+            'manv': forms.TextInput(attrs={'placeholder': 'Mã nhân viên', 'class': 'form-control'}),
+            'hoten': forms.TextInput(attrs={'placeholder': 'Họ tên', 'class': 'form-control'}),
+            'ngaysinh': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'sdt': forms.TextInput(attrs={'placeholder': 'Số điện thoại', 'class': 'form-control'}),
+            'diachi': forms.TextInput(attrs={'placeholder': 'Địa chỉ', 'class': 'form-control'}),
+            'ngayvaolam': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'vitricongviec': forms.TextInput(attrs={'placeholder': 'Vị trí công việc', 'class': 'form-control'}),
+            'trangthai': forms.TextInput(attrs={'placeholder': 'Trạng thái', 'class': 'form-control'}),
         }
 class nhap_thongtinnguyenlieu(forms.ModelForm):
     class Meta:

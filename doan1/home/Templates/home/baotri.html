@@ -13,6 +13,27 @@
 {% endif %}
 
 <style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuattb{
+        background-color: var(--nuthover);
+    }
+    .subtn #bt{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#tbul{
+        display: block;
+    }
     .messages {
         position: fixed;
         top: 20px;
@@ -51,7 +72,41 @@
 <div class="container_baotri">
     <h1>DANH SÁCH BẢO TRÌ</h1>
     <div class="chuatimkiem">
-        <input type="text" placeholder="Tìm kiếm">
+        <form method="GET" action="{% url 'baotri' %}">
+            <div class="search-container">
+                <div class="chua2">
+                    <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button"  onclick="window.location.href='{% url 'baotri' %}'">Hiển thị tất cả</button>
+                </div>
+                <div class="chua2">
+                    <label for="">Giá</label>
+                    <select name="gia">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="0-1000">0 - 1,000</option>
+                        <option value="1000-5000">1,000 - 5,000</option>
+                        <option value="5000-10000">5,000 - 10,000</option>
+                        <option value="10000-50000">10,000 - 50,000</option>
+                    </select>
+                </div>
+                <div class="chua2">
+                    <label for="">Ngày bảo trì</label>
+                <input type="date" name="date" id="search-date">
+                </div>
+                
+            </div>
+            <style>
+                .search-container{
+                    display: flex;
+                    width: 100vh;
+                }
+                .search-container #search{
+                    height: 35px;
+                }
+                
+        
+            </style>
+        </form>
         <div class="filter-container">
             <button class="filter-btn">Lọc theo thời gian <i class="ti-angle-down"></i></button>
             <ul class="date-filter">
@@ -271,6 +326,7 @@
                 <button type="submit">Cập nhật</button>
             </div>  
         </form>
+    </div>
         <style>
             #form_bao_tri_sua h1{
                 text-align: center;
@@ -288,67 +344,87 @@
                 padding: 8px;
             }
         </style>
-    </div>
-    <style>
-    .xoa-form {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 120px;
-        width: 300px;
-        background-color: #4B3F3A;
-        border-radius: 4px;
-        border: 2px solid #A67B5B;
-        padding: 16px;
-        z-index: 1000;
-    }
-    
-    .chuanut {
-        margin-top: 20px;
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-    }
-    
-    .chuaxoa {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .xoa-form button {
-        padding: 8px 16px;
-        background-color: #C4A484;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        min-width: 80px;
-    }
-    
-    .xoa-form button:hover {
-        background-color: #6D4C41;
-        color: #F4D06F;
-    }
-    
-    .xoa-form button:active {
-        background-color: #2E2A26;
-        color: #C4A484;
-    }
-    
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        display: none;
-    }
-    </style>
+        <style>
+            :root{
+                --bg: #fff;
+                --nut: #0047a5;
+                --nuthover: #0b62d4;
+                --xanhnhat: #95c0f8c4;
+                --nutactive: #5b99eb;
+                --chu: #000;
+                --header: #005bb5;
+                --sidebar: #003f8a;
+                --tddam: #75a9ed;
+                --tdnhat: #aec8ea;
+                --bgf: #e2ebf8;
+            }
+            .xoa-form {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                height: 120px;
+                width: 300px;
+                background-color: #fff;
+                border-radius: 4px;
+                border: 2px solid var(--tddam);
+                padding: 16px;
+                z-index: 1000;
+            }
+        
+            .chuanut {
+                margin-top: 20px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+        
+            .chuaxoa {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+         
+            }
+        
+            .chuaxoa p{
+                color: #000 !important;
+                font-weight: bold;
+        
+            }
+        
+            .xoa-form button {
+                padding: 8px 16px;
+                background-color: var(--nut);
+                border-radius: 5px;
+                cursor: pointer;
+                border: none;
+                min-width: 80px;
+                color: #fff;
+            }
+        
+            .xoa-form button:hover {
+                background-color: var(--nuthover);
+        
+            }
+        
+            .xoa-form button:active {
+                background-color: var(--nutactive);
+        
+            }
+        
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+                display: none;  
+            }
+            </style>
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -426,29 +502,50 @@
             </form>
             <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
             <p>- Các trường bắt buộc phải là: Mã bảo trì, Mã thiết bị, Ngày bảo trì, Mô tả, Chi phí, Người thực hiện</p>
-        <style>
-            .chuanut p{
-                margin-bottom: 8px;
-                color: #fff;
-            }
-                html{
-                    font-family: Arial, Helvetica, sans-serif;
-                    color: #fff;
+            <style>
+                :root{
+                    --bg: #fff;
+                    --nut: #0047a5;
+                    --nuthover: #0b62d4;
+                    --xanhnhat: #95c0f8c4;
+                    --nutactive: #5b99eb;
+                    --chu: #000;
+                    --header: #005bb5;
+                    --sidebar: #003f8a;
+                    --tddam: #75a9ed;
+                    --tdnhat: #aec8ea;
+                    --bgf: #e2ebf8;
                 }
-                
-                .import input{
+                .chuanut p {
+                    margin-bottom: 8px;
                     color: #000;
                 }
-                .import #dongimport{
+                .dong:hover{
+                    color: var(--nuthover);
+                }
+                .dong:active{
+                    color: var(--nutactive);
+                }
+                html {
+                    font-family: Arial, Helvetica, sans-serif;
+                    color: #000;
+                }
+        
+                .import input {
+                    color: #000;
+                }
+        
+                .import #dongimport {
                     width: 50px;
                 }
-                .import{
+        
+                .import {
                     width: 400px;
                     height: 250px;
-                    background-color: #4B3F3A;
+                    background-color: #fff;
                     margin-top: 50px;
-                    border: 2px solid #A67B5B;
-                    box-shadow: 0 0 10px #A67B5B;
+                    border: 2px solid var(--tddam);
+                    box-shadow: 0 0 10px var(--tddam);
                     border-radius: 4px;
                     position: absolute;
                     top: 45%;
@@ -458,25 +555,32 @@
                     border-radius: 8px;
                     padding: 16px;
                 }
-                h1{
+        
+                h1 {
                     text-align: center;
                     margin-bottom: 16px;
-                }.import input{
+                }
+        
+                .import input {
                     margin-bottom: 20px;
                     padding: 10px;
                     border-radius: 5px;
-                    background-color: beige;
-                
+                    background-color: #fff;
+                    border: solid 1px var(--tddam);
                 }
-                .import button{
+        
+                .import button {
                     padding: 15px;
-                    background-color: #C4A484;
+                    background-color: var(--nut);
                     border-radius: 5px;
+                    color: #fff;
                 }
-                .import p{
+        
+                .import p {
                     margin-bottom: 8px;
                 }
-                .chuanut p{
+        
+                .chuanut p {
                     margin-bottom: 8px;
                     color: #fff;
                 }
@@ -506,11 +610,14 @@
     
                             const mabt = this.getAttribute('data-id');
                             const matb = this.getAttribute('data-matb');
-                            const ngaybt = this.getAttribute('data-ngaybt');
+                            let ngaybt = this.getAttribute('data-ngaybt');
                             const mota = this.getAttribute('data-mota');
                             const chiphi = this.getAttribute('data-chiphi');
                             const nguoithuchien = this.getAttribute('data-nguoithuchien');
-                
+                            if(ngaybt) {
+                                const dateObj = new Date(ngaybt);
+                                ngaybt = dateObj.toISOString().split('T')[0];
+                            }
     
                             document.getElementById('mabt').value = mabt;
                             document.getElementById('matb').value = matb;
