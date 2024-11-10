@@ -1,0 +1,527 @@
+{% extends 'home/trangchu.html' %}
+
+{% load static %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+        <span class="close-btn">&times;</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuattb{
+        background-color: var(--nuthover);
+    }
+    .subtn #tb{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#tbul{
+        display: block;
+    }
+    .messages {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+    }
+
+    .alert-error {
+        background-color: #dc3545;
+    }
+
+    .alert-success {
+        background-color: #28a745;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'home/css/thietbi.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/thietbi_ntt.css' %}">
+<script src="{% static 'home/js/thietbi.js' %}"></script>
+<div class="container_thietbi">
+    <h1>DANH SÁCH THIẾT BỊ</h1>
+    <div class="chuatimkiem">
+        <form method="GET" action="{% url 'thietbi' %}">
+            <div class="search-container">
+                <div class="chua2">
+                    <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button"  onclick="window.location.href='{% url 'thietbi' %}'">Hiển thị tất cả</button>
+                </div>
+                <div class="chua2">
+                    <label for="">Trạng thái</label>
+                    <select name="status" id="search-status">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="Tốt">Tốt</option>
+                        <option value="=Không tốt">Không tốt</option>
+                    </select>
+                </div>
+                <div class="chua2">
+                    <label for="">Giá</label>
+                    <select name="gia">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="0-1000">0 - 1,000</option>
+                        <option value="1000-5000">1,000 - 5,000</option>
+                        <option value="5000-10000">5,000 - 10,000</option>
+                        <option value="10000-50000">10,000 - 50,000</option>
+                    </select>
+                </div>
+                <div class="chua2">
+                    <label for="">Ngày mua</label>
+                <input type="date" name="date" id="search-date">
+                </div>
+                
+            </div>
+            <style>
+                .search-container{
+                    display: flex;
+                    width: 100vh;
+                }
+                .search-container #search{
+                    height: 35px;
+                }
+                
+        
+            </style>
+        </form>
+        <button class="them" id="tcl">Thêm thiết bị</button>
+
+        <button class="in" id="import">Import</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên thiết bị</th>
+                <th>Loại thiết bị</th>
+                <th>Số lượng</th>
+                <th>Tình trạng</th>
+                <th>Ngày mua</th>
+                <th>Giá mua</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for thietbi in thiet_bi_list %}
+            <tr>
+                <td>{{ thietbi.tentb }}</td>
+                <td>{{ thietbi.loaitb }}</td>
+                <td>{{ thietbi.soluong }}</td>
+                <td>{{ thietbi.tinhtrang }}</td>
+                <td>{{ thietbi.ngaymua|date:"Y-m-d" }}</td>
+                <td>{{ thietbi.giamua|floatformat }}</td>
+                <td class="chuanut">
+                    <button class="sua" data-id="{{ thietbi.matb}}" data-tentb="{{ thietbi.tentb }}"
+                        data-loaitb="{{ thietbi.loaitb }}" data-soluong="{{ thietbi.soluong }}"
+                        data-tinhtrang="{{ thietbi.tinhtrang }}" data-ngaymua="{{ thietbi.ngaymua }}"
+                        data-giamua="{{ thietbi.giamua }}">Sửa</button>
+                    <button class="nut-xoa" data-id="{{ thietbi.matb }}">
+                        Xóa
+                    </button>
+                    <div class="xoa-form" id="form-xoa-{{ thietbi.matb }}" style="display: none;">
+                        <div class="chuaxoa">
+                            <p>Bạn có muốn xóa thiết bị: {{ thietbi.matb }}?</p>
+                            <div class="chuanut">
+                                <button class="nut-huy" data-id="{{ thietbi.matb }}">Hủy</button>
+                                <button onclick="window.location.href='{% url 'delete_thietbi' thietbi.matb %}'">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Không có dữ liệu</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --tddam: #75a9ed;
+        --tdnhat: #aec8ea;
+        --bgf: #e2ebf8;
+    }
+    .xoa-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 300px;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 2px solid var(--tddam);
+        padding: 16px;
+        z-index: 1000;
+    }
+
+    .chuanut {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .chuaxoa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+ 
+    }
+
+    .chuaxoa p{
+        color: #000 !important;
+        font-weight: bold;
+
+    }
+
+    .xoa-form button {
+        padding: 8px 16px;
+        background-color: var(--nut);
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        min-width: 80px;
+        color: #fff;
+    }
+
+    .xoa-form button:hover {
+        background-color: var(--nuthover);
+
+    }
+
+    .xoa-form button:active {
+        background-color: var(--nutactive);
+
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;  
+    }
+    </style>
+<div class="container_thietbi_ntt" id="form_thietbi_sua">
+    <p class="ti-close dong dongsua" id="dong_sua"></p>
+    <h1>Sửa thông tin</h1>
+    <form method="POST" id="form_sua">
+        {% csrf_token %}
+        <div class="chuanut">
+            <input type="hidden" name="matb" id="matb" readonly>
+            <input type="text" name="tentb" id="tentb" required>
+            <input type="text" name="loaitb" id="loaitb" required>
+            <input type="number" name="soluong" id="soluong" required>
+            <input type="text" name="tinhtrang" id="tinhtrang" required>
+            <input type="date" name="ngaymua" id="ngaymua" required>
+            <input type="number" name="giamua" id="giamua" required>
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Cập nhật</button>
+        </div>
+    </form>
+    <style>
+        #form_thietbi_sua h1 {
+            text-align: center;
+        }
+
+        #form_thietbi_sua .chuanut {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #form_thietbi_sua input {
+            width: 300px;
+        }
+
+        #form_thietbi_sua button {
+            padding: 8px;
+        }
+    </style>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+
+        const deleteButtons = document.querySelectorAll('.nut-xoa');
+        const cancelButtons = document.querySelectorAll('.nut-huy');
+
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+
+
+                document.querySelectorAll('.xoa-form').forEach(f => {
+                    if (f !== form) {
+                        f.style.display = 'none';
+                    }
+                });
+
+
+                form.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                form.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+
+
+        overlay.addEventListener('click', function () {
+            document.querySelectorAll('.xoa-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            overlay.style.display = 'none';
+        });
+    });
+</script>
+<div class="container_thietbi_ntt" id="form_thietbi_ntt">
+    <p class="ti-close dong" id="dong"></p>
+    <h1>Điền thông tin</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="chuanut">
+            {{ tb.tentb }}
+            {{ tb.loaitb }}
+            {{ tb.soluong }}
+            {{ tb.tinhtrang }}
+            <p>Ngày mua</p>
+            {{ tb.ngaymua }}
+            {{ tb.giamua }}
+
+        </div>
+        <div class="chuanutthem">
+            <button>Thêm</button>
+        </div>
+    </form>
+</div>
+<div id="form_import_thietbi" class="import">
+    <p class="ti-close dong" id="dongimport"></p>
+    <h1>Import ca làm từ excel</h1>
+    <form action="{% url 'thietbi.html/import' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="file" name="file" id="file" accept=".xlsx">
+        <button type="submit">Import</button>
+    </form>
+    <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+    <p>- Các trường bắt buộc phải là: Mã thiết bị, Tên thiết bị, Loại thiết bị, Số lượng, Tình trạng, Ngày mua, Giá mua
+    </p>
+    <style>
+        :root{
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
+        }
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .dong:hover{
+            color: var(--nuthover);
+        }
+        .dong:active{
+            color: var(--nutactive);
+        }
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        .import input {
+            color: #000;
+        }
+
+        .import #dongimport {
+            width: 50px;
+        }
+
+        .import {
+            width: 400px;
+            height: 250px;
+            background-color: #fff;
+            margin-top: 50px;
+            border: 2px solid var(--tddam);
+            box-shadow: 0 0 10px var(--tddam);
+            border-radius: 4px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            display: none;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .import input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px var(--tddam);
+        }
+
+        .import button {
+            padding: 15px;
+            background-color: var(--nut);
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .import p {
+            margin-bottom: 8px;
+        }
+
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+    </style>
+</div>
+<style>
+    .chuanut p {
+        margin-bottom: 8px;
+        color: #fff;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('.alert')
+        alerts.forEach(function (alert) {
+            setTimeout(function () {
+                alert.style.display = 'none'
+            }, 5000)
+        })
+        const dong = document.querySelectorAll('.close-btn')
+        dong.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.parentElement.style.display = 'none'
+            })
+        })
+        const nutSua = document.querySelectorAll('.sua');
+        const popup = document.getElementById('form_thietbi_sua');
+        const closeBtn = document.querySelector('.dongsua');
+        const form = document.getElementById('form_sua');
+
+
+        nutSua.forEach(button => {
+            button.addEventListener('click', function () {
+
+                const matb = this.getAttribute('data-id');
+                const tentb = this.getAttribute('data-tentb');
+                const loaitb = this.getAttribute('data-loaitb');
+                const soluong = this.getAttribute('data-soluong');
+                const tinhtrang = this.getAttribute('data-tinhtrang');
+                let ngaymua = this.getAttribute('data-ngaymua');
+                const giamua = this.getAttribute('data-giamua');
+
+                if(ngaymua) {
+                    const dateObj = new Date(ngaymua);
+                    ngaymua = dateObj.toISOString().split('T')[0];
+                }
+                document.getElementById('matb').value = matb;
+                document.getElementById('tentb').value = tentb;
+                document.getElementById('loaitb').value = loaitb;
+                document.getElementById('soluong').value = soluong;
+                document.getElementById('tinhtrang').value = tinhtrang;
+                document.getElementById('ngaymua').value = ngaymua;
+                document.getElementById('giamua').value = giamua;
+
+
+                const form = document.getElementById('form_sua');
+                form.action = `/sua_thietbi/${matb}/`;
+                popup.style.display = 'block';
+            });
+        });
+
+
+        closeBtn.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+
+
+        window.addEventListener('click', function (e) {
+            if (e.target == popup) {
+                popup.style.display = 'none';
+            }
+        });
+        
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,617 @@
+{% extends 'home/trangchu.html' %}
+
+{% load static %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+        {{message}}
+    </div>
+    <span class="close-btn">&times;</span>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuanv{
+        background-color: var(--nuthover);
+    }
+    .subnv #scl{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#nvul{
+        display: block;
+    }
+    .messages {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+    }
+
+    .alert-error {
+        background-color: #dc3545;
+    }
+
+    .alert-success {
+        background-color: #28a745;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'home/css/socalam.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/socalam_ntt.css' %}">
+<div class="container_calam">
+    <h1>DANH SÁCH CA LÀM</h1>
+    <div class="chuatimkiem">
+        <form method="GET" action="{% url 'socalam' %}">
+            <div class="search-container">
+                <div class="chua2">
+                    <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button"  onclick="window.location.href='{% url 'socalam' %}'">Hiển thị tất cả</button>
+                </div>
+               
+                <div class="chua2">
+                    <label for="">Ngày làm</label>
+                <input type="date" name="date" id="search-date">
+                </div>
+                
+            </div>
+            <style>
+                .search-container{
+                    display: flex;
+                    width: 100vh;
+                }
+                .search-container #search{
+                    height: 35px;
+                }
+                
+        
+            </style>
+        </form>
+        <button class="them" id="tcl">Thêm ca làm</button>
+        <button class="in" id="import">Import</button>
+        <div class="loc-container">
+            <button class="loc-nut">Lọc theo thời gian <i class="ti-angle-down"></i></button>
+            <ul class="date-filter">
+                <li>
+                    <label for="">Từ ngày: </label>
+                    <input type="date" name="" id="ngaybatdau">
+                </li>
+                <li>
+                    <label for="">Đến ngày: </label>
+                    <input type="date" name="" id="ngayketthuc">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên nhân viên</th>
+                <th>Ngày</th>
+                <th>Giờ bắt đầu</th>
+                <th>Giờ kết thúc</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="maintenanceTableBody">
+            {% for ca_lam in ca_lam_list %}
+            <tr data-date="{{ ca_lam.ngay|date:'Y-m-d' }}">
+                <td>{{ ca_lam.manv.hoten }}</td>
+                <td>{{ ca_lam.ngay|date:"Y-m-d" }}</td>
+                <td>{{ ca_lam.giobd|time:"H:i" }}</td>
+                <td>{{ ca_lam.giokt|time:"H:i" }}</td>
+                <td class="chuanut">
+                    <button class="sua" data-id="{{ ca_lam.macalam}}" data-manv="{{ ca_lam.manv }}"
+                        data-ngay="{{ ca_lam.ngay }}" data-giobd="{{ ca_lam.giobd|time:'H:i' }}"
+                        data-giokt="{{ ca_lam.giokt|time:'H:i' }}">Sửa</button>
+                    <button class="nut-xoa" data-id="{{ ca_lam.macalam }}">
+                        Xóa
+                    </button>
+                    <div class="xoa-form" id="form-xoa-{{ ca_lam.macalam }}" style="display: none;">
+                        <div class="chuaxoa">
+                            <p>Bạn có muốn xóa bảng số ca làm: {{ ca_lam.macalam }}?</p>
+                            <div class="chuanut">
+                                <button class="nut-huy" data-id="{{ ca_lam.macalam }}">Hủy</button>
+                                <button onclick="window.location.href='{% url 'delete_calam' ca_lam.macalam %}'">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="container_calam_ntt" id="form_calam_sua">
+    <p class="ti-close dong dongsua" id="dong_sua"></p>
+    <h1>Sửa thông tin</h1>
+    <form method="POST" id="form_sua">
+        {% csrf_token %}
+        <div class="chuanut">
+            <input type="hidden" name="macalam" id="macalam" readonly>
+            <p>Chọn nhân viên</p>
+            {{ form.manv }}
+            <input type="date" name="ngay" id="ngay" required>
+            <input type="time" name="giobd" id="giobd" required>
+            <input type="time" name="giokt" id="giokt" required>
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Cập nhật</button>
+        </div>
+    </form>
+</div>
+
+    <div class="container_calam_ntt" id="form_calam_ntt">
+        <p class="ti-close dong" id="dong"></p>
+        <h1>Thêm thông tin ca làm</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="chuanut">
+                <p>Nhân viên</p>
+                {{ form.manv }}
+                <p>Ngày</p>
+                {{ form.ngay }}
+                <p>Giờ bắt đầu</p>
+                {{ form.giobd }}
+                <p>Giờ kết thúc</p>
+                {{ form.giokt }}
+            </div>
+            <div class="chuanutthem">
+                <button type="submit">Thêm</button>
+            </div>
+        </form>
+    </div>
+    <!-- phần lọc -->
+    <style>
+        .loc-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .loc-btn {
+            padding: 8px 16px;
+            background-color: var(--nut);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loc-btn:hover {
+            background-color: var(--nuthover);
+        }
+
+        .date-filter {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background-color: var(--tdnhat);
+            border: 3px solid var(--tddam);
+            border-radius: 4px;
+            padding: 16px;
+            list-style: none;
+            z-index: 1000;
+            min-width: 250px;
+        }
+
+        .date-filter.show {
+            display: block;
+        }
+
+        .date-filter li {
+            margin-bottom: 12px;
+        }
+
+        .date-filter li:last-child {
+            margin-bottom: 0;
+
+        }
+
+        .date-filter label {
+            display: block;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .date-filter input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #A67B5B;
+            background-color: white;
+            color: black;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .date-filter.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+    </style>
+
+
+    <style>
+        :root{
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
+        }
+        .xoa-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 120px;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 4px;
+            border: 2px solid var(--tddam);
+            padding: 16px;
+            z-index: 1000;
+        }
+    
+        .chuanut {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+    
+        .chuaxoa {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+     
+        }
+    
+        .chuaxoa p{
+            color: #000 !important;
+            font-weight: bold;
+    
+        }
+    
+        .xoa-form button {
+            padding: 8px 16px;
+            background-color: var(--nut);
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            min-width: 80px;
+            color: #fff;
+        }
+    
+        .xoa-form button:hover {
+            background-color: var(--nuthover);
+    
+        }
+    
+        .xoa-form button:active {
+            background-color: var(--nutactive);
+    
+        }
+    
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;  
+        }
+        </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            document.body.appendChild(overlay);
+
+            const deleteButtons = document.querySelectorAll('.nut-xoa');
+            const cancelButtons = document.querySelectorAll('.nut-huy');
+
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const form = document.getElementById(`form-xoa-${id}`);
+
+
+                    document.querySelectorAll('.xoa-form').forEach(f => {
+                        if (f !== form) {
+                            f.style.display = 'none';
+                        }
+                    });
+
+
+                    form.style.display = 'block';
+                    overlay.style.display = 'block';
+                });
+            });
+
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const form = document.getElementById(`form-xoa-${id}`);
+                    form.style.display = 'none';
+                    overlay.style.display = 'none';
+                });
+            });
+
+
+            overlay.addEventListener('click', function () {
+                document.querySelectorAll('.xoa-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                overlay.style.display = 'none';
+            });
+            
+        });
+    </script>
+    <div id="form_import_calam" class="import">
+        <p class="ti-close dong" id="dongimport"></p>
+        <h1>Import ca làm từ excel</h1>
+        <form action="{% url 'socalam.html/import' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="file" name="file" id="file" accept=".xlsx">
+            <button type="submit">Import</button>
+        </form>
+        <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+        <p>- Các trường bắt buộc phải là: Mã ca làm, Mã nhân viên, Ngày, Giờ bắt đầu, Giờ kết thúc</p>
+        <style>
+            :root{
+                --bg: #fff;
+                --nut: #0047a5;
+                --nuthover: #0b62d4;
+                --xanhnhat: #95c0f8c4;
+                --nutactive: #5b99eb;
+                --chu: #000;
+                --header: #005bb5;
+                --sidebar: #003f8a;
+                --tddam: #75a9ed;
+                --tdnhat: #aec8ea;
+                --bgf: #e2ebf8;
+            }
+            .chuanut p {
+                margin-bottom: 8px;
+                color: #000;
+            }
+            .dong:hover{
+                color: var(--nuthover);
+            }
+            .dong:active{
+                color: var(--nutactive);
+            }
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #000;
+            }
+    
+            .import input {
+                color: #000;
+            }
+    
+            .import #dongimport {
+                width: 50px;
+            }
+    
+            .import {
+                width: 400px;
+                height: 250px;
+                background-color: #fff;
+                margin-top: 50px;
+                border: 2px solid var(--tddam);
+                box-shadow: 0 0 10px var(--tddam);
+                border-radius: 4px;
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                display: none;
+                transform: translate(-50%, -50%);
+                border-radius: 8px;
+                padding: 16px;
+            }
+    
+            h1 {
+                text-align: center;
+                margin-bottom: 16px;
+            }
+    
+            .import input {
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #fff;
+                border: solid 1px var(--tddam);
+            }
+    
+            .import button {
+                padding: 15px;
+                background-color: var(--nut);
+                border-radius: 5px;
+                color: #fff;
+            }
+    
+            .import p {
+                margin-bottom: 8px;
+            }
+    
+            .chuanut p {
+                margin-bottom: 8px;
+                color: #000;
+            }
+        </style>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.alert')
+            alerts.forEach(function (alert) {
+                setTimeout(function () {
+                    alert.style.display = 'none'
+                }, 5000)
+            })
+
+            const dong = document.querySelectorAll('.close-btn')
+            dong.forEach(function (dong) {
+                dong.addEventListener('click', function () {
+                    this.parentElement.style.display = 'none'
+                })
+            })
+            const nutSua = document.querySelectorAll('.sua');
+            const popup = document.getElementById('form_calam_sua');
+            const closeBtn = document.querySelector('.dongsua');
+            const form = document.getElementById('form_sua');
+
+
+            nutSua.forEach(button => {
+                button.addEventListener('click', function () {
+                    const macalam = this.getAttribute('data-id');
+
+                    let ngay = this.getAttribute('data-ngay');
+                    let giobd = this.getAttribute('data-giobd'); 
+                    let giokt = this.getAttribute('data-giokt'); 
+            
+                    if(ngay) {
+                        const dateObj = new Date(ngay);
+                        ngay = dateObj.toISOString().split('T')[0];
+                    }
+            
+                    
+                    document.getElementById('macalam').value = macalam;
+
+                    document.getElementById('ngay').value = ngay;
+                    document.getElementById('giobd').value = giobd;
+                    document.getElementById('giokt').value = giokt;
+            
+
+            
+                    const form = document.getElementById('form_sua');
+                    form.action = `/sua_calam/${macalam}/`;
+                    popup.style.display = 'block';
+                });
+            });
+
+            closeBtn.addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+
+
+            window.addEventListener('click', function (e) {
+                if (e.target == popup) {
+                    popup.style.display = 'none';
+                }
+            });
+
+
+            const filterBtn = document.querySelector('.loc-nut');
+            const dateFilter = document.querySelector('.date-filter');
+            const startDate = document.getElementById('ngaybatdau');
+            const endDate = document.getElementById('ngayketthuc');
+            const tableRows = document.querySelectorAll('#maintenanceTableBody tr[data-date]');
+
+            // Toggle dropdown
+            filterBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dateFilter.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!dateFilter.contains(e.target) && !filterBtn.contains(e.target)) {
+                    dateFilter.classList.remove('show');
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            dateFilter.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            function filterTable() {
+                const start = startDate.value;
+                const end = endDate.value;
+
+                if (!start || !end) return;
+
+                tableRows.forEach(row => {
+                    const rowDate = row.getAttribute('data-date');
+                    if (rowDate >= start && rowDate <= end) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                       }
+                });
+
+                // Update button text to show active filter
+                filterBtn.innerHTML = `Từ ${start} đến ${end} <i class="ti-angle-down"></i>`;
+            }
+
+            startDate.addEventListener('change', filterTable);
+            endDate.addEventListener('change', filterTable);
+        })
+
+
+    </script>
+    <script src="{% static 'home/js/socalam_ntt.js' %}"></script>
+    {% endblock %}

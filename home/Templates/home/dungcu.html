@@ -1,0 +1,524 @@
+{% extends 'home/trangchu.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+        <span class="close-btn">&times;</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuattb{
+        background-color: var(--nuthover);
+    }
+    .subtn #dc{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#tbul{
+        display: block;
+    }
+    .messages {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+    }
+
+    .alert-error {
+        background-color: #dc3545;
+    }
+
+    .alert-success {
+        background-color: #28a745;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'home/css/dungcu.css'%}">
+<link rel="stylesheet" href="{% static 'home/css/dungcu_ntt.css' %}">
+<script src="{% static 'home/js/dungcu.js' %}"></script>
+<div class="container-dungcu ctn-ttbnl">
+    <div class="tieude">
+        <h1>DỤNG CỤ</h1>
+    </div>
+    <div class="chuatimkiem">
+
+        <form method="GET" action="{% url 'dungcu' %}">
+            <div class="search-container">
+                <div class="chua2">
+                    <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button"  onclick="window.location.href='{% url 'dungcu' %}'">Hiển thị tất cả</button>
+                </div>
+                <div class="chua2">
+                    <label for="">Giá</label>
+                    <select name="gia">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="0-1000">0 - 1,000</option>
+                        <option value="1000-5000">1,000 - 5,000</option>
+                        <option value="5000-10000">5,000 - 10,000</option>
+                        <option value="10000-50000">10,000 - 50,000</option>
+                    </select>
+                </div>
+                <div class="chua2">
+                    <label for="">Ngày mua</label>
+                <input type="date" name="date" id="search-date">
+                </div>
+                
+            </div>
+            <style>
+                .search-container{
+                    display: flex;
+                    width: 100vh;
+                }
+                .search-container #search{
+                    height: 35px;
+                }
+                
+        
+            </style>
+        </form>
+        <button id="tcl">Thêm dụng cụ</button>
+        <button class="in" id="import">Import</button>
+    </div>
+   
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên Dụng Cụ</th>
+                    <th>Số Lượng</th>
+                    <th>Đơn Vị Tính</th>
+                    <th>Ngày Mua</th>
+                    <th>Giá</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dungcu in dung_cu_list %}
+                <tr>
+
+                    <td>{{dungcu.tendc}}</td>
+                    <td>{{dungcu.soluong}}</td>
+                    <td>{{dungcu.dvt}}</td>
+                    <td>{{dungcu.ngaymua|date:"Y-m-d"}}</td>
+                    <td>{{dungcu.giamua|floatformat}}</td>
+                    <td class="chuanut">
+                        <button class="sua" data-id="{{ dungcu.madc}}" data-tendc="{{ dungcu.tendc }}"
+                            data-soluong="{{ dungcu.soluong }}" data-dvt="{{ dungcu.dvt }}"
+                            data-ngaymua="{{ dungcu.ngaymua }}" data-giamua="{{ dungcu.giamua }}">Sửa</button>
+
+                        <button class="nut-xoa" data-id="{{ dungcu.madc }}">
+                            Xóa
+                        </button>
+                        <div class="xoa-form" id="form-xoa-{{ dungcu.madc }}" style="display: none;">
+                            <div class="chuaxoa">
+                                <p>Bạn có muốn xóa dụng cụ: {{ dungcu.madc }}?</p>
+                                <div class="chuanut">
+                                    <button class="nut-huy" data-id="{{ dungcu.madc }}">Hủy</button>
+                                    <button onclick="window.location.href='{% url 'delete_dungcu' dungcu.madc %}'">
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+
+</div>
+<div class="container_dungcu_ntt" id="form_dungcu_sua">
+    <p class="ti-close dong dongsua" id="dong_sua"></p>
+    <h1>Sửa thông tin</h1>
+    <form method="POST" id="form_sua">
+        {% csrf_token %}
+        <div class="chuanut">
+            <input type="hidden" name="madc" id="madc" readonly>
+            <input type="text" name="tendc" id="tendc" required>
+            <input type="number" name="soluong" id="soluong" required>
+            <input type="text" name="dvt" id="dvt" required>
+            <input type="date" name="ngaymua" id="ngaymua" required>
+            <input type="number" name="giamua" id="giamua" required>
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Cập nhật</button>
+        </div>
+    </form>
+    <style>
+        #form_dungcu_sua h1 {
+            text-align: center;
+        }
+
+        #form_dungcu_sua .chuanut {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #form_dungcu_sua input {
+            width: 300px;
+        }
+
+        #form_dungcu_sua button {
+            padding: 8px;
+        }
+    </style>
+</div>
+<style>
+    :root {
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --tddam: #75a9ed;
+        --tdnhat: #aec8ea;
+        --bgf: #e2ebf8;
+    }
+
+    .xoa-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 300px;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 2px solid var(--tddam);
+        padding: 16px;
+        z-index: 1000;
+    }
+
+    .chuanut {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .chuaxoa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    .chuaxoa p {
+        color: #000 !important;
+        font-weight: bold;
+
+    }
+
+    .xoa-form button {
+        padding: 8px 16px;
+        background-color: var(--nut);
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        min-width: 80px;
+        color: #fff;
+    }
+
+    .xoa-form button:hover {
+        background-color: var(--nuthover);
+
+    }
+
+    .xoa-form button:active {
+        background-color: var(--nutactive);
+
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+
+        const deleteButtons = document.querySelectorAll('.nut-xoa');
+        const cancelButtons = document.querySelectorAll('.nut-huy');
+
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+
+
+                document.querySelectorAll('.xoa-form').forEach(f => {
+                    if (f !== form) {
+                        f.style.display = 'none';
+                    }
+                });
+
+
+                form.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                form.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+
+
+        overlay.addEventListener('click', function () {
+            document.querySelectorAll('.xoa-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            overlay.style.display = 'none';
+        });
+    });
+</script>
+<div class="container_dungcu_ntt" id="form_dungcu_ntt">
+    <p class="ti-close dong" id="dong"></p>
+    <h1>Thêm thông tin dụng cụ</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="chuanut">
+            {{ dc.tendc }}
+            {{ dc.soluong }}
+            {{ dc.dvt }}
+            {{ dc.ngaymua }}
+            {{ dc.giamua }}
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Thêm</button>
+        </div>
+    </form>
+
+</div>
+<div id="form_import_dungcu" class="import">
+    <p class="ti-close dong" id="dongimport"></p>
+    <h1>Import ca làm từ excel</h1>
+    <form action="{% url 'dungcu.html' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="file" name="file" id="file" accept=".xlsx">
+        <button type="submit">Import</button>
+    </form>
+    <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+    <p>- Các trường bắt buộc phải là: Tên dụng cụ, Số lượng, Đơn vị tính, Ngày mua, Giá</p>
+    <style>
+        :root {
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
+        }
+
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .dong:hover {
+            color: var(--nuthover);
+        }
+
+        .dong:active {
+            color: var(--nutactive);
+        }
+
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        .import input {
+            color: #000;
+        }
+
+        .import #dongimport {
+            width: 50px;
+        }
+
+        .import {
+            width: 400px;
+            height: 250px;
+            background-color: #fff;
+            margin-top: 50px;
+            border: 2px solid var(--tddam);
+            box-shadow: 0 0 10px var(--tddam);
+            border-radius: 4px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            display: none;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .import input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px var(--tddam);
+        }
+
+        .import button {
+            padding: 15px;
+            background-color: var(--nut);
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .import p {
+            margin-bottom: 8px;
+        }
+
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+    </style>
+</div>
+<style>
+    .chuanut p {
+        margin-bottom: 8px;
+        color: #000;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('.alert')
+        alerts.forEach(function (alert) {
+            setTimeout(function () {
+                alert.style.display = 'none'
+            }, 5000)
+        })
+        const dong = document.querySelectorAll('.close-btn')
+        dong.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.parentElement.style.display = 'none'
+            })
+        })
+
+        const nutSua = document.querySelectorAll('.sua');
+        const popup = document.getElementById('form_dungcu_sua');
+        const closeBtn = document.querySelector('.dongsua');
+        const form = document.getElementById('form_sua');
+
+
+        nutSua.forEach(button => {
+            button.addEventListener('click', function () {
+
+                const madc = this.getAttribute('data-id');
+                const tendc = this.getAttribute('data-tendc');
+                const soluong = this.getAttribute('data-soluong');
+                const dvt = this.getAttribute('data-dvt');
+                let ngaymua = this.getAttribute('data-ngaymua');
+                const giamua = this.getAttribute('data-giamua');
+
+                if(ngaymua) {
+                    const dateObj = new Date(ngaymua);
+                    ngaymua = dateObj.toISOString().split('T')[0];
+                }
+                document.getElementById('madc').value = madc;
+                document.getElementById('tendc').value = tendc;
+                document.getElementById('soluong').value = soluong;
+                document.getElementById('dvt').value = dvt;
+                document.getElementById('ngaymua').value = ngaymua;
+                document.getElementById('giamua').value = giamua;
+
+
+                const form = document.getElementById('form_sua');
+                form.action = `/sua_dungcu/${madc}/`;
+
+                popup.style.display = 'block';
+            });
+        });
+
+
+        closeBtn.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+
+
+        window.addEventListener('click', function (e) {
+            if (e.target == popup) {
+                popup.style.display = 'none';
+            }
+        });
+    })
+</script>
+</div>
+
+{% endblock %}

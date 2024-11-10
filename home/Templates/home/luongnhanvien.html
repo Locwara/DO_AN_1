@@ -1,0 +1,507 @@
+{% extends 'home/trangchu.html' %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <span class="close-btn">&times;</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --border: #004080;
+    }
+    .chuanv{
+        background-color: var(--nuthover);
+    }
+    .subnv #lnv{
+        background-color: #3b8bf4;
+
+    }
+    .item>li>#nvul{
+        display: block;
+    }
+    .messages {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        min-width: 300px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+    }
+
+    .alert-error {
+        background-color: #dc3545;
+    }
+
+    .alert-success {
+        background-color: #28a745;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'home/css/luongnhanvien.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/luongnhanvien_ntt.css' %}">
+<script src="{% static 'home/js/luongnhanvien_ntt.js' %}"></script>
+
+<div class="container_luong">
+    <h1>DANH SÁCH LƯƠNG</h1>
+    <div class="chuatimkiem">
+        <form method="GET" action="{% url 'bangluong' %}">
+            <div class="search-container">
+                <input type="text" name="search" id="search"  placeholder="Tìm kiếm từ khóa">
+                <select name="status" id="search-status">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="Đang làm">Đang làm việc</option>
+                    <option value="Nghỉ việc">Nghỉ việc</option>    
+                </select>
+                <input type="date" name="date" id="search-date">
+                <button type="submit">Tìm kiếm</button>
+                <button type="button" onclick="window.location.href='{% url 'thongtinnhanvien' %}'">Hiển thị tất cả</button>
+            </div>
+          
+        </form>
+       <button class="them" id="tcl">Thêm </button>
+       <button class="in" id="import" >Import</button>
+       
+    </div>
+    <p class="tb">Vui lòng xóa và thêm lại nhân viên nếu muốn update số giờ!</p>
+    <style>
+        .tb{
+            margin: 4px 0;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên nhân viên</th>
+                <th>Tháng lương</th>
+                <th>Số giờ</th>
+                <th>Lương cơ bản </th>
+                <th>Tổng lương</th>
+                <th>Thao tác</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for bangluong in bang_luong_list %}
+            <tr>
+                <td>{{ bangluong.manv.hoten }}</td>
+                <td>{{ bangluong.thangluong|date:"m-Y"}}</td>
+                <td>{{ bangluong.sogio|floatformat }}</td>
+                <td>{{ bangluong.luongcoban|floatformat }}</td>
+                <td>{{ bangluong.tongluong }}</td>
+                <td class="chuanut"> 
+                    <button class="sua" data-id="{{ bangluong.maluong}}" 
+                        data-manv="{{ bangluong.manv }}"
+                        data-thangluong="{{ bangluong.thangluong }}"
+                        data-sogio="{{ bangluong.sogio }}"
+                        data-luongcoban="{{ bangluong.luongcoban }}"
+                        data-tongluong="{{ bangluong.tongluong }}">Sửa</button>
+                    
+                        <button class="nut-xoa" data-id="{{ bangluong.maluong }}">
+                            Xóa
+                        </button>
+                        <div class="xoa-form" id="form-xoa-{{ bangluong.maluong }}" style="display: none;">
+                            <div class="chuaxoa">
+                                <p>Bạn có muốn xóa bảo trì: {{ bangluong.maluong }}?</p>
+                                <div class="chuanut">
+                                    <button class="nut-huy" data-id="{{ bangluong.maluong }}">Hủy</button>
+                                    <button onclick="window.location.href='{% url 'delete_bangluong' bangluong.maluong %}'">
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Không có dữ liệu</td>
+            </tr>
+            {% endfor %}
+            
+            
+
+        </tbody>
+    </table>
+    
+</div>
+<div class="container_luong_ntt" id="form_luong_sua">
+    <p class="ti-close dong dongsua" id="dong_sua"></p>
+    <h1>Sửa thông tin</h1>
+    <form method="POST" id="form_sua">
+        {% csrf_token %}
+        <div class="chuanut">
+            <input type="hidden" name="maluong" id="maluong" readonly>
+            <p>Chọn nhân viên</p>
+            {{ bl.manv }}
+            <input type="date" name="thangluong" id="thangluong" required>
+            <input type="number" name="luongcoban" id="luongcoban" required>
+        </div>
+        <div class="chuanutthem">
+            <button type="submit">Cập nhật</button>
+        </div>  
+    </form>
+    <style>
+        #form_bao_tri_sua h1{
+            text-align: center;
+        }
+        #form_bao_tri_sua .chuanut{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #form_bao_tri_sua input{
+            width: 300px;
+        }
+        #form_bao_tri_sua button{
+            padding: 8px;
+        }
+    </style>
+</div>
+<div class="container_luong_ntt" id="form_luong_ntt">
+    <p class="ti-close dong" id="dong"></p>
+    <h1>Điền thông tin</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="chuanut">
+            <p>Chọn nhân viên</p>
+            {{ bl.manv }}
+            {{ bl.thangluong }}
+            {{ bl.luongcoban }}
+        </div>
+        <div class="chuanutthem">
+            <button>Thêm</button>
+        </div>  
+    </form>
+    
+</div>  
+
+<div id="form_import_bangluong" class="import">
+    <p class="ti-close dong" id="dongimport"></p>
+    <h1>Import ca làm từ excel</h1>
+    <form action="{% url 'bangluong.html/import' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="file" name="file" id="file" accept=".xlsx">
+        <button type="submit">Import</button>
+    </form>
+    <p>- Vui lòng chọn đúng định dạng file là .xlsx</p>
+    <p>- Các trường bắt buộc phải là: Mã nhân viên, Số giờ, Lương cơ bản, Tổng lương</p>
+<style>
+    <style>
+        :root{
+            --bg: #fff;
+            --nut: #0047a5;
+            --nuthover: #0b62d4;
+            --xanhnhat: #95c0f8c4;
+            --nutactive: #5b99eb;
+            --chu: #000;
+            --header: #005bb5;
+            --sidebar: #003f8a;
+            --tddam: #75a9ed;
+            --tdnhat: #aec8ea;
+            --bgf: #e2ebf8;
+        }
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .dong:hover{
+            color: var(--nuthover);
+        }
+        .dong:active{
+            color: var(--nutactive);
+        }
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        .import input {
+            color: #000;
+        }
+
+        .import #dongimport {
+            width: 50px;
+        }
+
+        .import {
+            width: 400px;
+            height: 250px;
+            background-color: #fff;
+            margin-top: 50px;
+            border: 2px solid var(--tddam);
+            box-shadow: 0 0 10px var(--tddam);
+            border-radius: 4px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            display: none;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .import input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            border: solid 1px var(--tddam);
+        }
+
+        .import button {
+            padding: 15px;
+            background-color: var(--nut);
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .import p {
+            margin-bottom: 8px;
+        }
+
+        .chuanut p {
+            margin-bottom: 8px;
+            color: #000;
+        }
+    </style>
+    
+    
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const alerts = document.querySelectorAll('.alert')
+        alerts.forEach(function(alert){
+            setTimeout(function(){
+                alert.style.display = 'none'
+            }, 5000)
+        })
+        const dong = document.querySelectorAll('.close-btn')
+        dong.forEach(function(btn){
+            btn.addEventListener('click', function(){
+                this.parentElement.style.display = 'none'
+            })
+        })
+    })
+
+</script>
+<style>
+    :root{
+        --bg: #fff;
+        --nut: #0047a5;
+        --nuthover: #0b62d4;
+        --xanhnhat: #95c0f8c4;
+        --nutactive: #5b99eb;
+        --chu: #000;
+        --header: #005bb5;
+        --sidebar: #003f8a;
+        --tddam: #75a9ed;
+        --tdnhat: #aec8ea;
+        --bgf: #e2ebf8;
+    }
+    .xoa-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 300px;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 2px solid var(--tddam);
+        padding: 16px;
+        z-index: 1000;
+    }
+
+    .chuanut {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .chuaxoa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+ 
+    }
+
+    .chuaxoa p{
+        color: #000;
+        font-weight: bold;
+
+    }
+
+    .xoa-form button {
+        padding: 8px 16px;
+        background-color: var(--nut);
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        min-width: 80px;
+        color: #fff;
+    }
+
+    .xoa-form button:hover {
+        background-color: var(--nuthover);
+
+    }
+
+    .xoa-form button:active {
+        background-color: var(--nutactive);
+
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;  
+    }
+    </style>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+    
+        const deleteButtons = document.querySelectorAll('.nut-xoa');
+        const cancelButtons = document.querySelectorAll('.nut-huy');
+    
+   
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                
+         
+                document.querySelectorAll('.xoa-form').forEach(f => {
+                    if (f !== form) {
+                        f.style.display = 'none';
+                    }
+                });
+    
+          
+                form.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+    
+        cancelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById(`form-xoa-${id}`);
+                form.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+    
+  
+        overlay.addEventListener('click', function() {
+            document.querySelectorAll('.xoa-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            overlay.style.display = 'none';
+        });
+
+        const nutSua = document.querySelectorAll('.sua');
+        const popup = document.getElementById('form_luong_sua');
+        const closeBtn = document.querySelector('.dongsua');
+    
+        nutSua.forEach(button => {
+            button.addEventListener('click', function() {
+                const maluong = this.getAttribute('data-id');
+                // Get the original date string
+                const thangluong = this.getAttribute('data-thangluong');
+                const luongcoban = this.getAttribute('data-luongcoban');
+                const tongluong = this.getAttribute('data-tongluong');
+                
+                // Format the date string to YYYY-MM-DD for input[type="date"]
+                let formattedDate = '';
+                if (thangluong) {
+                    const date = new Date(thangluong);
+                    if (!isNaN(date.getTime())) { // Check if date is valid
+                        formattedDate = date.toISOString().split('T')[0];
+                    }
+                }
+    
+                document.getElementById('maluong').value = maluong;
+                document.getElementById('thangluong').value = formattedDate;
+                document.getElementById('luongcoban').value = luongcoban;
+                
+                const form = document.getElementById('form_sua');
+                form.action = `/sua_bangluong/${maluong}/`;
+                popup.style.display = 'block';
+            });
+        });
+    
+        // Close popup when clicking the close button
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+    
+        // Close popup when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target == popup) {
+                popup.style.display = 'none';
+            }
+        });
+    
+        // Debug logging
+        const formSua = document.getElementById('form_sua');
+        formSua.addEventListener('submit', function(e) {
+            console.log('Form values before submit:');
+            console.log('thangluong:', document.getElementById('thangluong').value);
+            console.log('sogio:', document.getElementById('sogio').value);
+            console.log('luongcoban:', document.getElementById('luongcoban').value);
+        });
+    });
+    </script>
+{% endblock %}
