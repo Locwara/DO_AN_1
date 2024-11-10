@@ -336,9 +336,201 @@
                     </script>
                     
                 </div>
+                <div class="container mx-auto px-4 py-8">
+                    <!-- Thống kê tổng quan nhân viên -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-2">Tổng số nhân viên</h3>
+                            <p class="text-3xl font-bold text-blue-600">{{ tong_so_nhan_vien }}</p>
+                            <div class="mt-2 text-sm text-gray-600">
+                                <div>Đang làm việc: {{ so_nhan_vien_dang_lam_viec }}</div>
+                                <div>Nghỉ phép: {{ so_nhan_vien_nghi_hom_nay }}</div>
+                            </div>
+                        </div>
+                
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-2">Phân bố vị trí</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Phục vụ:</span>
+                                    <span class="font-semibold">{{ so_nhan_vien_phuc_vu }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Pha chế:</span>
+                                    <span class="font-semibold">{{ so_nhan_vien_pha_che }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Kho:</span>
+                                    <span class="font-semibold">{{ so_nhan_vien_kho }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Quản lý:</span>
+                                    <span class="font-semibold">{{ so_nhan_vien_quan_ly }}</span>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Cảnh báo nguyên liệu sắp hết hạn -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-2">Nguyên liệu sắp hết hạn</h3>
+                            <p class="text-3xl font-bold text-yellow-600">{{ nguyen_lieu_sap_het_han.count }}</p>
+                            <div class="mt-2 max-h-32 overflow-y-auto">
+                                {% for nl in nguyen_lieu_sap_het_han %}
+                                <div class="text-sm text-gray-600">
+                                    {{ nl.ten }} - Hết hạn: {{ nl.ngayhethan|date:"d/m/Y" }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                
+                        <!-- Cảnh báo tồn kho -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-semibold mb-2">Nguyên liệu dưới tồn kho</h3>
+                            <p class="text-3xl font-bold text-red-600">{{ nguyen_lieu_duoi_ton_kho.count }}</p>
+                            <div class="mt-2 max-h-32 overflow-y-auto">
+                                {% for nl in nguyen_lieu_duoi_ton_kho %}
+                                <div class="text-sm text-gray-600">
+                                    {{ nl.ten }} - SL: {{ nl.soluong }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Biểu đồ thống kê -->
+                    <div class="thong-ke-container bg-white rounded-lg shadow p-6 mb-8">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold mb-4">Thống kê nghỉ phép</h2>
+                            
+                            <!-- Filter form -->
+                            <form method="get" class="mb-4 flex gap-4">
+                                <div class="space-x-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="thong_ke" value="ngay" class="form-checkbox" 
+                                               {% if 'ngay' in request.GET.getlist %}checked{% endif %}>
+                                        <span class="ml-2">Theo ngày</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="thong_ke" value="thang" class="form-checkbox"
+                                               {% if 'thang' in request.GET.getlist %}checked{% endif %}>
+                                        <span class="ml-2">Theo tháng</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="thong_ke" value="quy" class="form-checkbox"
+                                               {% if 'quy' in request.GET.getlist %}checked{% endif %}>
+                                        <span class="ml-2">Theo quý</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="thong_ke" value="nam" class="form-checkbox"
+                                               {% if 'nam' in request.GET.getlist %}checked{% endif %}>
+                                        <span class="ml-2">Theo năm</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                    Cập nhật
+                                </button>
+                            </form>
+                        </div>
+                    
+                        <!-- Charts container -->
+                        <div class="charts-grid">
+                            {% if thong_ke_ngay %}
+                            <div class="chart-container">
+                                <div id="chart-ngay" style="width: 100%; height: 400px;"></div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if thong_ke_thang %}
+                            <div class="chart-container">
+                                <div id="chart-thang" style="width: 100%; height: 400px;"></div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if thong_ke_quy %}
+                            <div class="chart-container">
+                                <div id="chart-quy" style="width: 100%; height: 400px;"></div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if thong_ke_nam %}
+                            <div class="chart-container">
+                                <div id="chart-nam" style="width: 100%; height: 400px;"></div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+{% endblock %}
 
-
-
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function initChart(elementId, title, data) {
+            const chart = echarts.init(document.getElementById(elementId));
+            const option = {
+                title: {
+                    text: title,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: Object.keys(data),
+                    axisLabel: {
+                        rotate: 45
+                    }
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: Object.values(data),
+                    type: 'bar',
+                    color: '#4f46e5'
+                }]
+            };
+            chart.setOption(option);
+    
+            // Responsive
+            window.addEventListener('resize', function() {
+                chart.resize();
+            });
+        }
+    
+        {% if thong_ke_ngay %}
+        initChart('chart-ngay', 'Thống kê theo ngày', {{ thong_ke_ngay|safe }});
+        {% endif %}
+        
+        {% if thong_ke_thang %}
+        initChart('chart-thang', 'Thống kê theo tháng', {{ thong_ke_thang|safe }});
+        {% endif %}
+        
+        {% if thong_ke_quy %}
+        initChart('chart-quy', 'Thống kê theo quý', {{ thong_ke_quy|safe }});
+        {% endif %}
+        
+        {% if thong_ke_nam %}
+        initChart('chart-nam', 'Thống kê theo năm', {{ thong_ke_nam|safe }});
+        {% endif %}
+    });
+    
+});
+</script>
+{% endblock %}
 
 
                 <div class="nghiphep">
@@ -446,10 +638,102 @@
                     </script>
 
                 </div>
-
+                
             </div>
         </div>
+        <script>
 
+            function initializeCharts() {
+                const charts = {};
+                
+                function createChart(elementId, title, data) {
+                    if (!document.getElementById(elementId)) return;
+                    
+                    const chart = echarts.init(document.getElementById(elementId));
+                    const option = {
+                        title: {
+                            text: title,
+                            left: 'center',
+                            top: 10
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '5%',
+                            right: '5%',
+                            bottom: '10%',
+                            top: '15%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: Object.keys(data),
+                            axisLabel: {
+                                rotate: 45,
+                                interval: 0
+                            }
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: Object.values(data),
+                            type: 'bar',
+                            color: '#4f46e5'
+                        }]
+                    };
+                    
+                    chart.setOption(option);
+                    charts[elementId] = chart;
+                    
+                    return chart;
+                }
+                
+                // Khởi tạo các biểu đồ nếu có dữ liệu
+                {% if thong_ke_ngay %}
+                createChart('chart-ngay', 'Thống kê theo ngày', {{ thong_ke_ngay|safe }});
+                {% endif %}
+                
+                {% if thong_ke_thang %}
+                createChart('chart-thang', 'Thống kê theo tháng', {{ thong_ke_thang|safe }});
+                {% endif %}
+                
+                {% if thong_ke_quy %}
+                createChart('chart-quy', 'Thống kê theo quý', {{ thong_ke_quy|safe }});
+                {% endif %}
+                
+                {% if thong_ke_nam %}
+                createChart('chart-nam', 'Thống kê theo năm', {{ thong_ke_nam|safe }});
+                {% endif %}
+                
+                // Resize handler
+                window.addEventListener('resize', () => {
+                    Object.values(charts).forEach(chart => chart.resize());
+                });
+            }
+            
+            // Khởi tạo biểu đồ sau khi trang đã load
+            document.addEventListener('DOMContentLoaded', initializeCharts);
+            
+            // Khởi tạo lại biểu đồ sau khi form submit
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const formData = new FormData(this);
+                const searchParams = new URLSearchParams(formData);
+                
+                fetch(window.location.pathname + '?' + searchParams.toString())
+                    .then(response => response.text())
+                    .then(html => {
+                        // Cập nhật nội dung của container
+                        document.querySelector('.charts-grid').innerHTML = html;
+                        // Khởi tạo lại biểu đồ
+                        initializeCharts();
+                    });
+            });
+            </script>
         {% endblock %}
 
 </body>

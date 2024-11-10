@@ -6,7 +6,6 @@ from django.views.decorators.http import require_http_methods
 import pandas as pd
 from django.contrib import messages
 from django.http import JsonResponse
-from django.db.models import F
 from django.db.models import Q
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -19,9 +18,26 @@ from django.conf import settings
 from datetime import timedelta, datetime, date
 import random
 import string
+from django.db.models.functions import TruncDate, TruncMonth, TruncYear, ExtractYear, ExtractMonth
+from django.db.models import Count,  F, IntegerField, DurationField, ExpressionWrapper
+from django.utils import timezone
 
 from io import BytesIO
 # Create your views here.
+from django.http import JsonResponse
+
+def thong_ke_view(request):
+    # Xử lý dữ liệu và trả về JSON nếu là yêu cầu Ajax
+    if request.is_ajax():
+        data = {
+            'thong_ke_ngay': thong_ke_ngay_data, 
+            'thong_ke_thang': thong_ke_thang_data, 
+            'thong_ke_quy': thong_ke_quy_data, 
+            'thong_ke_nam': thong_ke_nam_data
+        }
+        return JsonResponse(data)
+    # Trả về trang HTML cho yêu cầu thông thường
+    return render(request, 'trang_thong_ke.html', data)
 
 #xuat excel trang chu
 def format_sheet(writer, sheet_name, df):
@@ -475,6 +491,8 @@ Ban quản trị"""
     
     return render(request, 'home/forgot_password.html', {'form': form})
 #thongke
+
+
 def thong_ke_nhan_vien(request):
     # Thông tin nhân viên
     tong_so_nhan_vien = Nhanvien.objects.count()
@@ -482,6 +500,7 @@ def thong_ke_nhan_vien(request):
     so_nhan_vien_pha_che = Nhanvien.objects.filter(vitricongviec="Nhân viên pha chế").count()
     so_nhan_vien_kho = Nhanvien.objects.filter(vitricongviec="Nhân viên kho").count()
     so_nhan_vien_quan_ly = Nhanvien.objects.filter(vitricongviec="Quản lý").count()
+    data = Nhanvien.objects.values_list('ngayvaolam', flat=True)
 
     today = timezone.now().date()
     so_nhan_vien_nghi_hom_nay = Nghiphep.objects.filter(ngaybd__lte=today, ngaykt__gte=today).count()
@@ -495,6 +514,21 @@ def thong_ke_nhan_vien(request):
     MUC_TON_KHO_TOI_THIEU = 10  # Giả sử mức tối thiểu là 10 đơn vị
     nguyen_lieu_duoi_ton_kho = Thongtinnguyenlieu.objects.filter(soluong__lt=MUC_TON_KHO_TOI_THIEU)
 
+    # Dữ liệu để thống kê theo ngày tháng năm
+    data = Nghiphep.objects.values_list('ngaybd', flat=True)
+    thong_ke_ngay = {}
+    thong_ke_thang = {}
+    thong_ke_nam = {}
+    thong_ke_quy = {}
+    if 'ngay' in request.GET.getlist('thong_ke'):
+        thong_ke_ngay = thong_ke_theo_ngay(data)
+    if 'thang' in request.GET.getlist('thong_ke'):
+        thong_ke_thang = thong_ke_theo_thang(data)
+    if 'nam' in request.GET.getlist('thong_ke'):
+        thong_ke_nam = thong_ke_theo_nam(data)
+    if 'quy' in request.GET.getlist('thong_ke'):
+        thong_ke_quy = thong_ke_theo_quy(data)
+
     # Truyền dữ liệu cho template
     context = {
         'tong_so_nhan_vien': tong_so_nhan_vien,
@@ -506,8 +540,53 @@ def thong_ke_nhan_vien(request):
         'so_nhan_vien_nghi_hom_nay': so_nhan_vien_nghi_hom_nay,
         'nguyen_lieu_sap_het_han': nguyen_lieu_sap_het_han,
         'nguyen_lieu_duoi_ton_kho': nguyen_lieu_duoi_ton_kho,
+        'thong_ke_ngay': thong_ke_ngay if 'ngay' in request.GET.getlist('thong_ke') else None,
+        'thong_ke_thang': thong_ke_thang if 'thang' in request.GET.getlist('thong_ke') else None,
+        'thong_ke_nam': thong_ke_nam if 'nam' in request.GET.getlist('thong_ke') else None,
+        'thong_ke_quy': thong_ke_quy if 'quy' in request.GET.getlist('thong_ke') else None,
     }
     return render(request, 'home/trangchu.html', context)
+
+
+def thong_ke_theo_ngay(data):
+    thong_ke = {}
+    for ngay in data:
+        ngay_str = ngay.strftime('%Y-%m-%d')  # Chuyển đổi ngày thành chuỗi định dạng năm-tháng-ngày
+        if ngay_str not in thong_ke:
+            thong_ke[ngay_str] = 0
+        thong_ke[ngay_str] += 1
+    return thong_ke
+
+def thong_ke_theo_thang(data):
+    thong_ke = {}
+    for ngay in data:
+        thang = ngay.strftime('%Y-%m')  # Định dạng năm-tháng
+        if thang not in thong_ke:
+            thong_ke[thang] = 0
+        thong_ke[thang] += 1
+    return thong_ke
+
+def thong_ke_theo_nam(data):
+    thong_ke = {}
+    for ngay in data:
+        nam = ngay.strftime('%Y')
+        if nam not in thong_ke:
+            thong_ke[nam] = 0
+        thong_ke[nam] += 1
+    return thong_ke
+
+def thong_ke_theo_quy(data):
+    thong_ke = {}
+    for ngay in data:
+        nam = ngay.strftime('%Y')
+        thang = int(ngay.strftime('%m'))
+        quy = (thang - 1) // 3 + 1
+        quy_nam = f"Q{quy}-{nam}"
+        if quy_nam not in thong_ke:
+            thong_ke[quy_nam] = 0
+        thong_ke[quy_nam] += 1
+    return thong_ke
+
 #dangnhapdangky
 
 

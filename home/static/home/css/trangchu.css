@@ -269,30 +269,33 @@ body{
     z-index: 998;
     display: grid;
     grid-template-columns: 1fr 1fr;     /* chia 2 cột bằng nhau */
-    grid-template-rows: auto auto;       /* 2 hàng tự động điều chỉnh */                   /* khoảng cách giữa các grid */
+    grid-template-rows: 1fr 1fr;       /* 2 hàng tự động điều chỉnh */                   /* khoảng cách giữa các grid */
 }
 
 /* CSS cho div ở hàng thứ 2 để nó chiếm 2 cột */
-.thongke > div:nth-child(3) {
-    grid-column: 1 / -1;    /* hoặc grid-column: 1 / 3; */
-}
+/* .thongke > div:nth-child(3) {
+    grid-column: 1 / -1;    /* hoặc grid-column: 1 / 3; 
+} */
 .truot{
     display: block;          
     max-height: 700px;       
     overflow-y: auto; 
+    border-radius: 8px;
+    box-shadow: 0 0 2px #00000080;
 }
 
 .thongke .nhanvien{
     padding: 16px;
-    background-color: var(--xanhnhat);
-    border: 2px solid var(--border);
+    background-color: #fff;
+    
 }
 .thongke .thongkenhanh{
     background-color: #fff;
-    max-height: 600px;
+
 }
 .thongke .nghiphep{
-    max-height: 600px;
+    max-height: 800px;
+    
 }
 .thongkenhanh h1{
     color: rgb(89, 87, 87);
@@ -304,6 +307,7 @@ body{
     border-radius: 16px;
     margin-top: 4px;
     padding: 8px;
+    box-shadow: 0 0 2px #00000075;
 }
 
 .thongke .nghiphep{
@@ -313,6 +317,7 @@ body{
 }
 .thongke .chuanghiphep{
     margin-bottom: 8px;
+    border-top: 2px solid var(--border);
 }
 
 .thongke .chuanghiphep p{
@@ -320,11 +325,13 @@ body{
     padding: 4px;
     background-color: #2073de;
     border-radius: 8px;
-    border: 2px solid var(--nutactive);
     color: #fff;
+
 }
 .thongke .nguyenlieu{
     background-color: #fff;
+
+
 }
 
 
@@ -334,8 +341,8 @@ body{
     padding: 4px;
     background-color: var(--nuthover);
     border-radius: 8px;
-    border: 2px solid var(--nutactive);
     color: #fff;
+
 }
 
 .chuabdnl{
@@ -348,21 +355,55 @@ body{
     padding: 4px;
     background-color: #5997e9;
     border-radius: 8px;
-    border: 2px solid var(--nutactive);
     color: #fff;
+    border-top: 2px solid var(--nutactive);
 }
 .chuabdnl{
     padding: 16px;
 
 }
-
+.nguyenlieu h1{
+    border-top: 2px solid var(--border);
+}
 .nguyenlieu{
     padding: 16px;
-    background-color: var(--xanhnhat);
-    border: 2px solid var(--border);
+    
+
 }
 
 .thongke h1{
     color: rgb(89, 87, 87);
     margin-bottom: 8px;
+}
+
+.container{
+    background-color: #fff;
+}
+.thong-ke-container {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.chart-container {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 400px;
+}
+
+/* Đảm bảo form controls có style phù hợp */
+.form-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
 }

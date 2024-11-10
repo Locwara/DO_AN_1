@@ -17,10 +17,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Looking to send emails in production? Check out our Email API/SMTP product!
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '610b6607630880'
-EMAIL_HOST_PASSWORD = '808486864c105e'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'lethanhloc2612004@gmail.com'
+EMAIL_HOST_PASSWORD = 'zgqx xvgn fqmf vztu'  # Dùng mật khẩu ứng dụng
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True  # Bật mã hóa STARTTLS
 
 SITE_NAME = 'Your Website Name'  # Thêm dòng này
 SITE_URL = 'http://127.0.0.1:8000'
